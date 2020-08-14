@@ -11,8 +11,8 @@
 
 	<artifactId>web-publication-backend-back</artifactId>
 	<packaging>${artifact.packaging}</packaging>
-	<name>Archetype - Java JPA Rest API - Back</name>
-	<description>Archetype - Java JPA Rest API - Back</description>
+	<name>UM - ASIO - web-publication-backend-back</name>
+	<description>UM - ASIO - web-publication-backend-back</description>
 
 	<properties>
 		<artifact.packaging>war</artifact.packaging>
