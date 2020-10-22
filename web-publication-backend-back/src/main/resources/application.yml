@@ -1,4 +1,6 @@
 ---
+
+
 app:
   persistence:
     datasource:
@@ -17,7 +19,19 @@ app:
     enabled: false
     base-url: http://localhost:8983/solr
     collection-name: app
-
+## Email
+  mail:
+    isDes: true
+    host: 
+    username: 
+    password: 
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
   # CORS
   cors:

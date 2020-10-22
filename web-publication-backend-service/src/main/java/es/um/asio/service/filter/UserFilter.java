@@ -12,9 +12,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.izertis.abstractions.filter.AbstractJpaSpecification;
 import com.izertis.abstractions.filter.EntityFilter;
+
 import es.um.asio.service.model.User;
 import es.um.asio.service.model.User_;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
