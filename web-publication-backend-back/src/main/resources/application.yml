@@ -14,6 +14,9 @@ app:
       show-sql: false
       properties:
         hibernate.temp.use_jdbc_metadata_defaults: false
+  #trellis
+  trellis:
+    url: http://localhost:3030/trellis/sparql
   # Solr
   solr:
     enabled: false
