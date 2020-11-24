@@ -2,26 +2,9 @@
 
 
 app:
-  persistence:
-    datasource:
-      driver-class-name: org.postgresql.Driver
-      username: postgres
-      password: admin123
-      url: jdbc:postgresql://127.0.0.1:5532/app?ssl=false
-    jpa:
-      dialect: org.hibernate.dialect.PostgreSQL95Dialect
-      generate-ddl: false
-      show-sql: false
-      properties:
-        hibernate.temp.use_jdbc_metadata_defaults: false
   #trellis
   trellis:
     url: http://localhost:3030/trellis/sparql
-  # Solr
-  solr:
-    enabled: false
-    base-url: http://localhost:8983/solr
-    collection-name: app
 ## Email
   mail:
     isDes: true
@@ -98,7 +81,3 @@ management:
       enabled: false
     ldap:
       enabled: false
-    redis:
-      enabled: false
-    solr:
-      enabled: ${app.solr.enabled}

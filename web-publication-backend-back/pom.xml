@@ -27,11 +27,6 @@
 
 		<dependency>
 			<groupId>com.izertis.libraries</groupId>
-			<artifactId>izertis-oauth-starter-jdk11</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.izertis.libraries</groupId>
 			<artifactId>izertis-swagger-starter</artifactId>
 		</dependency>
 

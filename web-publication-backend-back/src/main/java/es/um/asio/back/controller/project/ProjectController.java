@@ -22,6 +22,7 @@ public class ProjectController {
 	@Autowired
 	private ProjectProxy proxy;
 
+
 	@GetMapping(ProjectController.Mappings.SEARCH)
 	public Page<String> searchProyects(final ProjectFilter filter, final Pageable pageable) {
 		return this.proxy.findPaginated(filter, pageable);

@@ -1,12 +1,11 @@
 package es.um.asio.service.filter.project;
 
-import com.izertis.abstractions.filter.EntityFilter;
 
 /**
  * Clase Filtro Proyecto
  *
  */
-public class ProjectFilter implements EntityFilter {
+public class ProjectFilter {
 
 	/**
 	 * serialVersionUID

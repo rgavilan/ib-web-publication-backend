@@ -2,12 +2,11 @@ package es.um.asio.service.service.project.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import es.um.asio.service.filter.project.ProjectFilter;
@@ -15,7 +14,7 @@ import es.um.asio.service.service.project.ProjectService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
 import es.um.asio.service.service.sparql.impl.SparqlExecQueryImpl;
 
-@Component
+@Service
 public class ProjectServiceImpl implements ProjectService {
 
 	/**
@@ -23,7 +22,7 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	private final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
-	@Autowired
+	// @Autowired
 	SparqlExecQuery serviceSPARQL;
 
 	@Override

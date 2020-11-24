@@ -18,11 +18,11 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import es.um.asio.service.service.sparql.SparqlExecQuery;
 
-@Component
+@Service
 public class SparqlExecQueryImpl implements SparqlExecQuery {
 
 	@Value("${app.trellis.url}")
