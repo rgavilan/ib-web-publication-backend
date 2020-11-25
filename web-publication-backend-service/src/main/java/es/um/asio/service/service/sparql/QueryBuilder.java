@@ -1,13 +1,12 @@
 package es.um.asio.service.service.sparql;
 
+import java.util.Map;
+
 import org.springframework.data.domain.Pageable;
 
-import es.um.asio.service.filter.Filter;
 import es.um.asio.service.model.Entity;
 
 public interface QueryBuilder {
 
-	String createSelectQuery(Entity entity, Filter filter, Pageable pageable);
-	
-	String createCountQuery(Entity entity, Filter filter, Pageable pageable);
+	Map<String, String> queryChunks(Entity entity, Pageable pageable);
 }

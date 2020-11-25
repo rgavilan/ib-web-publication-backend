@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,7 +28,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.um.asio.service.model.PageableQuery;
+import es.um.asio.service.service.sparql.QueryBuilder;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
+import es.um.asio.service.util.FusekiConstants;
 
 /**
  * The Class SparqlExecQueryImpl.
@@ -39,6 +42,9 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 
 	@Value("${app.fusekitrellis.url}")
 	private String fusekiTrellisUrl;
+
+	@Autowired
+	private QueryBuilder queryBuilder;
 
 	/** The rest template. */
 	private final RestTemplate restTemplate;
@@ -54,11 +60,11 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 		this.mapper = new ObjectMapper();
 	}
 
+	
 	/**
 	 * Method in order to run the query against Fuseki-Trellis
 	 *
-	 * @param query    the query
-	 * @param pageable the pageable
+	 * @param page the page
 	 * @return the page
 	 */
 	@Override
@@ -69,13 +75,47 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 		Integer totalElements = 0;
 
 		try {
-			contentResult = this.getElements(page.selectQuery());
-			totalElements = this.getTotalElements(page.countQuery());
+			// we retrieve the params in order to build the query later
+			final Map<String, String> params = this.queryBuilder.queryChunks(page.getEntity(), page.getPage());
+			params.put(FusekiConstants.FILTERS_CHUNK, page.getFilters());
+
+			contentResult = this.getElements(this.selectQuery(params));
+			totalElements = this.getTotalElements(this.countQuery(params));
 		} catch (final Exception e) {
 			this.logger.error("Error building the page {}", page);
 		}
 
 		result = new PageImpl<>(contentResult, page.getPage(), totalElements);
+
+		return result;
+	}
+
+	/**
+	 * Select query.
+	 *
+	 * @param params the params
+	 * @return the string
+	 */
+	private String selectQuery(final Map<String, String> params) {
+		final String result = String.format(FusekiConstants.QUERY_TEMPLATE, params.get(FusekiConstants.SELECT_CHUNK),
+				params.get(FusekiConstants.TYPE_CHUNK), params.get(FusekiConstants.FIELDS_CHUNK),
+				params.get(FusekiConstants.FILTERS_CHUNK), params.get(FusekiConstants.LIMIT),
+				params.get(FusekiConstants.OFFSET));
+
+		return result;
+	}
+
+	/**
+	 * Count query.
+	 *
+	 * @param params the params
+	 * @return the string
+	 */
+	private String countQuery(final Map<String, String> params) {
+		final String result = String.format(FusekiConstants.QUERY_TEMPLATE, params.get(FusekiConstants.COUNT_CHUNK),
+				params.get(FusekiConstants.TYPE_CHUNK), params.get(FusekiConstants.FIELDS_CHUNK),
+				params.get(FusekiConstants.FILTERS_CHUNK), params.get(FusekiConstants.LIMIT),
+				params.get(FusekiConstants.OFFSET));
 
 		return result;
 	}
@@ -106,18 +146,20 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 
 	private Integer getTotalElements(final String query) {
 		Integer result = 0;
+		
 		// call for Fuseki-Trellis
 		final ResponseEntity<Object> res = this.callFusekiTrellis(query);
 
 		if ((res != null) && (res.getBody() != null)) {
 			final LinkedHashMap<String, Object> body = (LinkedHashMap<String, Object>) res.getBody();
 
-			final LinkedHashMap<String, Object> temp = (LinkedHashMap<String, Object>) body.get("results");
-			final ArrayList x = (ArrayList) temp.get("bindings");
-			final LinkedHashMap<String, Object> last = (LinkedHashMap<String, Object>) x.get(0);
-			final LinkedHashMap<String, Object> lastButNotLeast = (LinkedHashMap<String, Object>) last.get("count");
-			final String xy = (String) lastButNotLeast.get("value");
-			result = Integer.valueOf(xy);
+			// ugly hierarchy in Fuseki response
+			final LinkedHashMap<String, Object> results = (LinkedHashMap<String, Object>) body.get("results");
+			final ArrayList bindingArray = (ArrayList) results.get("bindings");
+			final LinkedHashMap<String, Object> bindingElement = (LinkedHashMap<String, Object>) bindingArray.get(0);
+			final LinkedHashMap<String, Object> countElement = (LinkedHashMap<String, Object>) bindingElement.get("count");
+			final String value = (String) countElement.get("value");
+			result = Integer.valueOf(value);
 		}
 
 		return result;

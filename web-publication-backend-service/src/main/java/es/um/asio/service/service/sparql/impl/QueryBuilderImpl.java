@@ -1,49 +1,39 @@
 package es.um.asio.service.service.sparql.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.um.asio.service.filter.Filter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.service.sparql.QueryBuilder;
+import es.um.asio.service.util.FusekiConstants;
 
 @Service
 public class QueryBuilderImpl implements QueryBuilder {
-
-	
-	private String queryTemplate = "SELECT %s WHERE { %s %s %s } LIMIT %s offset %s";
-	private String countStatement = "(COUNT(*) AS ?count)";
 	
 	@Override
-	public String createSelectQuery(Entity entity, Filter filter, Pageable pageable) {
+	public Map<String, String> queryChunks(Entity entity, Pageable pageable) {
 		
 		String selectChunk = this.selectChunk(entity.getFields());
 		String typeChunk = this.typeChunk(entity.getEntity());
-		String fieldsChunk = this.fieldsChunk(entity.getFields());
-		String filtersChunk = this.filtersChunk(filter);
+		String fieldsChunk = this.fieldsChunk(entity.getFields());		
 		String limit = String.valueOf(pageable.getPageSize());
 		String offset = String.valueOf(pageable.getOffset());
 		
-		String result = String.format(queryTemplate, selectChunk, typeChunk, fieldsChunk, filtersChunk, limit, offset);
-		
-		return result;
+		Map<String, String> map = new HashMap<>();
+		map.put(FusekiConstants.SELECT_CHUNK, selectChunk);
+		map.put(FusekiConstants.COUNT_CHUNK, FusekiConstants.COUNT_CHUNK_TEMPLATE);
+		map.put(FusekiConstants.TYPE_CHUNK, typeChunk);
+		map.put(FusekiConstants.FIELDS_CHUNK, fieldsChunk);
+		map.put(FusekiConstants.LIMIT, limit);
+		map.put(FusekiConstants.OFFSET, offset);
+				
+		return map;
 	}
 
-	@Override
-	public String createCountQuery(Entity entity, Filter filter, Pageable pageable) {
-		String countChunk = this.countChunk();
-		String typeChunk = this.typeChunk(entity.getEntity());
-		String fieldsChunk = this.fieldsChunk(entity.getFields());
-		String filtersChunk = this.filtersChunk(filter);
-		String limit = String.valueOf(pageable.getPageSize());
-		String offset = String.valueOf(pageable.getOffset());
-		
-		String result = String.format(queryTemplate, countChunk, typeChunk, fieldsChunk, filtersChunk, limit, offset);
-		
-		return result;
-	}
 	
 	private String selectChunk(List<String> fields) {
 		StringBuilder strBuilder = new StringBuilder();
@@ -55,10 +45,6 @@ public class QueryBuilderImpl implements QueryBuilder {
 		return strBuilder.toString();
 	}
 	
-		
-	private String countChunk() {
-		return countStatement;
-	}
 	
 	private String typeChunk(String entity) {
 		StringBuilder strBuilder = new StringBuilder();
@@ -84,15 +70,5 @@ public class QueryBuilderImpl implements QueryBuilder {
 		}
 		return strBuilder.toString();
 	}
-	
-	private String filtersChunk(Filter filter) {
-		
-		return " FILTER (?id = \"15083\"@es) .\r\n" + 
-				"  FILTER (?name = \"FP00-366\"@es) .";
-	}
-	
-	
-	
-	
 
 }

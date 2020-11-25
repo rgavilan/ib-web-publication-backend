@@ -13,4 +13,12 @@ public abstract class Filter implements Serializable {
 	
 	/** The language. SPANISH by default */
 	protected String language = "@".concat(Constants.SPANISH_LANGUAGE_SHORT);
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 }

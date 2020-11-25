@@ -1,5 +1,6 @@
 package es.um.asio.service.service.project.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +23,42 @@ public class ProjectServiceImpl implements ProjectService {
 	private final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
 	@Autowired
-	SparqlExecQuery serviceSPARQL;
+	private SparqlExecQuery serviceSPARQL;
 
 	@Override
 	public Page<String> findPaginated(ProjectFilter filter, Pageable pageable) {
 		logger.info("ProjectServiceImpl start");
-		
-		Entity entity = new Entity("Proyecto", "id", "name");
-		
-		PageableQuery pageableQuery = new PageableQuery(entity, filter, pageable);
+
+		PageableQuery pageableQuery = new PageableQuery(this.retrieveEntity(), filtersChunk(filter), pageable);
+
 		Page<String> page = serviceSPARQL.run(pageableQuery);
-		
+
 		return page;
 	}
+
+	protected String filtersChunk(ProjectFilter filter) {
+		StringBuilder strBuilder = new StringBuilder();
+		if (filter != null) {
+			if (StringUtils.isNotBlank(filter.getName())) {
+				strBuilder.append("FILTER (?name = \"");
+				strBuilder.append(filter.getName());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			if (StringUtils.isNotBlank(filter.getDescription())) {
+				strBuilder.append("FILTER (?description = \"");
+				strBuilder.append(filter.getDescription());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+		}
+		return strBuilder.toString();
+	}
+	
+	protected Entity retrieveEntity() {
+		return new Entity("Proyecto", "name", "description");
+	}
+
 }
