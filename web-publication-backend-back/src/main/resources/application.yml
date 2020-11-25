@@ -1,24 +1,8 @@
 ---
-
-
 app:
-  #trellis
-  trellis:
+  # trellis
+  fusekitrellis:
     url: http://localhost:3030/trellis/sparql
-## Email
-  mail:
-    isDes: true
-    host: 
-    username: 
-    password: 
-    port: 465
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-
   # CORS
   cors:
     enabled: true

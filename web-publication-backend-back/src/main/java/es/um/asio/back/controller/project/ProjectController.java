@@ -1,6 +1,7 @@
 package es.um.asio.back.controller.project;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +22,16 @@ public class ProjectController {
 
 	@Autowired
 	private ProjectProxy proxy;
+	
+	@Value("${app.fusekitrellis.url}")
+	private String fusekiTrellisUrl;
 
 
 	@GetMapping(ProjectController.Mappings.SEARCH)
 	public Page<String> searchProyects(final ProjectFilter filter, final Pageable pageable) {
+		
+		System.out.println(fusekiTrellisUrl);
+		
 		return this.proxy.findPaginated(filter, pageable);
 	}
 

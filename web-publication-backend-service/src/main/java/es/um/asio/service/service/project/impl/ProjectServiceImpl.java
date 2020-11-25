@@ -2,6 +2,7 @@ package es.um.asio.service.service.project.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,7 +23,7 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	private final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
-	// @Autowired
+	@Autowired
 	SparqlExecQuery serviceSPARQL;
 
 	@Override
@@ -54,9 +55,12 @@ public class ProjectServiceImpl implements ProjectService {
 
 		// String result = serviceSPARQL.getResponseTrellis(queryString);
 
-		// TEST cambiar por la llamada de arriba
-		Page<String> page = new SparqlExecQueryImpl().getResponseTrellis(queryString, pageable);
+		this.logger.info("Query: {}", queryString);
+		
+		// Page<String> page = new SparqlExecQueryImpl().getResponseTrellis(queryString, pageable);
 
+		Page<String> page = serviceSPARQL.getResponseTrellis(queryString, pageable);
+		
 		return page;
 	}
 
