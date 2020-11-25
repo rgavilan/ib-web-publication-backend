@@ -41,25 +41,18 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 
 		// Create a new query
-		String queryString = "SELECT  *\r\n" + "WHERE {\r\n"
-				+ "   ?x <http://hercules.org/um/es-ES/rec/name> ?name .\r\n"
-				+ (StringUtils.isEmpty(filter.getName()) ? "" : "FILTER (?name = \"" + filter.getName() + "\"@es) .")
-				+ "   ?x <http://hercules.org/um/es-ES/rec/description> ?description .\r\n"
-				+ (StringUtils.isEmpty(filter.getDescription()) ? ""
-						: "FILTER (?name = \"" + filter.getDescription() + "\"@es) .")
-				+ "   ?x <http://hercules.org/um/es-ES/rec/ini> ?ini .\r\n"
-				+ "   ?x <http://hercules.org/um/es-ES/rec/fin> ?fin .\r\n"
+		String queryString = "SELECT ?id ?name\r\n" + "WHERE {\r\n"
+				+ "   ?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://hercules.org/um/es-ES/rec/Patente> .\r\n"
 				+ "   ?x <http://hercules.org/um/es-ES/rec/id> ?id .\r\n"
-				+ "  ?x <http://hercules.org/um/es-ES/rec/tipo> ?tipo .\r\n" + "}"
-				+ (StringUtils.isEmpty(propertie) ? "" : "ORDER by " + direction + " (?" + propertie + ")");
+				+ "   ?x <http://hercules.org/um/es-ES/rec/name> ?name .\r\n" + "  FILTER (?id = \"39\"@es) .\r\n"
+				+ "  FILTER (?name = \"DISPOSITIVO Y MÉTODO PARA INTRODUCIR YO RECOGER FLUIDOS EN EL INTERIOR DEL ÚTERO DE UN ANIMAL\"@es) .\r\n"
+				+ "  \r\n" + "}\r\n" + "LIMIT 100 offset 0";
 
-		// String result = serviceSPARQL.getResponseTrellis(queryString);
 
 		this.logger.info("Query: {}", queryString);
 		
-		// Page<String> page = new SparqlExecQueryImpl().getResponseTrellis(queryString, pageable);
 
-		Page<String> page = serviceSPARQL.getResponseTrellis(queryString, pageable);
+		Page<String> page = serviceSPARQL.run(queryString, pageable);
 		
 		return page;
 	}

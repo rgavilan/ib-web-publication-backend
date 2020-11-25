@@ -5,5 +5,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface SparqlExecQuery {
 
-	Page<String> getResponseTrellis(String query, Pageable pageable);
+	Page<String> run(String query, Pageable pageable);
 }

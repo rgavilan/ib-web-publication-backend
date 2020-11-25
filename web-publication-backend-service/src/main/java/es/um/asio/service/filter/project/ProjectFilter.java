@@ -1,25 +1,19 @@
 package es.um.asio.service.filter.project;
 
+import es.um.asio.service.filter.Filter;
+
 
 /**
- * Clase Filtro Proyecto
- *
+ * The Class ProjectFilter.
  */
-public class ProjectFilter {
+public class ProjectFilter extends Filter {
 
-	/**
-	 * serialVersionUID
-	 */
-	private static final long serialVersionUID = -8337481943796647885L;
+	private static final long serialVersionUID = -1586947094505235656L;
 
-	/**
-	 * descripción proyecto
-	 */
+	/** The description. */
 	private String description;
-
-	/**
-	 * Nombre proyecto
-	 */
+	
+	/** The name. */
 	private String name;
 
 	/**
@@ -49,4 +43,10 @@ public class ProjectFilter {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "ProjectFilter [description=" + description + ", name=" + name + ", language=" + language + "]";
+	}
+
 }

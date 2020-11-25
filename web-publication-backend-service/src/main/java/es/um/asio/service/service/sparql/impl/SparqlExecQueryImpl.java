@@ -33,35 +33,40 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 	@Value("${app.fusekitrellis.url}")
 	private String fusekiTrellisUrl;
 	
+	/** The rest template. */
+	private RestTemplate restTemplate;
 	
+	/** The mapper. */
+	private ObjectMapper mapper;
+	
+	
+	/**
+	 * Instantiates a new sparql exec query impl.
+	 */
+	public SparqlExecQueryImpl() {
+		restTemplate = new RestTemplate();
+		mapper = new ObjectMapper();
+	}
+
+	/**
+	 * Method in order to run the query against Fuseki-Trellis
+	 *
+	 * @param query the query
+	 * @param pageable the pageable
+	 * @return the page
+	 */
 	@Override
-	public Page<String> getResponseTrellis(String query, Pageable pageable) {
-
-		RestTemplate restTemplate = new RestTemplate();
-
+	public Page<String> run(String query, Pageable pageable) {
+		
 		Page<String> result = null;
 		List<String> contentResult = new ArrayList<>();
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();	
-		map.add("query", "SELECT ?id ?name\r\n" + "WHERE {\r\n"
-				+ "   ?x <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://hercules.org/um/es-ES/rec/Patente> .\r\n"
-				+ "   ?x <http://hercules.org/um/es-ES/rec/id> ?id .\r\n"
-				+ "   ?x <http://hercules.org/um/es-ES/rec/name> ?name .\r\n" + "  FILTER (?id = \"39\"@es) .\r\n"
-				+ "  FILTER (?name = \"DISPOSITIVO Y MÉTODO PARA INTRODUCIR YO RECOGER FLUIDOS EN EL INTERIOR DEL ÚTERO DE UN ANIMAL\"@es) .\r\n"
-				+ "  \r\n" + "}\r\n" + "LIMIT 100 offset 0");
-
-		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(map, headers);
 
 		try {
-			ResponseEntity<Object> res = restTemplate.exchange(fusekiTrellisUrl, HttpMethod.POST, entity, Object.class);
+			ResponseEntity<Object> res = restTemplate.exchange(fusekiTrellisUrl, HttpMethod.POST, getBody(query), Object.class);
 
 			LinkedHashMap<String, Object> body = (LinkedHashMap<String, Object>) res.getBody();
 
-			ObjectMapper mapper = new ObjectMapper();
-
+	
 			for (Map.Entry<String, Object> entry : body.entrySet()) {
 				contentResult.add(mapper.writeValueAsString(entry));
 			}
@@ -75,4 +80,29 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 		return result;
 	}
 
+	/**
+	 * Gets the headers.
+	 *
+	 * @return the headers
+	 */
+	private HttpHeaders getHeaders() {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		return headers;
+	}
+	
+	/**
+	 * Gets the body.
+	 *
+	 * @param query the query
+	 * @return the body
+	 */
+	private HttpEntity<MultiValueMap<String, String>> getBody(String query) {
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();	
+		params.add("query", query);
+		
+		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<>(params, getHeaders());
+		
+		return body;
+	}
 }
