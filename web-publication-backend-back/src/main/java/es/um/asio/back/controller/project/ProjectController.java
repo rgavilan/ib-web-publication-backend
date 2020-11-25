@@ -29,9 +29,6 @@ public class ProjectController {
 
 	@GetMapping(ProjectController.Mappings.SEARCH)
 	public Page<String> searchProyects(final ProjectFilter filter, final Pageable pageable) {
-		
-		System.out.println(fusekiTrellisUrl);
-		
 		return this.proxy.findPaginated(filter, pageable);
 	}
 
