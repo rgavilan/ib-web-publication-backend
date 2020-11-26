@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 import es.um.asio.service.filter.project.ProjectFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.PageableQuery;
+import es.um.asio.service.service.impl.FusekiService;
 import es.um.asio.service.service.project.ProjectService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
 
 @Service
-public class ProjectServiceImpl implements ProjectService {
+public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements ProjectService {
 
 	/**
 	 * Logger
@@ -27,7 +28,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public Page<String> findPaginated(ProjectFilter filter, Pageable pageable) {
-		logger.info("ProjectServiceImpl start");
+		logger.info("Searching projects with filter: {} page: {}", filter, pageable);
 
 		PageableQuery pageableQuery = new PageableQuery(this.retrieveEntity(), filtersChunk(filter), pageable);
 
@@ -36,7 +37,7 @@ public class ProjectServiceImpl implements ProjectService {
 		return page;
 	}
 
-	protected String filtersChunk(ProjectFilter filter) {
+	public String filtersChunk(ProjectFilter filter) {
 		StringBuilder strBuilder = new StringBuilder();
 		if (filter != null) {
 			if (StringUtils.isNotBlank(filter.getName())) {
@@ -57,7 +58,7 @@ public class ProjectServiceImpl implements ProjectService {
 		return strBuilder.toString();
 	}
 	
-	protected Entity retrieveEntity() {
+	public Entity retrieveEntity() {
 		return new Entity("Proyecto", "name", "description");
 	}
 
