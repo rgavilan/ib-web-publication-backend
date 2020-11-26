@@ -1,5 +1,7 @@
 package es.um.asio.back.controller.project;
 
+import java.util.LinkedHashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -28,7 +30,7 @@ public class ProjectController {
 
 
 	@GetMapping(ProjectController.Mappings.SEARCH)
-	public Page<String> searchProyects(final ProjectFilter filter, final Pageable pageable) {
+	public Page<LinkedHashMap> searchProyects(final ProjectFilter filter, final Pageable pageable) {
 		return this.proxy.findPaginated(filter, pageable);
 	}
 

@@ -1,5 +1,7 @@
 package es.um.asio.service.service.project;
 
+import java.util.LinkedHashMap;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,6 +16,6 @@ public interface ProjectService {
 	 * @param pageable
 	 * @return Paginación ProjectDto
 	 */
-	Page<String> findPaginated(ProjectFilter filter, Pageable pageable);
+	Page<LinkedHashMap> findPaginated(ProjectFilter filter, Pageable pageable);
 
 }

@@ -1,5 +1,7 @@
 package es.um.asio.service.service.project.impl;
 
+import java.util.LinkedHashMap;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +29,12 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 	private SparqlExecQuery serviceSPARQL;
 
 	@Override
-	public Page<String> findPaginated(ProjectFilter filter, Pageable pageable) {
+	public Page<LinkedHashMap> findPaginated(ProjectFilter filter, Pageable pageable) {
 		logger.info("Searching projects with filter: {} page: {}", filter, pageable);
 
 		PageableQuery pageableQuery = new PageableQuery(this.retrieveEntity(), filtersChunk(filter), pageable);
 
-		Page<String> page = serviceSPARQL.run(pageableQuery);
+		Page<LinkedHashMap> page = serviceSPARQL.run(pageableQuery);
 
 		return page;
 	}
@@ -59,7 +61,7 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 	}
 	
 	public Entity retrieveEntity() {
-		return new Entity("Proyecto", "name", "description");
+		return new Entity("Proyecto", "description", "fin", "id", "ini", "name", "tipo");
 	}
 
 }

@@ -1,5 +1,7 @@
 package es.um.asio.service.proxy.project.impl;
 
+import java.util.LinkedHashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +22,7 @@ public class ProjectProxyImpl implements ProjectProxy {
 	private ProjectService service;
 
 	@Override
-	public Page<String> findPaginated(ProjectFilter filter, Pageable pageable) {
+	public Page<LinkedHashMap> findPaginated(ProjectFilter filter, Pageable pageable) {
 		return this.service.findPaginated(filter, pageable);
 
 	}

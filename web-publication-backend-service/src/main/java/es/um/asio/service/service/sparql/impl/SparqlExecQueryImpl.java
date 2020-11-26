@@ -68,10 +68,10 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 	 * @return the page
 	 */
 	@Override
-	public Page<String> run(final PageableQuery page) {
+	public Page<LinkedHashMap> run(final PageableQuery page) {
 
-		Page<String> result = null;
-		List<String> contentResult = new ArrayList<>();
+		Page<LinkedHashMap> result = null;
+		List<LinkedHashMap> contentResult = new ArrayList<>();
 		Integer totalElements = 0;
 
 		try {
@@ -127,16 +127,19 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 	 * @return the elements
 	 * @throws JsonProcessingException the json processing exception
 	 */
-	private List<String> getElements(final String query) throws JsonProcessingException {
-		final List<String> result = new ArrayList<>();
+	private List<LinkedHashMap> getElements(final String query) throws JsonProcessingException {
+		final List<LinkedHashMap> result = new ArrayList<>();
 
 		// call for Fuseki-Trellis
 		final ResponseEntity<Object> res = this.callFusekiTrellis(query);
 
 		if ((res != null) && (res.getBody() != null)) {
 			final LinkedHashMap<String, Object> body = (LinkedHashMap<String, Object>) res.getBody();
+			LinkedHashMap map = null;
 			for (final Map.Entry<String, Object> entry : body.entrySet()) {
-				result.add(this.mapper.writeValueAsString(entry));
+				map = new LinkedHashMap();
+				map.put(entry.getKey(), entry.getValue());
+				result.add(map);
 			}
 		}
 
