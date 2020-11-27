@@ -42,13 +42,6 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 	public String filtersChunk(ProjectFilter filter) {
 		StringBuilder strBuilder = new StringBuilder();
 		if (filter != null) {
-			if (StringUtils.isNotBlank(filter.getName())) {
-				strBuilder.append("FILTER (?name = \"");
-				strBuilder.append(filter.getName());
-				strBuilder.append("\"");
-				strBuilder.append(filter.getLanguage());
-				strBuilder.append(") . ");
-			}
 			if (StringUtils.isNotBlank(filter.getDescription())) {
 				strBuilder.append("FILTER (?description = \"");
 				strBuilder.append(filter.getDescription());
@@ -56,6 +49,47 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
+			
+			if (StringUtils.isNotBlank(filter.getDescription())) {
+				strBuilder.append("FILTER (?fin = \"");
+				strBuilder.append(filter.getFin());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getDescription())) {
+				strBuilder.append("FILTER (?id = \"");
+				strBuilder.append(filter.getId());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getDescription())) {
+				strBuilder.append("FILTER (?ini = \"");
+				strBuilder.append(filter.getIni());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getName())) {
+				strBuilder.append("FILTER (?name = \"");
+				strBuilder.append(filter.getName());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getDescription())) {
+				strBuilder.append("FILTER (?tipo = \"");
+				strBuilder.append(filter.getTipo());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
 		}
 		return strBuilder.toString();
 	}
