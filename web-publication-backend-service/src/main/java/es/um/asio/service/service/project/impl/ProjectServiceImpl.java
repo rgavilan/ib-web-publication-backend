@@ -49,7 +49,7 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append(") . ");
 			}
 			
-			if (StringUtils.isNotBlank(filter.getDescription())) {
+			if (StringUtils.isNotBlank(filter.getFin())) {
 				strBuilder.append("FILTER (?fin = \"");
 				strBuilder.append(filter.getFin());
 				strBuilder.append("\"");
@@ -57,7 +57,7 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append(") . ");
 			}
 			
-			if (StringUtils.isNotBlank(filter.getDescription())) {
+			if (StringUtils.isNotBlank(filter.getId())) {
 				strBuilder.append("FILTER (?id = \"");
 				strBuilder.append(filter.getId());
 				strBuilder.append("\"");
@@ -65,7 +65,7 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append(") . ");
 			}
 			
-			if (StringUtils.isNotBlank(filter.getDescription())) {
+			if (StringUtils.isNotBlank(filter.getIni())) {
 				strBuilder.append("FILTER (?ini = \"");
 				strBuilder.append(filter.getIni());
 				strBuilder.append("\"");
@@ -81,7 +81,7 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append(") . ");
 			}
 			
-			if (StringUtils.isNotBlank(filter.getDescription())) {
+			if (StringUtils.isNotBlank(filter.getTipo())) {
 				strBuilder.append("FILTER (?tipo = \"");
 				strBuilder.append(filter.getTipo());
 				strBuilder.append("\"");
