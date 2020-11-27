@@ -27,6 +27,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.model.PageableQuery;
 import es.um.asio.service.service.sparql.QueryBuilder;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
@@ -68,10 +69,10 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 	 * @return the page
 	 */
 	@Override
-	public Page<LinkedHashMap> run(final PageableQuery page) {
+	public Page<FusekiResponse> run(final PageableQuery page) {
 
-		Page<LinkedHashMap> result = null;
-		List<LinkedHashMap> contentResult = new ArrayList<>();
+		Page<FusekiResponse> result = null;
+		List<FusekiResponse> contentResult = new ArrayList<>();
 		Integer totalElements = 0;
 
 		try {
@@ -127,24 +128,23 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 	 * @return the elements
 	 * @throws JsonProcessingException the json processing exception
 	 */
-	private List<LinkedHashMap> getElements(final String query) throws JsonProcessingException {
-		final List<LinkedHashMap> result = new ArrayList<>();
+	private List<FusekiResponse> getElements(final String query) throws JsonProcessingException {
+		final List<FusekiResponse> result = new ArrayList<>();
 
 		// call for Fuseki-Trellis
 		final ResponseEntity<Object> res = this.callFusekiTrellis(query);
 
 		if ((res != null) && (res.getBody() != null)) {
 			final LinkedHashMap<String, Object> body = (LinkedHashMap<String, Object>) res.getBody();
-			LinkedHashMap map = null;
-			for (final Map.Entry<String, Object> entry : body.entrySet()) {
-				map = new LinkedHashMap();
-				map.put(entry.getKey(), entry.getValue());
-				result.add(map);
-			}
+			
+			FusekiResponse fusekiResponse = new FusekiResponse();
+			fusekiResponse.setHead(body.get("head"));
+			fusekiResponse.setResults(body.get("results"));
+			
+			result.add(fusekiResponse);
 		}
-
+		
 		return result;
-
 	}
 
 	private Integer getTotalElements(final String query) {

@@ -1,7 +1,5 @@
 package es.um.asio.back.controller.project;
 
-import java.util.LinkedHashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.um.asio.service.filter.project.ProjectFilter;
+import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.proxy.project.ProjectProxy;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -30,7 +29,7 @@ public class ProjectController {
 
 
 	@GetMapping(ProjectController.Mappings.SEARCH)
-	public Page<LinkedHashMap> searchProyects(final ProjectFilter filter, final Pageable pageable) {
+	public Page<FusekiResponse> searchProyects(final ProjectFilter filter, final Pageable pageable) {
 		return this.proxy.findPaginated(filter, pageable);
 	}
 
