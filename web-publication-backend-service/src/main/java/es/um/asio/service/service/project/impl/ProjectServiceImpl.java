@@ -15,6 +15,7 @@ import es.um.asio.service.model.PageableQuery;
 import es.um.asio.service.service.impl.FusekiService;
 import es.um.asio.service.service.project.ProjectService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
+import es.um.asio.service.util.SparqlUtils;
 
 @Service
 public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements ProjectService {
@@ -50,11 +51,7 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 			}
 			
 			if (StringUtils.isNotBlank(filter.getFin())) {
-				strBuilder.append("FILTER (?fin = \"");
-				strBuilder.append(filter.getFin());
-				strBuilder.append("\"");
-				strBuilder.append(filter.getLanguage());
-				strBuilder.append(") . ");
+				strBuilder.append(SparqlUtils.dateGE("fin", filter.getFin()));
 			}
 			
 			if (StringUtils.isNotBlank(filter.getId())) {
@@ -66,11 +63,7 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 			}
 			
 			if (StringUtils.isNotBlank(filter.getIni())) {
-				strBuilder.append("FILTER (?ini = \"");
-				strBuilder.append(filter.getIni());
-				strBuilder.append("\"");
-				strBuilder.append(filter.getLanguage());
-				strBuilder.append(") . ");
+				strBuilder.append(SparqlUtils.dateGE("ini", filter.getIni()));
 			}
 			
 			if (StringUtils.isNotBlank(filter.getName())) {
