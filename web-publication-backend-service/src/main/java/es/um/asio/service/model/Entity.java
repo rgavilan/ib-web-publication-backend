@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,6 +16,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(includeFieldNames = true)
+@EqualsAndHashCode
 public class Entity implements Serializable {
 
 	private static final long serialVersionUID = -969930909950320919L;
