@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import es.um.asio.abstractions.constants.Constants;
 import es.um.asio.service.filter.patent.PatentFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
@@ -46,7 +47,7 @@ public class PatentServiceImpl implements PatentService {
 		if (filter != null) {
 
 			if (StringUtils.isNotBlank(filter.getFin())) {
-				strBuilder.append(SparqlUtils.dateLE("fin", filter.getFin()));
+				strBuilder.append(SparqlUtils.dateLE("fin", filter.getFin(), Constants.DATE_FORMAT_DD_MM_YYYY));
 			}
 
 			if (StringUtils.isNotBlank(filter.getId())) {
@@ -58,7 +59,7 @@ public class PatentServiceImpl implements PatentService {
 			}
 
 			if (StringUtils.isNotBlank(filter.getIni())) {
-				strBuilder.append(SparqlUtils.dateGE("ini", filter.getIni()));
+				strBuilder.append(SparqlUtils.dateGE("ini", filter.getIni(), Constants.DATE_FORMAT_DD_MM_YYYY));
 			}
 
 			if (StringUtils.isNotBlank(filter.getName())) {
