@@ -1,4 +1,4 @@
-package es.um.asio.service.test.service.project;
+package es.um.asio.service.test.service.patent;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
@@ -22,27 +22,27 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import es.um.asio.service.ServiceConfig;
-import es.um.asio.service.filter.project.ProjectFilter;
+import es.um.asio.service.filter.patent.PatentFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
-import es.um.asio.service.service.project.ProjectService;
+import es.um.asio.service.service.patent.PatentService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { ServiceConfig.class })
-public class ProjectServiceTest {
+public class PatentServiceTest {
 
 	@Autowired
 	@MockBean
-	private ProjectService projectService;
+	private PatentService patentService;
 
-	ProjectFilter filter;
+	PatentFilter filter;
 
 	Pageable pageable;
 
 	@Before
 	public void beforeTest() {
 
-		filter = new ProjectFilter();
+		filter = new PatentFilter();
 		filter.setName("NAME");
 		filter.setLanguage("es");
 
@@ -51,21 +51,19 @@ public class ProjectServiceTest {
 		FusekiResponse fuseki = new FusekiResponse();
 		List<FusekiResponse> contentResult = new ArrayList<>();
 		// Mock
-		Mockito.when(this.projectService.findPaginated(filter, pageable)).thenAnswer(invocation -> {
+		Mockito.when(this.patentService.findPaginated(filter, pageable)).thenAnswer(invocation -> {
 
-			String head = "{\r\n" + "  \"head\": {\r\n"
-					+ "    \"vars\": [ \"x\" , \"name\" , \"description\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n"
-					+ "  } ,\r\n";
-			String result = "  \"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Proyecto/c1cca9b3-6762-3e09-8aa3-ea860644ecd4\" } ,\r\n"
+			String head = "\"head\": {\r\n"
+					+ "    \"vars\": [ \"x\" , \"name\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n" + "  }";
+
+			String result = "\"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
+					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Patente/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
 					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"description\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"FP00-359\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"2012-01-27\" } ,\r\n"
+					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
 					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"15076\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"FP00\" }\r\n"
-					+ "      }\r\n" + "    ]\r\n" + "  }\r\n" + "}";
-			;
+					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"D\" }\r\n"
+					+ "      }";
 
 			fuseki.setHead(head);
 			fuseki.setResults(result);
@@ -74,25 +72,26 @@ public class ProjectServiceTest {
 			return page;
 		});
 
-		Mockito.when(projectService.retrieveEntity()).thenAnswer(invocation -> {
-			Entity entity = new Entity("Proyecto", "description", "fin", "id", "ini", "name", "tipo");
+		Mockito.when(patentService.retrieveEntity()).thenAnswer(invocation -> {
+			Entity entity = new Entity("Patente", "fin", "id", "ini", "name", "tipo");
 			return entity;
 		});
+
 	}
 
 	@Test
 	public void testEntity() {
-
-		Entity entity = new Entity("Proyecto", "description", "fin", "id", "ini", "name", "tipo");
-		Entity entityFromService = projectService.retrieveEntity();
+		Entity entity = new Entity("Patente", "fin", "id", "ini", "name", "tipo");
+		Entity entityFromService = patentService.retrieveEntity();
 		assertThat(entityFromService).isEqualTo(entity);
 	}
 
 	@Test
 	public void testfindPatent() {
-		Page<FusekiResponse> page = this.projectService.findPaginated(filter, pageable);
+		Page<FusekiResponse> page = this.patentService.findPaginated(filter, pageable);
 		assertNotNull(page);
 
 		assertEquals(true, page.getContent().get(0).getResults().toString().contains("NAME"));
 	}
+
 }
