@@ -61,7 +61,6 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 		this.mapper = new ObjectMapper();
 	}
 
-	
 	/**
 	 * Method in order to run the query against Fuseki-Trellis
 	 *
@@ -136,33 +135,38 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 
 		if ((res != null) && (res.getBody() != null)) {
 			final LinkedHashMap<String, Object> body = (LinkedHashMap<String, Object>) res.getBody();
-			
-			FusekiResponse fusekiResponse = new FusekiResponse();
-			fusekiResponse.setHead(body.get("head"));
-			fusekiResponse.setResults(body.get("results"));
-			
-			result.add(fusekiResponse);
+			if (body != null) {
+				FusekiResponse fusekiResponse = new FusekiResponse();
+				fusekiResponse.setHead(body.get("head"));
+				fusekiResponse.setResults(body.get("results"));
+
+				result.add(fusekiResponse);
+			}
 		}
-		
+
 		return result;
 	}
 
 	private Integer getTotalElements(final String query) {
 		Integer result = 0;
-		
+
 		// call for Fuseki-Trellis
 		final ResponseEntity<Object> res = this.callFusekiTrellis(query);
 
 		if ((res != null) && (res.getBody() != null)) {
 			final LinkedHashMap<String, Object> body = (LinkedHashMap<String, Object>) res.getBody();
+			if (body != null) {
+				// ugly hierarchy in Fuseki response
+				final LinkedHashMap<String, Object> results = (LinkedHashMap<String, Object>) body.get("results");
+				final ArrayList bindingArray = (ArrayList) results.get("bindings");
+				final LinkedHashMap<String, Object> bindingElement = (LinkedHashMap<String, Object>) bindingArray
+						.get(0);
+				final LinkedHashMap<String, Object> countElement = (LinkedHashMap<String, Object>) bindingElement
+						.get("count");
+				final String value = (String) countElement.get("value");
+				result = Integer.valueOf(value);
+			}
 
-			// ugly hierarchy in Fuseki response
-			final LinkedHashMap<String, Object> results = (LinkedHashMap<String, Object>) body.get("results");
-			final ArrayList bindingArray = (ArrayList) results.get("bindings");
-			final LinkedHashMap<String, Object> bindingElement = (LinkedHashMap<String, Object>) bindingArray.get(0);
-			final LinkedHashMap<String, Object> countElement = (LinkedHashMap<String, Object>) bindingElement.get("count");
-			final String value = (String) countElement.get("value");
-			result = Integer.valueOf(value);
 		}
 
 		return result;
