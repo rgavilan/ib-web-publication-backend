@@ -51,7 +51,7 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 			}
 			
 			if (StringUtils.isNotBlank(filter.getFin())) {
-				strBuilder.append(SparqlUtils.dateGE("fin", filter.getFin()));
+				strBuilder.append(SparqlUtils.dateLE("fin", filter.getFin()));
 			}
 			
 			if (StringUtils.isNotBlank(filter.getId())) {
