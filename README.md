@@ -75,9 +75,9 @@ No es necesario especificar la clase de inicio de la aplicación, ya que el fich
 
 Se incluyen los resultados del testing y cobertura en los siguientes enlaces:
 
-- [Testing TDD] TBD
-- [Cobertura TDD] TBD
-- [Testing BDD] TBD
+* [Testing](http://herc-iz-front-desa.atica.um.es:8070/web-publication-backend/surefire/surefire-report.html)
+* [Cobertura](http://herc-iz-front-desa.atica.um.es:8070/web-publication-backend/jacoco/)
+* [Testing BDD](docs/testing.md)
 
 ## Documentación adicional
 
