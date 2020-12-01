@@ -17,7 +17,7 @@ public interface ProjectProxy {
 	 * 
 	 * @param filter
 	 * @param pageable
-	 * @return ProjectDto
+	 * @return Page<FusekiResponse>
 	 */
 	Page<FusekiResponse> findPaginated(ProjectFilter filter, Pageable pageable);
 }

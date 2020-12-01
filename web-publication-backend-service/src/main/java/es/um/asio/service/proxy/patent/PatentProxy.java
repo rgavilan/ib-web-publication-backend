@@ -17,7 +17,7 @@ public interface PatentProxy {
 	 * 
 	 * @param filter
 	 * @param pageable
-	 * @return ProjectDto
+	 * @return Page<FusekiResponse>
 	 */
 	Page<FusekiResponse> findPaginated(PatentFilter filter, Pageable pageable);
 
