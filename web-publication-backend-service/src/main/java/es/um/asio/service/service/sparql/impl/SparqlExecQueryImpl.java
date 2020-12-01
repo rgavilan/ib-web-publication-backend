@@ -97,7 +97,7 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 	 * @return the string
 	 */
 	private String selectQuery(final Map<String, String> params) {
-		final String result = String.format(FusekiConstants.QUERY_TEMPLATE, params.get(FusekiConstants.SELECT_CHUNK),
+		final String result = String.format(FusekiConstants.QUERY_TEMPLATE_SELECT, params.get(FusekiConstants.SELECT_CHUNK),
 				params.get(FusekiConstants.TYPE_CHUNK), params.get(FusekiConstants.FIELDS_CHUNK),
 				params.get(FusekiConstants.FILTERS_CHUNK), params.get(FusekiConstants.LIMIT),
 				params.get(FusekiConstants.OFFSET));
@@ -112,7 +112,7 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 	 * @return the string
 	 */
 	private String countQuery(final Map<String, String> params) {
-		final String result = String.format(FusekiConstants.QUERY_TEMPLATE, params.get(FusekiConstants.COUNT_CHUNK),
+		final String result = String.format(FusekiConstants.QUERY_TEMPLATE_COUNT, params.get(FusekiConstants.COUNT_CHUNK),
 				params.get(FusekiConstants.TYPE_CHUNK), params.get(FusekiConstants.FIELDS_CHUNK),
 				params.get(FusekiConstants.FILTERS_CHUNK), params.get(FusekiConstants.LIMIT),
 				params.get(FusekiConstants.OFFSET));
