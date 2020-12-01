@@ -63,11 +63,15 @@ public class PatentServiceImpl implements PatentService {
 			}
 
 			if (StringUtils.isNotBlank(filter.getName())) {
-				strBuilder.append("FILTER (?name = \"");
+				// En SPARQL, la función regex no admite el idioma.
+				// Es necesario hacer un filtro previo que compruebe el idioma.
+				// Importante eliminar el @ del idioma.
+				strBuilder.append("FILTER (LANG(?name) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?name, \"");
 				strBuilder.append(filter.getName());
-				strBuilder.append("\"");
-				strBuilder.append(filter.getLanguage());
-				strBuilder.append(") . ");
+				strBuilder.append("\", \"i\")) . ");
 			}
 
 			if (StringUtils.isNotBlank(filter.getTipo())) {

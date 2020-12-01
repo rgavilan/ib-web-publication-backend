@@ -43,11 +43,12 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 		StringBuilder strBuilder = new StringBuilder();
 		if (filter != null) {
 			if (StringUtils.isNotBlank(filter.getDescription())) {
-				strBuilder.append("FILTER (?description = \"");
+				strBuilder.append("FILTER (LANG(?description) = \"");
+				strBuilder.append(filter.getDescription().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?name, \"");
 				strBuilder.append(filter.getDescription());
-				strBuilder.append("\"");
-				strBuilder.append(filter.getLanguage());
-				strBuilder.append(") . ");
+				strBuilder.append("\", \"i\")) . ");
 			}
 
 			if (StringUtils.isNotBlank(filter.getFin())) {
@@ -67,11 +68,12 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 			}
 
 			if (StringUtils.isNotBlank(filter.getName())) {
-				strBuilder.append("FILTER (?name = \"");
+				strBuilder.append("FILTER (LANG(?name) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?name, \"");
 				strBuilder.append(filter.getName());
-				strBuilder.append("\"");
-				strBuilder.append(filter.getLanguage());
-				strBuilder.append(") . ");
+				strBuilder.append("\", \"i\")) . ");
 			}
 
 			if (StringUtils.isNotBlank(filter.getTipo())) {
