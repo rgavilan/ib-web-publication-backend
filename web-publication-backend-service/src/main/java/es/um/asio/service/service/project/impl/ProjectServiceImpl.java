@@ -63,8 +63,8 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append(") . ");
 			}
 
-			if (StringUtils.isNotBlank(filter.getEnd())) {
-				strBuilder.append(SparqlUtils.dateGE("start", filter.getEnd(), Constants.DATE_FORMAT_YYYY_MM_DD));
+			if (StringUtils.isNotBlank(filter.getStart())) {
+				strBuilder.append(SparqlUtils.dateGE("start", filter.getStart(), Constants.DATE_FORMAT_YYYY_MM_DD));
 			}
 
 			if (StringUtils.isNotBlank(filter.getName())) {
