@@ -30,4 +30,9 @@ public class ArticleFilter extends Filter {/**
 	 * The name
 	 */
 	private String name;
+	
+	/**
+	 * The year
+	 */
+	private String year;
 }

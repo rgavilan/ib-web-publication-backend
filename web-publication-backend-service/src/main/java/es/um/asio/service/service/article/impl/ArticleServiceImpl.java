@@ -65,6 +65,14 @@ public class ArticleServiceImpl extends FusekiService<ArticleFilter> implements 
 				strBuilder.append(filter.getName());
 				strBuilder.append("\", \"i\")) . ");
 			}
+			
+			if (StringUtils.isNotBlank(filter.getYear())) {
+				strBuilder.append("FILTER (?año = \"");
+				strBuilder.append(filter.getYear());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
 		}
 		
 		return strBuilder.toString();
@@ -72,7 +80,7 @@ public class ArticleServiceImpl extends FusekiService<ArticleFilter> implements 
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Articulo", "coautoria", "id", "name");
+		return new Entity("Articulo", "año", "coautoria", "id", "name");
 	}
 
 }

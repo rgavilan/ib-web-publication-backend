@@ -66,6 +66,14 @@ public class BookServiceImpl extends FusekiService<BookFilter> implements BookSe
 				strBuilder.append(filter.getName());
 				strBuilder.append("\", \"i\")) . ");
 			}
+			
+			if (StringUtils.isNotBlank(filter.getYear())) {
+				strBuilder.append("FILTER (?Año = \"");
+				strBuilder.append(filter.getYear());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
 		}
 		
 		return strBuilder.toString();
@@ -73,7 +81,7 @@ public class BookServiceImpl extends FusekiService<BookFilter> implements BookSe
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Libro", "coautoria", "id", "name");
+		return new Entity("Libro", "Año", "coautoria", "id", "name");
 	}
 
 }
