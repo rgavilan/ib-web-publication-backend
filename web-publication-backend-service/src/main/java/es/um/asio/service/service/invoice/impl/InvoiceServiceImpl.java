@@ -1,4 +1,4 @@
-package es.um.asio.service.service.article.impl;
+package es.um.asio.service.service.invoice.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -8,16 +8,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.um.asio.service.filter.article.ArticleFilter;
+import es.um.asio.service.filter.invoice.InvoiceFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.model.PageableQuery;
-import es.um.asio.service.service.article.ArticleService;
+import es.um.asio.service.service.article.impl.ArticleServiceImpl;
 import es.um.asio.service.service.impl.FusekiService;
+import es.um.asio.service.service.invoice.InvoiceService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
 
 @Service
-public class ArticleServiceImpl extends FusekiService<ArticleFilter> implements ArticleService {
+public class InvoiceServiceImpl extends FusekiService<InvoiceFilter> implements InvoiceService {
 
 	/**
 	 * Logger
@@ -28,8 +29,8 @@ public class ArticleServiceImpl extends FusekiService<ArticleFilter> implements 
 	private SparqlExecQuery serviceSPARQL;
 	
 	@Override
-	public Page<FusekiResponse> findPaginated(ArticleFilter filter, Pageable pageable) {
-		logger.info("Searching articles with filter: {} page: {}", filter, pageable);
+	public Page<FusekiResponse> findPaginated(InvoiceFilter filter, Pageable pageable) {
+		logger.info("Searching invoices with filter: {} page: {}", filter, pageable);
 
 		PageableQuery pageableQuery = new PageableQuery(this.retrieveEntity(), filtersChunk(filter), pageable);
 
@@ -37,33 +38,16 @@ public class ArticleServiceImpl extends FusekiService<ArticleFilter> implements 
 	}
 
 	@Override
-	public String filtersChunk(ArticleFilter filter) {
+	public String filtersChunk(InvoiceFilter filter) {
 		StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
-			if (StringUtils.isNotBlank(filter.getCoautoria())) {
-				strBuilder.append("FILTER (?coautoria = \"");
-				strBuilder.append(filter.getCoautoria());
-				strBuilder.append("\"");
-				strBuilder.append(filter.getLanguage());
-				strBuilder.append(") . ");
-			}
-
 			if (StringUtils.isNotBlank(filter.getId())) {
 				strBuilder.append("FILTER (?id = \"");
 				strBuilder.append(filter.getId());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
-			}
-
-			if (StringUtils.isNotBlank(filter.getName())) {
-				strBuilder.append("FILTER (LANG(?name) = \"");
-				strBuilder.append(filter.getLanguage().substring(1));
-				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?name, \"");
-				strBuilder.append(filter.getName());
-				strBuilder.append("\", \"i\")) . ");
 			}
 		}
 		
@@ -72,7 +56,7 @@ public class ArticleServiceImpl extends FusekiService<ArticleFilter> implements 
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Articulo", "coautoria", "id", "name");
+		return new Entity("Factura", "id");
 	}
 
 }
