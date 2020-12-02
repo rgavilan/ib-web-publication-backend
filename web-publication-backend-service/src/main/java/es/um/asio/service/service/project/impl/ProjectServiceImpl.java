@@ -89,7 +89,7 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 	}
 
 	public Entity retrieveEntity() {
-		return new Entity("Proyecto", "description", "fin", "id", "ini", "name", "tipo");
+		return new Entity("Proyecto", "end", "fund", "id", "name", "start", "tipo");
 	}
 
 }
