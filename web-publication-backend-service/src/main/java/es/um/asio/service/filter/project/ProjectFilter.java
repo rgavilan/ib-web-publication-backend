@@ -16,31 +16,33 @@ public class ProjectFilter extends Filter {
 
 	private static final long serialVersionUID = -1586947094505235656L;
 
-	/** The description. */
-	private String description;
-
 	/**
-	 * The fin fin
+	 * The end
 	 */
-	private String fin;
+	private String end;
+	
+	/** 
+	 * The fund. 
+	 */
+	private String fund;
 	
 	/**
-	 * The fin id
+	 * The id
 	 */
 	private String id;
-	
-	/**
-	 * The fin ini
-	 */
-	private String ini;
 
 	/**
-	 * The fin name
+	 * The name
 	 */
 	private String name;
 	
 	/**
-	 * The fin tipo
+	 * The start
+	 */
+	private String start;
+	
+	/**
+	 * The tipo
 	 */
 	private String tipo;
 	

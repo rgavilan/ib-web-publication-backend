@@ -42,17 +42,17 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 	public String filtersChunk(ProjectFilter filter) {
 		StringBuilder strBuilder = new StringBuilder();
 		if (filter != null) {
-			if (StringUtils.isNotBlank(filter.getDescription())) {
-				strBuilder.append("FILTER (LANG(?description) = \"");
-				strBuilder.append(filter.getDescription().substring(1));
+			if (StringUtils.isNotBlank(filter.getFund())) {
+				strBuilder.append("FILTER (LANG(?fund) = \"");
+				strBuilder.append(filter.getFund().substring(1));
 				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?name, \"");
-				strBuilder.append(filter.getDescription());
+				strBuilder.append("FILTER ( regex(?fund, \"");
+				strBuilder.append(filter.getFund());
 				strBuilder.append("\", \"i\")) . ");
 			}
 
-			if (StringUtils.isNotBlank(filter.getFin())) {
-				strBuilder.append(SparqlUtils.dateLE("fin", filter.getFin(), Constants.DATE_FORMAT_YYYY_MM_DD));
+			if (StringUtils.isNotBlank(filter.getEnd())) {
+				strBuilder.append(SparqlUtils.dateLE("end", filter.getEnd(), Constants.DATE_FORMAT_YYYY_MM_DD));
 			}
 
 			if (StringUtils.isNotBlank(filter.getId())) {
@@ -63,8 +63,8 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append(") . ");
 			}
 
-			if (StringUtils.isNotBlank(filter.getIni())) {
-				strBuilder.append(SparqlUtils.dateGE("ini", filter.getIni(), Constants.DATE_FORMAT_YYYY_MM_DD));
+			if (StringUtils.isNotBlank(filter.getEnd())) {
+				strBuilder.append(SparqlUtils.dateGE("start", filter.getEnd(), Constants.DATE_FORMAT_YYYY_MM_DD));
 			}
 
 			if (StringUtils.isNotBlank(filter.getName())) {
