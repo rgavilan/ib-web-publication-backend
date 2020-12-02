@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import es.um.asio.service.model.Entity;
@@ -23,11 +24,24 @@ public class QueryBuilderImpl implements QueryBuilder {
 		String limit = String.valueOf(pageable.getPageSize());
 		String offset = String.valueOf(pageable.getOffset());
 		
+		StringBuilder order = new StringBuilder();
+		
+		for (Order o : pageable.getSort().toList()) {
+			order.append(order.toString().length() > 0 ? " " : "");
+			order.append(o.isAscending() ? FusekiConstants.ORDER_ASC : FusekiConstants.ORDER_DESC);
+			order.append("(?");
+			order.append(o.getProperty());
+			order.append(")");
+		}
+		
 		Map<String, String> map = new HashMap<>();
 		map.put(FusekiConstants.SELECT_CHUNK, selectChunk);
 		map.put(FusekiConstants.COUNT_CHUNK, FusekiConstants.COUNT_CHUNK_TEMPLATE);
 		map.put(FusekiConstants.TYPE_CHUNK, typeChunk);
 		map.put(FusekiConstants.FIELDS_CHUNK, fieldsChunk);
+		if (order.toString().length() > 0) {
+			map.put(FusekiConstants.ORDER, order.toString());
+		}
 		map.put(FusekiConstants.LIMIT, limit);
 		map.put(FusekiConstants.OFFSET, offset);
 				

@@ -3,6 +3,7 @@ package es.um.asio.service.util;
 public class FusekiConstants {
 
 	public static final String QUERY_TEMPLATE_SELECT = "PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#> SELECT %s WHERE { %s %s %s } LIMIT %s offset %s";
+	public static final String QUERY_TEMPLATE_SELECT_WITH_ORDER = "PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#> SELECT %s WHERE { %s %s %s } ORDER BY %s LIMIT %s offset %s";
 	
 	public static final String QUERY_TEMPLATE_COUNT = "PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#> SELECT %s WHERE { %s %s %s } ";
 	public static final String COUNT_CHUNK_TEMPLATE = "(COUNT(*) AS ?count)";
@@ -14,6 +15,8 @@ public class FusekiConstants {
 	public static final String FILTERS_CHUNK = "FILTERS_CHUNK";
 	public static final String LIMIT = "LIMIT";
 	public static final String OFFSET = "OFFSET";
-
+	public static final String ORDER = "ORDER BY";
+	public static final String ORDER_ASC = "ASC";
+	public static final String ORDER_DESC = "DESC";
 	
 }
