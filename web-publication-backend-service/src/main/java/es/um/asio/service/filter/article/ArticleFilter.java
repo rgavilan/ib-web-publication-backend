@@ -15,7 +15,12 @@ public class ArticleFilter extends Filter {/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7608048444987210263L;
-
+	
+	/**
+	 * The anyo
+	 */
+	private String anyo;
+	
 	/**
 	 * The coautoria
 	 */
@@ -30,9 +35,4 @@ public class ArticleFilter extends Filter {/**
 	 * The name
 	 */
 	private String name;
-	
-	/**
-	 * The year
-	 */
-	private String year;
 }

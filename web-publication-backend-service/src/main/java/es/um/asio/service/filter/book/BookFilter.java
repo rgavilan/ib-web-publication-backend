@@ -18,6 +18,11 @@ public class BookFilter extends Filter {
 	private static final long serialVersionUID = 8003420601843949425L;
 
 	/**
+	 * The anyo
+	 */
+	private String anyo;
+	
+	/**
 	 * The coautoria
 	 */
 	private String coautoria;
@@ -31,9 +36,4 @@ public class BookFilter extends Filter {
 	 * The name
 	 */
 	private String name;
-	
-	/**
-	 * The year
-	 */
-	private String year;
 }
