@@ -2,8 +2,7 @@ package es.um.asio.service.util;
 
 public class FusekiConstants {
 
-	public static final String QUERY_TEMPLATE_SELECT = "PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#> SELECT %s WHERE { %s %s %s } LIMIT %s offset %s";
-	public static final String QUERY_TEMPLATE_SELECT_WITH_ORDER = "PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#> SELECT %s WHERE { %s %s %s } ORDER BY %s LIMIT %s offset %s";
+	public static final String QUERY_TEMPLATE_SELECT = "PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#> SELECT %s WHERE { %s %s %s } %s LIMIT %s offset %s";
 	
 	public static final String QUERY_TEMPLATE_COUNT = "PREFIX  xsd:  <http://www.w3.org/2001/XMLSchema#> SELECT %s WHERE { %s %s %s } ";
 	public static final String COUNT_CHUNK_TEMPLATE = "(COUNT(*) AS ?count)";

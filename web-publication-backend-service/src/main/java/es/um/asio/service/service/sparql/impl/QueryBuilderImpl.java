@@ -34,14 +34,16 @@ public class QueryBuilderImpl implements QueryBuilder {
 			order.append(")");
 		}
 		
+		if (order.toString().length() > 0) {
+			order.insert(0, FusekiConstants.ORDER + " ");
+		}
+		
 		Map<String, String> map = new HashMap<>();
 		map.put(FusekiConstants.SELECT_CHUNK, selectChunk);
 		map.put(FusekiConstants.COUNT_CHUNK, FusekiConstants.COUNT_CHUNK_TEMPLATE);
 		map.put(FusekiConstants.TYPE_CHUNK, typeChunk);
 		map.put(FusekiConstants.FIELDS_CHUNK, fieldsChunk);
-		if (order.toString().length() > 0) {
-			map.put(FusekiConstants.ORDER, order.toString());
-		}
+		map.put(FusekiConstants.ORDER, order.toString());
 		map.put(FusekiConstants.LIMIT, limit);
 		map.put(FusekiConstants.OFFSET, offset);
 				
