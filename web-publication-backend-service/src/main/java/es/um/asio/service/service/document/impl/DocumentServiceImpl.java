@@ -1,5 +1,7 @@
 package es.um.asio.service.service.document.impl;
 
+import java.util.Arrays;
+
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -74,7 +76,7 @@ public class DocumentServiceImpl extends FusekiService<DocumentFilter> implement
 
 	@Override
 	public Entity retrieveEntity(DocumentFilter filter) {
-		return new Entity("Documento", filter.getTypes(), "anyo", "id", "name");
+		return new Entity("Documento", Arrays.asList(filter.getTypes().split(",")), "anyo", "id", "name");
 	}
 
 	@Override

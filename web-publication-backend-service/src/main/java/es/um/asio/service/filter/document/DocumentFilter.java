@@ -1,7 +1,5 @@
 package es.um.asio.service.filter.document;
 
-import java.util.List;
-
 import es.um.asio.service.filter.Filter;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,5 +35,5 @@ public class DocumentFilter extends Filter {
 	/**
 	 * The types
 	 */
-	private List<String> types;
+	private String types;
 }
