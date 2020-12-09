@@ -1,4 +1,6 @@
-package es.um.asio.service.filter.article;
+package es.um.asio.service.filter.document;
+
+import java.util.List;
 
 import es.um.asio.service.filter.Filter;
 import lombok.Getter;
@@ -11,21 +13,16 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(includeFieldNames = true)
-public class ArticleFilter extends Filter {
+public class DocumentFilter extends Filter {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7608048444987210263L;
-	
+	private static final long serialVersionUID = 9066425157947222584L;
+
 	/**
 	 * The anyo
 	 */
 	private String anyo;
-	
-	/**
-	 * The coautoria
-	 */
-	private String coautoria;
 	
 	/**
 	 * The id
@@ -36,4 +33,9 @@ public class ArticleFilter extends Filter {
 	 * The name
 	 */
 	private String name;
+	
+	/**
+	 * The types
+	 */
+	private List<String> types;
 }
