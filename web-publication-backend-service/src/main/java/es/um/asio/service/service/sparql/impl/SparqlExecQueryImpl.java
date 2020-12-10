@@ -172,7 +172,13 @@ public class SparqlExecQueryImpl implements SparqlExecQuery {
 		return result;
 	}
 
-	private ResponseEntity<Object> callFusekiTrellis(final String query) {
+	/**
+	 * Call fuseki trellis.
+	 *
+	 * @param query the query
+	 * @return the response entity
+	 */
+	public ResponseEntity<Object> callFusekiTrellis(final String query) {
 		ResponseEntity<Object> result = null;
 		try {
 			result = this.restTemplate.exchange(this.fusekiTrellisUrl, HttpMethod.POST, this.getBody(query),
