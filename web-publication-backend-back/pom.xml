@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -14,22 +16,30 @@
 	<name>UM - ASIO - web-publication-backend-back</name>
 	<description>UM - ASIO - web-publication-backend-back</description>
 
+
 	<properties>
 		<artifact.packaging>war</artifact.packaging>
 		<cucumber.version>6.4.0</cucumber.version>
+		<asio-abstractions.version>1.0-SNAPSHOT</asio-abstractions.version>
+		<web-publication-backend-service.version>1.0-SNAPSHOT</web-publication-backend-service.version>
+		<web-publication-backend-swagger.version>1.0-SNAPSHOT</web-publication-backend-swagger.version>
 	</properties>
 
+
 	<dependencies>
+		<!-- UM ASIO - dependencies -->
 		<dependency>
 			<groupId>es.um.asio</groupId>
 			<artifactId>web-publication-backend-service</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${web-publication-backend-service.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.izertis.libraries</groupId>
-			<artifactId>izertis-swagger-starter</artifactId>
+			<groupId>es.um.asio</groupId>
+			<artifactId>web-publication-backend-swagger</artifactId>
+			<version>${web-publication-backend-swagger.version}</version>
 		</dependency>
+		<!-- end UM ASIO - dependencies -->
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
@@ -62,6 +72,14 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 
 		<!-- Testing -->
 

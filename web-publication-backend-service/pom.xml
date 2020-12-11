@@ -20,12 +20,6 @@
 	</properties>
 
 	<dependencies>
-		<!-- Izertis dependencies -->
-
-		<dependency>
-			<groupId>com.izertis.libraries</groupId>
-			<artifactId>izertis-cache-starter</artifactId>
-		</dependency>
 
 		<!-- Asio dependencies -->
 		<dependency>
