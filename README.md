@@ -2,7 +2,9 @@
 
 # ASIO - Web publication backend
 
-# Arquetipo Java para API Rest
+|     | Master |
+| --- | ------ |
+| Quality Gate | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=HerculesCRUE_ib-web-publication-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=HerculesCRUE_ib-web-publication-backend) |
 
 Arquetipo Java para API Rest con base de datos relacional
 
