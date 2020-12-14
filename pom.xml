@@ -17,6 +17,7 @@
 	<packaging>pom</packaging>
 	<name>UM - ASIO - web-publication-backend</name>
 	<description>UM - ASIO - web-publication-backend</description>
+	<url>https://www.um.es/web/hercules/</url>
 
 	<scm>
 		<url>scm:git:https://github.com/HerculesCRUE/ib-web-publication-backend.git</url>
