@@ -168,7 +168,7 @@
 									<goal>generate</goal>
 								</goals>
 								<configuration>
-									<projectName>ManagementSystemCucumber</projectName>
+									<projectName>WebPublicationBackendCucumber</projectName>
 									<outputDirectory>${project.build.directory}</outputDirectory>
 									<cucumberOutput>${project.build.directory}/cucumber/cucumber.json</cucumberOutput>
 								</configuration>
