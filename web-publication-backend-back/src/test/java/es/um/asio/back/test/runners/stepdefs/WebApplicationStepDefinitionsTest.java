@@ -35,7 +35,7 @@ import io.cucumber.spring.CucumberContextConfiguration;
 
 @CucumberContextConfiguration
 @SpringBootTest(classes = ProjectController.class)
-public class WebApplicationStepDefinitions {
+public class WebApplicationStepDefinitionsTest {
 
 	@Autowired
 	@MockBean

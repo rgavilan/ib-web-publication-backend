@@ -20,6 +20,7 @@
 	<properties>
 		<artifact.packaging>war</artifact.packaging>
 		<cucumber.version>6.4.0</cucumber.version>
+		<cucumber-reporting.version>5.3.1</cucumber-reporting.version>
 		<asio-abstractions.version>1.0-SNAPSHOT</asio-abstractions.version>
 		<web-publication-backend-service.version>1.0-SNAPSHOT</web-publication-backend-service.version>
 		<web-publication-backend-swagger.version>1.0-SNAPSHOT</web-publication-backend-swagger.version>
@@ -103,7 +104,13 @@
 			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>net.masterthought</groupId>
+			<artifactId>cucumber-reporting</artifactId>
+			<version>${cucumber-reporting.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -146,6 +153,27 @@
 					<plugin>
 						<groupId>org.springframework.boot</groupId>
 						<artifactId>spring-boot-maven-plugin</artifactId>
+					</plugin>
+					
+					<!-- cucumber -->
+					<plugin>
+						<groupId>net.masterthought</groupId>
+						<artifactId>maven-cucumber-reporting</artifactId>
+						<version>3.13.0</version>
+						<executions>
+							<execution>
+								<id>execution</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<projectName>ManagementSystemCucumber</projectName>
+									<outputDirectory>${project.build.directory}</outputDirectory>
+									<cucumberOutput>${project.build.directory}/cucumber/cucumber.json</cucumberOutput>
+								</configuration>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
