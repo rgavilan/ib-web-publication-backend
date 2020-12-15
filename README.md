@@ -1,7 +1,5 @@
 ![](./images/logos_feder.png)
 
-# ASIO - Web publication backend
-
 | Entregable     | Procesador de datos                                                                                                                                                                                                                                                                                                                  |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Fecha          | 30/11/2020                                                                                                                                                                                                                                                                                                                           |
@@ -12,9 +10,12 @@
 | Estado         | **30%** Controller para las primeras pantallas del front                                                                                                                                                                                                                                                                             |
 | Próximos pasos | Se deben completar el resto de controllers pendientes.                                                                                                                                                                                                                                                                               |
 
-|
+# ASIO - Web publication backend
 
-# ASIO - Sistema de gestión
+|     | Master |
+| --- | ------ |
+| Quality Gate | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=HerculesCRUE_ib-web-publication-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=HerculesCRUE_ib-web-publication-backend) |
+| Coverage | [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=HerculesCRUE_ib-web-publication-backend&metric=coverage)](https://sonarcloud.io/dashboard?id=HerculesCRUE_ib-web-publication-backend) |
 
 Sistema de gestión de datos del módulo de procesamiento para el proyecto Backend SGI (ASIO).
 
@@ -76,7 +77,7 @@ No es necesario especificar la clase de inicio de la aplicación, ya que el fich
 Se incluyen los resultados del testing y cobertura en los siguientes enlaces:
 
 * [Testing](http://herc-iz-front-desa.atica.um.es:8070/web-publication-backend/surefire/surefire-report.html)
-* [Cobertura](http://herc-iz-front-desa.atica.um.es:8070/web-publication-backend/jacoco/)
+* [Cobertura](https://sonarcloud.io/component_measures?id=HerculesCRUE_ib-web-publication-backend&metric=coverage&view=list)
 * [Testing BDD](docs/testing.md)
 
 ## Documentación adicional
