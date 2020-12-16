@@ -1,14 +1,14 @@
 ![](./images/logos_feder.png)
 
-| Entregable     | Procesador de datos                                                                                                                                                                                                                                                                                                                  |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Fecha          | 30/11/2020                                                                                                                                                                                                                                                                                                                           |
+| Entregable     | **Servicio e publicación web**                               |
+| -------------- | ------------------------------------------------------------ |
+| Fecha          | 17/12/2020                                                   |
 | Proyecto       | [ASIO](https://www.um.es/web/hercules/proyectos/asio) (Arquitectura Semántica e Infraestructura Ontológica) en el marco de la iniciativa [Hércules](https://www.um.es/web/hercules/) para la Semántica de Datos de Investigación de Universidades que forma parte de [CRUE-TIC](http://www.crue.org/SitePages/ProyectoHercules.aspx) |
-| Módulo         | Sistema de gestión                                                                                                                                                                                                                                                                                                                   |
-| Tipo           | Software                                                                                                                                                                                                                                                                                                                             |
-| Objetivo       | Sistema de gestión de datos del módulo de procesamiento para el proyecto Backend SGI (ASIO).                                                                                                                                                                                                                                         |
-| Estado         | **30%** Controller para las primeras pantallas del front                                                                                                                                                                                                                                                                             |
-| Próximos pasos | Se deben completar el resto de controllers pendientes.                                                                                                                                                                                                                                                                               |
+| Módulo         | APIs / Web (Frontend)                                        |
+| Tipo           | Software                                                     |
+| Objetivo       | Arquetipo Java para API Rest con base de datos relacional.   |
+| Estado         | **30%** funcionalidades para las primeras pantallas del front |
+| Próximos pasos | Se deben completar el resto de controllers pendientes.       |
 
 # ASIO - Web publication backend
 
