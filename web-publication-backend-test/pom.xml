@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>es.um.asio</groupId>
+		<artifactId>web-publication-backend</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>web-publication-backend-test</artifactId>
+	<packaging>pom</packaging>
+	<name>UM - ASIO - web-publication-backend-test</name>
+	<description>UM - ASIO - web-publication-backend-test</description>
+
+	<dependencies>
+		<!-- UM ASIO - dependencies -->
+		<dependency>
+			<groupId>es.um.asio</groupId>
+			<artifactId>web-publication-backend-back</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>es.um.asio</groupId>
+			<artifactId>web-publication-backend-service</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+</project>
