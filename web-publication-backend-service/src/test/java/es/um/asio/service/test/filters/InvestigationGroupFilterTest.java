@@ -1,8 +1,6 @@
-package es.um.asio.service.test.service.patent;
+package es.um.asio.service.test.filters;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,46 +17,39 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import es.um.asio.service.ServiceConfig;
-import es.um.asio.service.filter.patent.PatentFilter;
-import es.um.asio.service.model.Entity;
+import es.um.asio.service.filter.investigationgroup.InvestigationGroupFilter;
 import es.um.asio.service.model.FusekiResponse;
-import es.um.asio.service.service.patent.PatentService;
+import es.um.asio.service.service.investigationgroup.InvestigationGroupService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { ServiceConfig.class })
-public class PatentServiceTest {
-
-	@Autowired
+public class InvestigationGroupFilterTest {
 	@MockBean
-	private PatentService patentService;
+	InvestigationGroupService service;
 
-	PatentFilter filter;
+	InvestigationGroupFilter filter;
 
 	Pageable pageable;
 
 	@Before
 	public void beforeTest() {
 
-		filter = new PatentFilter();
-		filter.setName("NAME");
+		filter = new InvestigationGroupFilter();
+
+		filter.setId("1");
 		filter.setLanguage("es");
-		filter.setFin("");
-		filter.setIni("");
-		filter.setTipo("");
+		filter.setDescription("Investigation Test");
 
 		pageable = PageRequest.of(1, 5, Sort.by("ASC"));
-
 		FusekiResponse fuseki = new FusekiResponse();
 		List<FusekiResponse> contentResult = new ArrayList<>();
 		// Mock
-		Mockito.when(this.patentService.findPaginated(filter, pageable)).thenAnswer(invocation -> {
+		Mockito.when(this.service.findPaginated(filter, pageable)).thenAnswer(invocation -> {
 
 			String head = "\"head\": {\r\n"
 					+ "    \"vars\": [ \"x\" , \"name\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n" + "  }";
 
 			String result = "\"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Patente/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
+					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/investigationGroup/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
 					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
 					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
 					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
@@ -75,27 +64,14 @@ public class PatentServiceTest {
 			return page;
 		});
 
-		Mockito.when(patentService.retrieveEntity()).thenAnswer(invocation -> {
-			Entity entity = new Entity("Patente", "fin", "id", "ini", "name", "tipo");
-			return entity;
-		});
-
 	}
 
 	@Test
-	public void testEntity() {
-		Entity entity = new Entity("Patente", "fin", "id", "ini", "name", "tipo");
-		Entity entityFromService = patentService.retrieveEntity();
-		assertThat(entityFromService).isEqualTo(entity);
-	}
-
-	@Test
-	public void testfindPatent() {
+	public void test_bookFilter() {
 		System.out.println(filter.toString());
-		Page<FusekiResponse> page = this.patentService.findPaginated(filter, pageable);
+		Page<FusekiResponse> page = service.findPaginated(filter, pageable);
+
 		assertNotNull(page);
 
-		assertEquals(true, page.getContent().get(0).getResults().toString().contains("NAME"));
 	}
-
 }
