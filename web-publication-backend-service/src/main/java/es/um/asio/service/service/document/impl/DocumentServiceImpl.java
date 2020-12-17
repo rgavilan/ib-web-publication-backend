@@ -76,7 +76,7 @@ public class DocumentServiceImpl extends FusekiService<DocumentFilter> implement
 
 	@Override
 	public Entity retrieveEntity(DocumentFilter filter) {
-		return new Entity("Documento", Arrays.asList(filter.getTypes().split(",")), "anyo", "id", "name");
+		return new Entity("Documento", Arrays.asList(filter.getTypes().split(",")), "anyo", "id", "name", "nowhere:type");
 	}
 
 	@Override

@@ -45,8 +45,10 @@ public class QueryBuilderImpl implements QueryBuilder {
 		StringBuilder strBuilder = new StringBuilder();
 		
 		for (String field: fields) {
+			String fieldFinal = field.contains(":") ? field.split(":")[field.split(":").length - 1] : field;
+			
 			strBuilder.append("?");
-			strBuilder.append(field);
+			strBuilder.append(fieldFinal);
 			strBuilder.append(" ");
 		}
 		
@@ -84,6 +86,10 @@ public class QueryBuilderImpl implements QueryBuilder {
 		StringBuilder strBuilder = new StringBuilder();
 		
 		for (String field: fields) {
+			if (field.contains("nowhere:")) {
+				continue;
+			}
+			
 			strBuilder.append("?x ");
 			strBuilder.append("<http://hercules.org/um/es-ES/rec/");
 			strBuilder.append(field);
