@@ -12,7 +12,7 @@ public interface InvoiceService {
 	/**
 	 * Find paginated.
 	 *
-	 * @param filter the filter
+	 * @param filter   the filter
 	 * @param pageable the pageable
 	 * @return the page
 	 */
@@ -24,4 +24,6 @@ public interface InvoiceService {
 	 * @return the entity
 	 */
 	Entity retrieveEntity();
+
+	String filtersChunk(InvoiceFilter filter);
 }

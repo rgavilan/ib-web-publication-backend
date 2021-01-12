@@ -17,28 +17,30 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import es.um.asio.service.filter.person.PersonFilter;
+import es.um.asio.service.filter.patent.PatentFilter;
 import es.um.asio.service.model.FusekiResponse;
-import es.um.asio.service.service.person.PersonService;
+import es.um.asio.service.service.patent.PatentService;
 
 @RunWith(SpringRunner.class)
-public class PersonFilterTest {
+public class PatentFilterTest {
 	@MockBean
-	PersonService service;
+	PatentService service;
 
-	PersonFilter filter;
+	PatentFilter filter;
 
 	Pageable pageable;
 
 	@Before
 	public void beforeTest() {
 
-		filter = new PersonFilter();
+		filter = new PatentFilter();
 
 		filter.setId("1");
 		filter.setLanguage("es");
-		filter.setCentro("Center");
-		filter.setDpto("Depart");
+		filter.setFin("11/01/2020");
+		filter.setIni("31/01/2018");
+		filter.setName("TEST");
+		filter.setTipo("C");
 
 		pageable = PageRequest.of(1, 5, Sort.by("ASC"));
 		FusekiResponse fuseki = new FusekiResponse();

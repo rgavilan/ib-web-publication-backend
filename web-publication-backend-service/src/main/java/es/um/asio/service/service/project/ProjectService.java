@@ -9,11 +9,10 @@ import es.um.asio.service.model.FusekiResponse;
 
 public interface ProjectService {
 
-
 	/**
 	 * Find paginated.
 	 *
-	 * @param filter the filter
+	 * @param filter   the filter
 	 * @param pageable the pageable
 	 * @return the page
 	 */
@@ -25,4 +24,6 @@ public interface ProjectService {
 	 * @return the entity
 	 */
 	Entity retrieveEntity();
+
+	String filtersChunk(ProjectFilter filter);
 }

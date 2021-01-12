@@ -8,11 +8,11 @@ import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
 
 public interface DocumentService {
-	
+
 	/**
 	 * Find paginated.
 	 *
-	 * @param filter the filter
+	 * @param filter   the filter
 	 * @param pageable the pageable
 	 * @return the page
 	 */
@@ -25,4 +25,6 @@ public interface DocumentService {
 	 * @return the entity
 	 */
 	Entity retrieveEntity(DocumentFilter filter);
+
+	String filtersChunk(DocumentFilter filter);
 }

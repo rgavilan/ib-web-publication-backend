@@ -27,4 +27,6 @@ public interface PatentService {
 	 * @return the entity
 	 */
 	Entity retrieveEntity();
+
+	String filtersChunk(PatentFilter filter);
 }

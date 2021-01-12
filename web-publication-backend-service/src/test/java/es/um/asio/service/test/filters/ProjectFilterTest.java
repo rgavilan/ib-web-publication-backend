@@ -17,28 +17,24 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import es.um.asio.service.filter.person.PersonFilter;
+import es.um.asio.service.filter.project.ProjectFilter;
 import es.um.asio.service.model.FusekiResponse;
-import es.um.asio.service.service.person.PersonService;
+import es.um.asio.service.service.project.ProjectService;
 
 @RunWith(SpringRunner.class)
-public class PersonFilterTest {
-	@MockBean
-	PersonService service;
+public class ProjectFilterTest {
 
-	PersonFilter filter;
+	@MockBean
+	ProjectService service;
+
+	ProjectFilter filter;
 
 	Pageable pageable;
 
 	@Before
 	public void beforeTest() {
 
-		filter = new PersonFilter();
-
-		filter.setId("1");
-		filter.setLanguage("es");
-		filter.setCentro("Center");
-		filter.setDpto("Depart");
+		filter = new ProjectFilter();
 
 		pageable = PageRequest.of(1, 5, Sort.by("ASC"));
 		FusekiResponse fuseki = new FusekiResponse();
@@ -75,4 +71,5 @@ public class PersonFilterTest {
 		assertNotNull(page);
 
 	}
+
 }
