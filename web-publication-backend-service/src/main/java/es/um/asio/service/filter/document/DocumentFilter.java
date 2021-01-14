@@ -36,4 +36,14 @@ public class DocumentFilter extends Filter {
 	 * The types
 	 */
 	private String types;
+	
+	/**
+	 * The year from
+	 */
+	private String yearFrom;
+	
+	/**
+	 * The year to
+	 */
+	private String yearTo;
 }

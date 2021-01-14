@@ -73,6 +73,22 @@ public class ArticleServiceImpl extends FusekiService<ArticleFilter> implements 
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
+			
+			if (StringUtils.isNotBlank(filter.getYearFrom())) {
+				strBuilder.append("FILTER (?anyo >= \"");
+				strBuilder.append(filter.getYearFrom());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getYearTo())) {
+				strBuilder.append("FILTER (?anyo <= \"");
+				strBuilder.append(filter.getYearTo());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
 		}
 		
 		return strBuilder.toString();
