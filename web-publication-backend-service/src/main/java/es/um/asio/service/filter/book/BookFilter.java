@@ -12,20 +12,11 @@ import lombok.ToString;
 @Setter
 @ToString(includeFieldNames = true)
 public class BookFilter extends Filter {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8003420601843949425L;
-
-	/**
-	 * The anyo
-	 */
-	private String anyo;
-	
-	/**
-	 * The coautoria
-	 */
-	private String coautoria;
 	
 	/**
 	 * The id
@@ -33,9 +24,21 @@ public class BookFilter extends Filter {
 	private String id;
 	
 	/**
-	 * The name
+	 * The isCoauthored
 	 */
-	private String name;
+	private String isCoauthored;
+	
+	/**
+	 * The topic
+	 */
+	private String topic;
+
+	/**
+	 * The year
+	 */
+	private String year;
+	
+	/* Fields not included in model */
 	
 	/**
 	 * The year from

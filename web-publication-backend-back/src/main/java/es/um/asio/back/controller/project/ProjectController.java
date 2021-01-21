@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.um.asio.service.dto.ProjectDto;
 import es.um.asio.service.filter.project.ProjectFilter;
-import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.proxy.project.ProjectProxy;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,7 @@ public class ProjectController {
 
 
 	@GetMapping(ProjectController.Mappings.SEARCH)
-	public Page<FusekiResponse> searchProyects(final ProjectFilter filter, final Pageable pageable) {
+	public Page<ProjectDto> searchProyects(final ProjectFilter filter, final Pageable pageable) {
 		return this.proxy.findPaginated(filter, pageable);
 	}
 

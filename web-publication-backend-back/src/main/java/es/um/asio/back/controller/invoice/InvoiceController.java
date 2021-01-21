@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.um.asio.service.dto.InvoiceDto;
 import es.um.asio.service.filter.invoice.InvoiceFilter;
-import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.proxy.invoice.InvoiceProxy;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,7 @@ public class InvoiceController {
 
 
 	@GetMapping(InvoiceController.Mappings.SEARCH)
-	public Page<FusekiResponse> searchProyects(final InvoiceFilter filter, final Pageable pageable) {
+	public Page<InvoiceDto> searchProyects(final InvoiceFilter filter, final Pageable pageable) {
 		return this.proxy.findPaginated(filter, pageable);
 	}
 	

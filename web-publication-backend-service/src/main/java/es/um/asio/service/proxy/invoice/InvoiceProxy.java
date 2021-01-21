@@ -3,8 +3,8 @@ package es.um.asio.service.proxy.invoice;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import es.um.asio.service.dto.InvoiceDto;
 import es.um.asio.service.filter.invoice.InvoiceFilter;
-import es.um.asio.service.model.FusekiResponse;
 
 public interface InvoiceProxy {
 
@@ -13,7 +13,7 @@ public interface InvoiceProxy {
 	 * 
 	 * @param filter
 	 * @param pageable
-	 * @return ProjectDto
+	 * @return Page<InvoiceDto>
 	 */
-	Page<FusekiResponse> findPaginated(InvoiceFilter filter, Pageable pageable);
+	Page<InvoiceDto> findPaginated(InvoiceFilter filter, Pageable pageable);
 }

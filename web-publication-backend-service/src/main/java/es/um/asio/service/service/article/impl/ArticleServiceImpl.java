@@ -41,14 +41,6 @@ public class ArticleServiceImpl extends FusekiService<ArticleFilter> implements 
 		StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
-			if (StringUtils.isNotBlank(filter.getCoautoria())) {
-				strBuilder.append("FILTER (?coautoria = \"");
-				strBuilder.append(filter.getCoautoria());
-				strBuilder.append("\"");
-				strBuilder.append(filter.getLanguage());
-				strBuilder.append(") . ");
-			}
-
 			if (StringUtils.isNotBlank(filter.getId())) {
 				strBuilder.append("FILTER (?id = \"");
 				strBuilder.append(filter.getId());
@@ -56,26 +48,34 @@ public class ArticleServiceImpl extends FusekiService<ArticleFilter> implements 
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
+			
+			if (StringUtils.isNotBlank(filter.getIsCoauthored())) {
+				strBuilder.append("FILTER (?isCoauthored = \"");
+				strBuilder.append(filter.getIsCoauthored());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
 
-			if (StringUtils.isNotBlank(filter.getName())) {
-				strBuilder.append("FILTER (LANG(?name) = \"");
+			if (StringUtils.isNotBlank(filter.getTopic())) {
+				strBuilder.append("FILTER (LANG(?topic) = \"");
 				strBuilder.append(filter.getLanguage().substring(1));
 				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?name, \"");
-				strBuilder.append(filter.getName());
+				strBuilder.append("FILTER ( regex(?topic, \"");
+				strBuilder.append(filter.getTopic());
 				strBuilder.append("\", \"i\")) . ");
 			}
 			
-			if (StringUtils.isNotBlank(filter.getAnyo())) {
-				strBuilder.append("FILTER (?anyo = \"");
-				strBuilder.append(filter.getAnyo());
+			if (StringUtils.isNotBlank(filter.getYear())) {
+				strBuilder.append("FILTER (?year = \"");
+				strBuilder.append(filter.getYear());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
 			
 			if (StringUtils.isNotBlank(filter.getYearFrom())) {
-				strBuilder.append("FILTER (?anyo >= \"");
+				strBuilder.append("FILTER (?year >= \"");
 				strBuilder.append(filter.getYearFrom());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
@@ -83,7 +83,7 @@ public class ArticleServiceImpl extends FusekiService<ArticleFilter> implements 
 			}
 			
 			if (StringUtils.isNotBlank(filter.getYearTo())) {
-				strBuilder.append("FILTER (?anyo <= \"");
+				strBuilder.append("FILTER (?year <= \"");
 				strBuilder.append(filter.getYearTo());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
@@ -96,7 +96,7 @@ public class ArticleServiceImpl extends FusekiService<ArticleFilter> implements 
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Articulo", "anyo", "coautoria", "id", "name");
+		return new Entity("Article", "id", "isCoauthored", "topic", "year");
 	}
 
 }

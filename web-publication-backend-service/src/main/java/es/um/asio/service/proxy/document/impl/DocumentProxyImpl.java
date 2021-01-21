@@ -5,8 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import es.um.asio.service.dto.DocumentDto;
 import es.um.asio.service.filter.document.DocumentFilter;
-import es.um.asio.service.model.FusekiResponse;
+import es.um.asio.service.mapper.DocumentMapper;
 import es.um.asio.service.proxy.document.DocumentProxy;
 import es.um.asio.service.service.document.DocumentService;
 
@@ -20,9 +21,12 @@ public class DocumentProxyImpl implements DocumentProxy {
 	@Autowired
 	private DocumentService service;
 	
+	@Autowired
+	private DocumentMapper mapper;
+	
 	@Override
-	public Page<FusekiResponse> findPaginated(DocumentFilter filter, Pageable pageable) {
-		return this.service.findPaginated(filter, pageable);
+	public Page<DocumentDto> findPaginated(DocumentFilter filter, Pageable pageable) {
+		return this.mapper.convertPageFusekiResponseToDto(this.service.findPaginated(filter, pageable));
 	}
 
 }

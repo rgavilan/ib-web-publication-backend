@@ -18,9 +18,14 @@ public class PatentFilter extends Filter {
 	private static final long serialVersionUID = 8008993664632532940L;
 
 	/**
-	 * The fin fin
+	 * The fin date
 	 */
-	private String fin;
+	private String date;
+
+	/**
+	 * The fin expirationDate
+	 */
+	private String expirationDate;
 
 	/**
 	 * The fin id
@@ -28,18 +33,7 @@ public class PatentFilter extends Filter {
 	private String id;
 
 	/**
-	 * The fin ini
+	 * The fin topic
 	 */
-	private String ini;
-
-	/**
-	 * The fin name
-	 */
-	private String name;
-
-	/**
-	 * The fin tipo
-	 */
-	private String tipo;
-
+	private String topic;
 }

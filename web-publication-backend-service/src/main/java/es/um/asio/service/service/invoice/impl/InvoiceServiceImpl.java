@@ -56,7 +56,7 @@ public class InvoiceServiceImpl extends FusekiService<InvoiceFilter> implements 
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Factura", "id");
+		return new Entity("Invoice", "id");
 	}
 
 }

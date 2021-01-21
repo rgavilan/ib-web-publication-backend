@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.um.asio.abstractions.constants.Constants;
 import es.um.asio.service.filter.project.ProjectFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
@@ -16,7 +15,6 @@ import es.um.asio.service.model.PageableQuery;
 import es.um.asio.service.service.impl.FusekiService;
 import es.um.asio.service.service.project.ProjectService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
-import es.um.asio.service.util.SparqlUtils;
 
 @Service
 public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements ProjectService {
@@ -42,17 +40,12 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 	public String filtersChunk(ProjectFilter filter) {
 		StringBuilder strBuilder = new StringBuilder();
 		if (filter != null) {
-			if (StringUtils.isNotBlank(filter.getFund())) {
-				strBuilder.append("FILTER (LANG(?fund) = \"");
-				strBuilder.append(filter.getFund().substring(1));
-				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?fund, \"");
-				strBuilder.append(filter.getFund());
-				strBuilder.append("\", \"i\")) . ");
-			}
-
-			if (StringUtils.isNotBlank(filter.getEnd())) {
-				strBuilder.append(SparqlUtils.dateLE("end", filter.getEnd(), Constants.DATE_FORMAT_YYYY_MM_DD));
+			if (StringUtils.isNotBlank(filter.getEndDate())) {
+				strBuilder.append("FILTER (?endDate = \"");
+				strBuilder.append(filter.getStartDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
 			}
 
 			if (StringUtils.isNotBlank(filter.getId())) {
@@ -61,10 +54,6 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
-			}
-
-			if (StringUtils.isNotBlank(filter.getStart())) {
-				strBuilder.append(SparqlUtils.dateGE("start", filter.getStart(), Constants.DATE_FORMAT_YYYY_MM_DD));
 			}
 
 			if (StringUtils.isNotBlank(filter.getName())) {
@@ -76,9 +65,18 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append("\", \"i\")) . ");
 			}
 
-			if (StringUtils.isNotBlank(filter.getTipo())) {
-				strBuilder.append("FILTER (?tipo = \"");
-				strBuilder.append(filter.getTipo());
+			if (StringUtils.isNotBlank(filter.getObjective())) {
+				strBuilder.append("FILTER (LANG(?objective) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?objective, \"");
+				strBuilder.append(filter.getObjective());
+				strBuilder.append("\", \"i\")) . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getStartDate())) {
+				strBuilder.append("FILTER (?startDate = \"");
+				strBuilder.append(filter.getStartDate());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
@@ -89,7 +87,7 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 	}
 
 	public Entity retrieveEntity() {
-		return new Entity("Proyecto", "end", "fund", "id", "name", "start", "tipo");
+		return new Entity("Project", "endDate", "id", "name", "objective", "startDate");
 	}
 
 }

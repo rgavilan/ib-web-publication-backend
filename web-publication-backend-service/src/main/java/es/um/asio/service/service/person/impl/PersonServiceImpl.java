@@ -12,7 +12,6 @@ import es.um.asio.service.filter.person.PersonFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.model.PageableQuery;
-import es.um.asio.service.service.article.impl.ArticleServiceImpl;
 import es.um.asio.service.service.impl.FusekiService;
 import es.um.asio.service.service.person.PersonService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
@@ -23,7 +22,7 @@ public class PersonServiceImpl extends FusekiService<PersonFilter> implements Pe
 	/**
 	 * Logger
 	 */
-	private final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
 
 	@Autowired
 	private SparqlExecQuery serviceSPARQL;
@@ -42,24 +41,6 @@ public class PersonServiceImpl extends FusekiService<PersonFilter> implements Pe
 		StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
-			if (StringUtils.isNotBlank(filter.getCentro())) {
-				strBuilder.append("FILTER (LANG(?Centro) = \"");
-				strBuilder.append(filter.getLanguage().substring(1));
-				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?Centro, \"");
-				strBuilder.append(filter.getCentro());
-				strBuilder.append("\", \"i\")) . ");
-			}
-			
-			if (StringUtils.isNotBlank(filter.getDpto())) {
-				strBuilder.append("FILTER (LANG(?Dpto) = \"");
-				strBuilder.append(filter.getLanguage().substring(1));
-				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?Dpto, \"");
-				strBuilder.append(filter.getDpto());
-				strBuilder.append("\", \"i\")) . ");
-			}
-
 			if (StringUtils.isNotBlank(filter.getId())) {
 				strBuilder.append("FILTER (?id = \"");
 				strBuilder.append(filter.getId());
@@ -74,7 +55,7 @@ public class PersonServiceImpl extends FusekiService<PersonFilter> implements Pe
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Persona", "Centro", "Dpto", "id");
+		return new Entity("Person", "id");
 	}
 
 }

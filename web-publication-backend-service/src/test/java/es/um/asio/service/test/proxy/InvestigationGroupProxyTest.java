@@ -19,13 +19,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import es.um.asio.service.filter.investigationgroup.InvestigationGroupFilter;
+import es.um.asio.service.filter.researchgroup.ResearchGroupFilter;
 import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.model.PageableQuery;
-import es.um.asio.service.proxy.investigationgroup.InvestigationGroupProxy;
-import es.um.asio.service.proxy.investigationgroup.impl.InvestigationGroupProxyImpl;
-import es.um.asio.service.service.investigationgroup.InvestigationGroupService;
-import es.um.asio.service.service.investigationgroup.impl.InvestigationGroupServiceImpl;
+import es.um.asio.service.proxy.researchgroup.ResearchGroupProxy;
+import es.um.asio.service.proxy.researchgroup.impl.ResearchGroupProxyImpl;
+import es.um.asio.service.service.researchgroup.ResearchGroupService;
+import es.um.asio.service.service.researchgroup.impl.ResearchGroupServiceImpl;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
 
 @RunWith(SpringRunner.class)
@@ -34,35 +34,35 @@ public class InvestigationGroupProxyTest {
 	 * Article proxy
 	 */
 	@Autowired
-	private InvestigationGroupProxy proxy;
+	private ResearchGroupProxy proxy;
 
 	@Autowired
-	private InvestigationGroupService service;
+	private ResearchGroupService service;
 
 	@MockBean
 	private SparqlExecQuery serviceSPARQL;
 
-	InvestigationGroupFilter filter;
+	ResearchGroupFilter filter;
 
 	Pageable pageable;
 
 	@TestConfiguration
 	static class InvestigationGroupProxyTestConfiguration {
 		@Bean
-		public InvestigationGroupProxy investigationGroupProxy() {
-			return new InvestigationGroupProxyImpl();
+		public ResearchGroupProxy investigationGroupProxy() {
+			return new ResearchGroupProxyImpl();
 		}
 
 		@Bean
 		@Primary
-		public InvestigationGroupService investigationGroupService() {
-			return new InvestigationGroupServiceImpl();
+		public ResearchGroupService investigationGroupService() {
+			return new ResearchGroupServiceImpl();
 		}
 	}
 
 	@Before
 	public void set_Up() {
-		filter = new InvestigationGroupFilter();
+		filter = new ResearchGroupFilter();
 
 		filter.setId("1");
 		filter.setLanguage("es");
