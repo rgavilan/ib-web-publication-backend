@@ -40,9 +40,33 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 	public String filtersChunk(ProjectFilter filter) {
 		StringBuilder strBuilder = new StringBuilder();
 		if (filter != null) {
+			if (StringUtils.isNotBlank(filter.getAbbreviation())) {
+				strBuilder.append("FILTER (?abbreviation = \"");
+				strBuilder.append(filter.getAbbreviation());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getDescription())) {
+				strBuilder.append("FILTER (?description = \"");
+				strBuilder.append(filter.getDescription());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getEndDate())) {
 				strBuilder.append("FILTER (?endDate = \"");
 				strBuilder.append(filter.getStartDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getForeseenJustificationDate())) {
+				strBuilder.append("FILTER (?foreseenJustificationDate = \"");
+				strBuilder.append(filter.getForeseenJustificationDate());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
@@ -55,23 +79,29 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
-
-			if (StringUtils.isNotBlank(filter.getName())) {
-				strBuilder.append("FILTER (LANG(?name) = \"");
-				strBuilder.append(filter.getLanguage().substring(1));
-				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?name, \"");
-				strBuilder.append(filter.getName());
-				strBuilder.append("\", \"i\")) . ");
+			
+			if (StringUtils.isNotBlank(filter.getKeyword())) {
+				strBuilder.append("FILTER (?keyword = \"");
+				strBuilder.append(filter.getKeyword());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
 			}
-
-			if (StringUtils.isNotBlank(filter.getObjective())) {
-				strBuilder.append("FILTER (LANG(?objective) = \"");
-				strBuilder.append(filter.getLanguage().substring(1));
-				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?objective, \"");
-				strBuilder.append(filter.getObjective());
-				strBuilder.append("\", \"i\")) . ");
+			
+			if (StringUtils.isNotBlank(filter.getModality())) {
+				strBuilder.append("FILTER (?modality = \"");
+				strBuilder.append(filter.getModality());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getNeedsEthicalValidation())) {
+				strBuilder.append("FILTER (?needsEthicalValidation = \"");
+				strBuilder.append(filter.getNeedsEthicalValidation());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
 			}
 			
 			if (StringUtils.isNotBlank(filter.getStartDate())) {
@@ -81,13 +111,31 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
+			
+			if (StringUtils.isNotBlank(filter.getStatus())) {
+				strBuilder.append("FILTER (?status = \"");
+				strBuilder.append(filter.getStatus());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+
+			if (StringUtils.isNotBlank(filter.getTitle())) {
+				strBuilder.append("FILTER (LANG(?title) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?title, \"");
+				strBuilder.append(filter.getTitle());
+				strBuilder.append("\", \"i\")) . ");
+			}
 
 		}
 		return strBuilder.toString();
 	}
 
 	public Entity retrieveEntity() {
-		return new Entity("Project", "endDate", "id", "name", "objective", "startDate");
+		return new Entity("Project", "abbreviation", "description", "endDate", "foreseenJustificationDate", "id", "keyword", "modality", 
+				"needsEthicalValidation", "startDate", "status", "title");
 	}
 
 }

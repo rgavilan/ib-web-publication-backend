@@ -1,13 +1,13 @@
-package es.um.asio.service.service.congress;
+package es.um.asio.service.service.conference;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import es.um.asio.service.filter.congress.CongressFilter;
+import es.um.asio.service.filter.conference.ConferenceFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
 
-public interface CongressService {
+public interface ConferenceService {
 
 	/**
 	 * Find paginated.
@@ -16,7 +16,7 @@ public interface CongressService {
 	 * @param pageable the pageable
 	 * @return the page
 	 */
-	Page<FusekiResponse> findPaginated(CongressFilter filter, Pageable pageable);
+	Page<FusekiResponse> findPaginated(ConferenceFilter filter, Pageable pageable);
 
 	/**
 	 * Retrieve entity.
@@ -25,5 +25,5 @@ public interface CongressService {
 	 */
 	Entity retrieveEntity();
 
-	String filtersChunk(CongressFilter filter);
+	String filtersChunk(ConferenceFilter filter);
 }

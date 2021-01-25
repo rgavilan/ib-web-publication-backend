@@ -38,7 +38,7 @@ public class ResearchGroupController {
 		/**
 		 * Controller request mapping.
 		 */
-		protected static final String BASE = "/investigationgroup";
+		protected static final String BASE = "/researchGroup";
 
 		/**
 		 * Mapping for search.

@@ -1,13 +1,13 @@
-package es.um.asio.service.service.expo;
+package es.um.asio.service.service.exhibit;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import es.um.asio.service.filter.expo.ExpoFilter;
+import es.um.asio.service.filter.exhibit.ExhibitFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
 
-public interface ExpoService {
+public interface ExhibitService {
 
 	/**
 	 * Find paginated.
@@ -16,7 +16,7 @@ public interface ExpoService {
 	 * @param pageable the pageable
 	 * @return the page
 	 */
-	Page<FusekiResponse> findPaginated(ExpoFilter filter, Pageable pageable);
+	Page<FusekiResponse> findPaginated(ExhibitFilter filter, Pageable pageable);
 
 	/**
 	 * Retrieve entity.
@@ -25,5 +25,5 @@ public interface ExpoService {
 	 */
 	Entity retrieveEntity();
 
-	String filtersChunk(ExpoFilter filter);
+	String filtersChunk(ExhibitFilter filter);
 }

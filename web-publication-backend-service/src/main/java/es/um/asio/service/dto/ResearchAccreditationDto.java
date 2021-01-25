@@ -1,0 +1,42 @@
+package es.um.asio.service.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * The class ArticleDto
+ */
+@Getter
+@Setter
+public class ResearchAccreditationDto {
+
+	/**
+	 * The dateIssued
+	 */
+	private String dateIssued;
+	
+	/**
+	 * The description
+	 */
+	private String description;
+	
+	/**
+	 * The governingAuthority
+	 */
+	private String governingAuthority;
+	
+	/**
+	 * The hasSubjectArea
+	 */
+	private String hasSubjectArea;
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The title
+	 */
+	private String title;
+}

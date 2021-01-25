@@ -19,34 +19,49 @@ public class ArticleFilter extends Filter {
 	private static final long serialVersionUID = 7608048444987210263L;
 	
 	/**
+	 * The date
+	 */
+	private String date;
+	
+	/**
+	 * The doi
+	 */
+	private String doi;
+	
+	/**
+	 * The endPage
+	 */
+	private String endPage;
+	
+	/**
 	 * The id
 	 */
 	private String id;
 	
 	/**
-	 * The isCoauthored
+	 * The publishedIn
 	 */
-	private String isCoauthored;
+	private String publishedIn;
 	
 	/**
-	 * The topic
+	 * The startPage
 	 */
-	private String topic;
+	private String startPage;
 	
 	/**
-	 * The year
+	 * The title
 	 */
-	private String year;
+	private String title;
 	
 	/* Fields not included in model */
 	
 	/**
 	 * The year from
 	 */
-	private String yearFrom;
+	private String dateFrom;
 	
 	/**
 	 * The year to
 	 */
-	private String yearTo;
+	private String dateTo;
 }

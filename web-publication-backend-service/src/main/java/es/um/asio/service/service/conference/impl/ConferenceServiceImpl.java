@@ -1,4 +1,4 @@
-package es.um.asio.service.service.congress.impl;
+package es.um.asio.service.service.conference.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -8,27 +8,27 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.um.asio.service.filter.congress.CongressFilter;
+import es.um.asio.service.filter.conference.ConferenceFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.model.PageableQuery;
-import es.um.asio.service.service.congress.CongressService;
+import es.um.asio.service.service.conference.ConferenceService;
 import es.um.asio.service.service.impl.FusekiService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
 
 @Service
-public class CongressServiceImpl extends FusekiService<CongressFilter> implements CongressService {
+public class ConferenceServiceImpl extends FusekiService<ConferenceFilter> implements ConferenceService {
 
 	/**
 	 * Logger
 	 */
-	private final Logger logger = LoggerFactory.getLogger(CongressServiceImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(ConferenceServiceImpl.class);
 
 	@Autowired
 	private SparqlExecQuery serviceSPARQL;
 	
 	@Override
-	public Page<FusekiResponse> findPaginated(CongressFilter filter, Pageable pageable) {
+	public Page<FusekiResponse> findPaginated(ConferenceFilter filter, Pageable pageable) {
 		logger.info("Searching congress with filter: {} page: {}", filter, pageable);
 
 		PageableQuery pageableQuery = new PageableQuery(this.retrieveEntity(), filtersChunk(filter), pageable);
@@ -37,16 +37,41 @@ public class CongressServiceImpl extends FusekiService<CongressFilter> implement
 	}
 
 	@Override
-	public String filtersChunk(CongressFilter filter) {
+	public String filtersChunk(ConferenceFilter filter) {
 		StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
+			if (StringUtils.isNotBlank(filter.getAbbreviation())) {
+				strBuilder.append("FILTER (?abbreviation = \"");
+				strBuilder.append(filter.getAbbreviation());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getContactInformation())) {
+				strBuilder.append("FILTER (?contactInformation = \"");
+				strBuilder.append(filter.getContactInformation());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getDate())) {
 				strBuilder.append("FILTER (?date = \"");
 				strBuilder.append(filter.getDate());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getDescription())) {
+				strBuilder.append("FILTER (LANG(?description) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?description, \"");
+				strBuilder.append(filter.getDescription());
+				strBuilder.append("\", \"i\")) . ");
 			}
 
 			if (StringUtils.isNotBlank(filter.getId())) {
@@ -57,21 +82,36 @@ public class CongressServiceImpl extends FusekiService<CongressFilter> implement
 				strBuilder.append(") . ");
 			}
 			
-			if (StringUtils.isNotBlank(filter.getPlace())) {
-				strBuilder.append("FILTER (LANG(?place) = \"");
-				strBuilder.append(filter.getLanguage().substring(1));
-				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?place, \"");
-				strBuilder.append(filter.getPlace());
-				strBuilder.append("\", \"i\")) . ");
+			if (StringUtils.isNotBlank(filter.getLocality())) {
+				strBuilder.append("FILTER (?locality = \"");
+				strBuilder.append(filter.getLocality());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getLocatedIn())) {
+				strBuilder.append("FILTER (?locatedIn = \"");
+				strBuilder.append(filter.getLocatedIn());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getPresents())) {
+				strBuilder.append("FILTER (?presents = \"");
+				strBuilder.append(filter.getPresents());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
 			}
 
-			if (StringUtils.isNotBlank(filter.getTopic())) {
-				strBuilder.append("FILTER (LANG(?topic) = \"");
+			if (StringUtils.isNotBlank(filter.getTitle())) {
+				strBuilder.append("FILTER (LANG(?title) = \"");
 				strBuilder.append(filter.getLanguage().substring(1));
 				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?topic, \"");
-				strBuilder.append(filter.getTopic());
+				strBuilder.append("FILTER ( regex(?title, \"");
+				strBuilder.append(filter.getTitle());
 				strBuilder.append("\", \"i\")) . ");
 			}
 		}
@@ -81,7 +121,7 @@ public class CongressServiceImpl extends FusekiService<CongressFilter> implement
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Congress", "date", "id", "place", "topic");
+		return new Entity("Conference", "abbreviation", "contactInformation", "date", "description", "id", "locality", "locatedIn", "presents", "title");
 	}
 
 }

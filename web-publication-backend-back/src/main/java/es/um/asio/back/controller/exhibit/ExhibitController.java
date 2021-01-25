@@ -1,4 +1,4 @@
-package es.um.asio.back.controller.expo;
+package es.um.asio.back.controller.exhibit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.um.asio.service.dto.ExpoDto;
-import es.um.asio.service.filter.expo.ExpoFilter;
-import es.um.asio.service.proxy.expo.ExpoProxy;
+import es.um.asio.service.dto.ExhibitDto;
+import es.um.asio.service.filter.exhibit.ExhibitFilter;
+import es.um.asio.service.proxy.exhibit.ExhibitProxy;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -18,18 +18,18 @@ import lombok.NoArgsConstructor;
  * Expo controller.
  */
 @RestController
-@RequestMapping(ExpoController.Mappings.BASE)
-public class ExpoController {
+@RequestMapping(ExhibitController.Mappings.BASE)
+public class ExhibitController {
 
 	@Autowired
-	private ExpoProxy proxy;
+	private ExhibitProxy proxy;
 	
 	@Value("${app.fusekitrellis.url}")
 	private String fusekiTrellisUrl;
 
 
-	@GetMapping(ExpoController.Mappings.SEARCH)
-	public Page<ExpoDto> searchProyects(final ExpoFilter filter, final Pageable pageable) {
+	@GetMapping(ExhibitController.Mappings.SEARCH)
+	public Page<ExhibitDto> searchProyects(final ExhibitFilter filter, final Pageable pageable) {
 		return this.proxy.findPaginated(filter, pageable);
 	}
 	
@@ -38,7 +38,7 @@ public class ExpoController {
 		/**
 		 * Controller request mapping.
 		 */
-		protected static final String BASE = "/Expo";
+		protected static final String BASE = "/exhibit";
 
 		/**
 		 * Mapping for search.

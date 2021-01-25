@@ -11,27 +11,57 @@ import lombok.Setter;
 public class ProjectDto {
 
 	/**
+	 * The abbreviation
+	 */
+	private String abbreviation;
+	
+	/**
+	 * The description
+	 */
+	private String description;
+	
+	/**
 	 * The endDate
 	 */
 	private String endDate;
 	
+	/**
+	 * The foreseenJustificationDate
+	 */
+	private String foreseenJustificationDate;
+	
 	/** 
-	 * The id. 
+	 * The id
 	 */
 	private String id;
 	
 	/**
-	 * The name
+	 * The keyword
 	 */
-	private String name;
+	private String keyword;
 
 	/**
-	 * The objective
+	 * The modality
 	 */
-	private String objective;
+	private String modality;
 	
 	/**
-	 * The startDate
+	 * The needsEthicalValidation
+	 */
+	private String needsEthicalValidation;
+	
+	/** 
+	 * The startDate 
 	 */
 	private String startDate;
+	
+	/** 
+	 * The status 
+	 */
+	private String status;
+	
+	/** 
+	 * The title 
+	 */
+	private String title;
 }

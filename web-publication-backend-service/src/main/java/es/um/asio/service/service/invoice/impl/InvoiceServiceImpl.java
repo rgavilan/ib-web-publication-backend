@@ -42,12 +42,69 @@ public class InvoiceServiceImpl extends FusekiService<InvoiceFilter> implements 
 		StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
+			if (StringUtils.isNotBlank(filter.getDateTime())) {
+				strBuilder.append("FILTER (?dateTime = \"");
+				strBuilder.append(filter.getDateTime());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getDoi())) {
+				strBuilder.append("FILTER (?doi = \"");
+				strBuilder.append(filter.getDoi());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getEndPage())) {
+				strBuilder.append("FILTER (?endPage = \"");
+				strBuilder.append(filter.getEndPage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getId())) {
 				strBuilder.append("FILTER (?id = \"");
 				strBuilder.append(filter.getId());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getKeyword())) {
+				strBuilder.append("FILTER (?keyword = \"");
+				strBuilder.append(filter.getKeyword());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getPublishedIn())) {
+				strBuilder.append("FILTER (?publishedIn = \"");
+				strBuilder.append(filter.getPublishedIn());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getStartPage())) {
+				strBuilder.append("FILTER (?startPage = \"");
+				strBuilder.append(filter.getStartPage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+
+			if (StringUtils.isNotBlank(filter.getTitle())) {
+				strBuilder.append("FILTER (LANG(?title) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?title, \"");
+				strBuilder.append(filter.getTitle());
+				strBuilder.append("\", \"i\")) . ");
 			}
 		}
 		
@@ -56,7 +113,7 @@ public class InvoiceServiceImpl extends FusekiService<InvoiceFilter> implements 
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Invoice", "id");
+		return new Entity("Invoice", "dateTime", "doi", "endPage", "id", "keyword", "publishedIn", "startPage", "title");
 	}
 
 }

@@ -38,7 +38,7 @@ public class MasterThesisController {
 		/**
 		 * Controller request mapping.
 		 */
-		protected static final String BASE = "/MasterThesis";
+		protected static final String BASE = "/masterThesis";
 
 		/**
 		 * Mapping for search.

@@ -8,25 +8,50 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CongressDto {
+public class ConferenceDto {
 
+	/**
+	 * The abbreviation
+	 */
+	private String abbreviation;
+	
+	/**
+	 * The contactInformation
+	 */
+	private String contactInformation;
+	
 	/**
 	 * The date
 	 */
 	private String date;
 	
 	/**
+	 * The description
+	 */
+	private String description;
+	
+	/**
 	 * The id
 	 */
 	private String id;
-
-	/**
-	 * The place
-	 */
-	private String place;
 	
 	/**
-	 * The topic
+	 * The locality
 	 */
-	private String topic;
+	private String locality;
+	
+	/**
+	 * The locatedIn
+	 */
+	private String locatedIn;
+	
+	/**
+	 * The presents
+	 */
+	private String presents;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 }

@@ -19,12 +19,22 @@ public class FundingFilter extends Filter {
 	private static final long serialVersionUID = -6925981466843046610L;
 
 	/**
+	 * The date
+	 */
+	private String date;
+	
+	/**
 	 * The id
 	 */
 	private String id;
+	
+	/**
+	 * The publicFunding
+	 */
+	private String publicFunding;
 
 	/**
-	 * The name
+	 * The title
 	 */
-	private String name;
+	private String title;
 }

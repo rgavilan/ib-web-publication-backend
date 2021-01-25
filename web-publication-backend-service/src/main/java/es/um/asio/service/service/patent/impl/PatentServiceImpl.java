@@ -37,19 +37,35 @@ public class PatentServiceImpl implements PatentService {
 
 	public String filtersChunk(PatentFilter filter) {
 		StringBuilder strBuilder = new StringBuilder();
+		
 		if (filter != null) {
-
-			if (StringUtils.isNotBlank(filter.getDate())) {
-				strBuilder.append("FILTER (?date = \"");
-				strBuilder.append(filter.getDate());
+			if (StringUtils.isNotBlank(filter.getDateIssued())) {
+				strBuilder.append("FILTER (?dateIssued = \"");
+				strBuilder.append(filter.getDateIssued());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
 			
-			if (StringUtils.isNotBlank(filter.getExpirationDate())) {
-				strBuilder.append("FILTER (?expirationDate = \"");
-				strBuilder.append(filter.getExpirationDate());
+			if (StringUtils.isNotBlank(filter.getDoi())) {
+				strBuilder.append("FILTER (?doi = \"");
+				strBuilder.append(filter.getDoi());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getEndDate())) {
+				strBuilder.append("FILTER (?endDate = \"");
+				strBuilder.append(filter.getEndDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getEndPage())) {
+				strBuilder.append("FILTER (?endPage = \"");
+				strBuilder.append(filter.getEndPage());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
@@ -62,13 +78,45 @@ public class PatentServiceImpl implements PatentService {
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
+			
+			if (StringUtils.isNotBlank(filter.getKeyword())) {
+				strBuilder.append("FILTER (?keyword = \"");
+				strBuilder.append(filter.getKeyword());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getMode())) {
+				strBuilder.append("FILTER (?mode = \"");
+				strBuilder.append(filter.getMode());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getStartDate())) {
+				strBuilder.append("FILTER (?StartDate = \"");
+				strBuilder.append(filter.getStartDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getStartPage())) {
+				strBuilder.append("FILTER (?startPage = \"");
+				strBuilder.append(filter.getStartPage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
 
-			if (StringUtils.isNotBlank(filter.getTopic())) {
-				strBuilder.append("FILTER (LANG(?topic) = \"");
+			if (StringUtils.isNotBlank(filter.getTitle())) {
+				strBuilder.append("FILTER (LANG(?title) = \"");
 				strBuilder.append(filter.getLanguage().substring(1));
 				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?topic, \"");
-				strBuilder.append(filter.getTopic());
+				strBuilder.append("FILTER ( regex(?title, \"");
+				strBuilder.append(filter.getTitle());
 				strBuilder.append("\", \"i\")) . ");
 			}
 		}
@@ -77,7 +125,7 @@ public class PatentServiceImpl implements PatentService {
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Patent", "date", "expirationDate", "id", "topic");
+		return new Entity("Patent", "dateIssued", "doi", "endDate", "endPage", "id", "keyword", "mode", "startDate", "startPage", "title");
 	}
 
 }

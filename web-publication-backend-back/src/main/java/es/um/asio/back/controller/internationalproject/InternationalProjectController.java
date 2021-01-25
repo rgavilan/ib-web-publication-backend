@@ -38,7 +38,7 @@ public class InternationalProjectController {
 		/**
 		 * Controller request mapping.
 		 */
-		protected static final String BASE = "/InternationalProject";
+		protected static final String BASE = "/internationalProject";
 
 		/**
 		 * Mapping for search.

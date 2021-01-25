@@ -11,10 +11,25 @@ import lombok.Setter;
 public class MasterThesisDto {
 
 	/**
+	 * The abbreviation
+	 */
+	private String abbreviation;
+	
+	/**
 	 * The date
 	 */
 	private String date;
-
+	
+	/**
+	 * The doi
+	 */
+	private String doi;
+	
+	/**
+	 * The endPage
+	 */
+	private String endPage;
+	
 	/**
 	 * The id
 	 */
@@ -24,4 +39,24 @@ public class MasterThesisDto {
 	 * The name
 	 */
 	private String name;
+	
+	/**
+	 * The placeOfPublication
+	 */
+	private String placeOfPublication;
+	
+	/**
+	 * The publishedIn
+	 */
+	private String publishedIn;
+	
+	/**
+	 * The startPage
+	 */
+	private String startPage;
+	
+	/**
+	 * The university
+	 */
+	private String university;
 }

@@ -1,4 +1,4 @@
-package es.um.asio.service.filter.phdthesis;
+package es.um.asio.service.filter.doctoralthesis;
 
 import es.um.asio.service.filter.Filter;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(includeFieldNames = true)
-public class PhDThesisFilter extends Filter {
+public class DoctoralThesisFilter extends Filter {
 	
 	/**
 	 * 
@@ -19,9 +19,9 @@ public class PhDThesisFilter extends Filter {
 	private static final long serialVersionUID = 4280705222425402676L;
 
 	/**
-	 * The awarded
+	 * The abbreviation
 	 */
-	private String awarded;
+	private String abbreviation;
 	
 	/**
 	 * The date
@@ -29,12 +29,37 @@ public class PhDThesisFilter extends Filter {
 	private String date;
 	
 	/**
+	 * The doi
+	 */
+	private String doi;
+	
+	/**
+	 * The endPage
+	 */
+	private String endPage;
+	
+	/**
 	 * The id
 	 */
 	private String id;
 	
 	/**
-	 * The id
+	 * The placeOfPublication
 	 */
-	private String topic;
+	private String placeOfPublication;
+	
+	/**
+	 * The publishedIn
+	 */
+	private String publishedIn;
+	
+	/**
+	 * The startPage
+	 */
+	private String startPage;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 }

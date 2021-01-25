@@ -41,9 +41,121 @@ public class PersonServiceImpl extends FusekiService<PersonFilter> implements Pe
 		StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
+			if (StringUtils.isNotBlank(filter.getBirthDate())) {
+				strBuilder.append("FILTER (?birthDate = \"");
+				strBuilder.append(filter.getBirthDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getDescription())) {
+				strBuilder.append("FILTER (?description = \"");
+				strBuilder.append(filter.getDescription());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getFirstName())) {
+				strBuilder.append("FILTER (?firstName = \"");
+				strBuilder.append(filter.getFirstName());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getGender())) {
+				strBuilder.append("FILTER (?gender = \"");
+				strBuilder.append(filter.getGender());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getHasContactInfo())) {
+				strBuilder.append("FILTER (?hasContactInfo = \"");
+				strBuilder.append(filter.getHasContactInfo());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getHomepage())) {
+				strBuilder.append("FILTER (?homepage = \"");
+				strBuilder.append(filter.getHomepage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getId())) {
 				strBuilder.append("FILTER (?id = \"");
 				strBuilder.append(filter.getId());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getImage())) {
+				strBuilder.append("FILTER (?image = \"");
+				strBuilder.append(filter.getImage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getName())) {
+				strBuilder.append("FILTER (?name = \"");
+				strBuilder.append(filter.getName());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getNickname())) {
+				strBuilder.append("FILTER (?nickname = \"");
+				strBuilder.append(filter.getNickname());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getPersonalMailBox())) {
+				strBuilder.append("FILTER (?personalMailBox = \"");
+				strBuilder.append(filter.getPersonalMailBox());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getResearchLine())) {
+				strBuilder.append("FILTER (?researchLine = \"");
+				strBuilder.append(filter.getResearchLine());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getSurname())) {
+				strBuilder.append("FILTER (?surname = \"");
+				strBuilder.append(filter.getSurname());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getTaxId())) {
+				strBuilder.append("FILTER (?taxId = \"");
+				strBuilder.append(filter.getTaxId());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getTitle())) {
+				strBuilder.append("FILTER (?title = \"");
+				strBuilder.append(filter.getTitle());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
@@ -55,7 +167,8 @@ public class PersonServiceImpl extends FusekiService<PersonFilter> implements Pe
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Person", "id");
+		return new Entity("Person", "birthDate", "description", "firstName", "gender", "hasContactInfo", "homepage", "id", "image", "name", "nickname", 
+				"personalMailBox", "researchLine", "surname", "taxId", "title");
 	}
 
 }

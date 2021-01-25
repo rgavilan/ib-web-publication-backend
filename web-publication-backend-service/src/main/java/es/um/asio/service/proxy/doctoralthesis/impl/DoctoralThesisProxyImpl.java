@@ -1,31 +1,31 @@
-package es.um.asio.service.proxy.phdthesis.impl;
+package es.um.asio.service.proxy.doctoralthesis.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.um.asio.service.dto.PhDThesisDto;
-import es.um.asio.service.filter.phdthesis.PhDThesisFilter;
-import es.um.asio.service.mapper.PhDThesisMapper;
-import es.um.asio.service.proxy.phdthesis.PhDThesisProxy;
-import es.um.asio.service.service.phdthesis.PhDThesisService;
+import es.um.asio.service.dto.DoctoralThesisDto;
+import es.um.asio.service.filter.doctoralthesis.DoctoralThesisFilter;
+import es.um.asio.service.mapper.DoctoralThesisMapper;
+import es.um.asio.service.proxy.doctoralthesis.DoctoralThesisProxy;
+import es.um.asio.service.service.doctoralthesis.DoctoralThesisService;
 
 /**
  * Implementación del Proxy para PhDThesis
  *
  */
 @Service
-public class PhDThesisProxyImpl implements PhDThesisProxy {
+public class DoctoralThesisProxyImpl implements DoctoralThesisProxy {
 
 	@Autowired
-	private PhDThesisService service;
+	private DoctoralThesisService service;
 	
 	@Autowired
-	private PhDThesisMapper mapper;
+	private DoctoralThesisMapper mapper;
 	
 	@Override
-	public Page<PhDThesisDto> findPaginated(PhDThesisFilter filter, Pageable pageable) {
+	public Page<DoctoralThesisDto> findPaginated(DoctoralThesisFilter filter, Pageable pageable) {
 		return this.mapper.convertPageFusekiResponseToDto(this.service.findPaginated(filter, pageable));
 	}
 }

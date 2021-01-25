@@ -1,19 +1,19 @@
-package es.um.asio.service.proxy.expo;
+package es.um.asio.service.proxy.exhibit;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import es.um.asio.service.dto.ExpoDto;
-import es.um.asio.service.filter.expo.ExpoFilter;
+import es.um.asio.service.dto.ExhibitDto;
+import es.um.asio.service.filter.exhibit.ExhibitFilter;
 
-public interface ExpoProxy {
+public interface ExhibitProxy {
 
 	/**
 	 * Método de búsqueda
 	 * 
 	 * @param filter
 	 * @param pageable
-	 * @return Page<ExpoDto>
+	 * @return Page<ExhibitDto>
 	 */
-	Page<ExpoDto> findPaginated(ExpoFilter filter, Pageable pageable);
+	Page<ExhibitDto> findPaginated(ExhibitFilter filter, Pageable pageable);
 }

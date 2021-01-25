@@ -11,22 +11,52 @@ import lombok.Setter;
 public class PatentDto {
 
 	/**
-	 * The fin date
+	 * The dateIssued
 	 */
-	private String date;
-
+	private String dateIssued;
+	
 	/**
-	 * The fin expirationDate
+	 * The doi
 	 */
-	private String expirationDate;
-
+	private String doi;
+	
 	/**
-	 * The fin id
+	 * The endDate
+	 */
+	private String endDate;
+	
+	/**
+	 * The endPage
+	 */
+	private String endPage;
+	
+	/**
+	 * The id
 	 */
 	private String id;
-
+	
 	/**
-	 * The fin topic
+	 * The keyword
 	 */
-	private String topic;
+	private String keyword;
+	
+	/**
+	 * The mode
+	 */
+	private String mode;
+	
+	/**
+	 * The startDate
+	 */
+	private String startDate;
+	
+	/**
+	 * The startPage
+	 */
+	private String startPage;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 }

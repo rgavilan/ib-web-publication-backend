@@ -41,6 +41,14 @@ public class MasterThesisServiceImpl extends FusekiService<MasterThesisFilter> i
 		StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
+			if (StringUtils.isNotBlank(filter.getAbbreviation())) {
+				strBuilder.append("FILTER (?abbreviation = \"");
+				strBuilder.append(filter.getAbbreviation());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getDate())) {
 				strBuilder.append("FILTER (?date = \"");
 				strBuilder.append(filter.getDate());
@@ -48,7 +56,23 @@ public class MasterThesisServiceImpl extends FusekiService<MasterThesisFilter> i
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
-
+			
+			if (StringUtils.isNotBlank(filter.getDoi())) {
+				strBuilder.append("FILTER (?doi = \"");
+				strBuilder.append(filter.getDoi());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getEndPage())) {
+				strBuilder.append("FILTER (?endPage = \"");
+				strBuilder.append(filter.getEndPage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getId())) {
 				strBuilder.append("FILTER (?id = \"");
 				strBuilder.append(filter.getId());
@@ -56,7 +80,7 @@ public class MasterThesisServiceImpl extends FusekiService<MasterThesisFilter> i
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
-			
+
 			if (StringUtils.isNotBlank(filter.getName())) {
 				strBuilder.append("FILTER (LANG(?name) = \"");
 				strBuilder.append(filter.getLanguage().substring(1));
@@ -65,6 +89,38 @@ public class MasterThesisServiceImpl extends FusekiService<MasterThesisFilter> i
 				strBuilder.append(filter.getName());
 				strBuilder.append("\", \"i\")) . ");
 			}
+			
+			if (StringUtils.isNotBlank(filter.getPlaceOfPublication())) {
+				strBuilder.append("FILTER (?placeOfPublication = \"");
+				strBuilder.append(filter.getPlaceOfPublication());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getPublishedIn())) {
+				strBuilder.append("FILTER (?publishedIn = \"");
+				strBuilder.append(filter.getPublishedIn());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getStartPage())) {
+				strBuilder.append("FILTER (?startPage = \"");
+				strBuilder.append(filter.getStartPage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getUniversity())) {
+				strBuilder.append("FILTER (?university = \"");
+				strBuilder.append(filter.getUniversity());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
 		}
 		
 		return strBuilder.toString();
@@ -72,7 +128,7 @@ public class MasterThesisServiceImpl extends FusekiService<MasterThesisFilter> i
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("MasterThesis", "date", "id", "name");
+		return new Entity("MasterThesis", "abbreviation", "date", "doi", "endPage", "id", "name", "placeOfPublication", "publishedIn", "startPage", "university");
 	}
 
 }

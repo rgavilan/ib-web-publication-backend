@@ -1,4 +1,4 @@
-package es.um.asio.service.service.phdthesis.impl;
+package es.um.asio.service.service.doctoralthesis.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -8,27 +8,27 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.um.asio.service.filter.phdthesis.PhDThesisFilter;
+import es.um.asio.service.filter.doctoralthesis.DoctoralThesisFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.model.PageableQuery;
+import es.um.asio.service.service.doctoralthesis.DoctoralThesisService;
 import es.um.asio.service.service.impl.FusekiService;
-import es.um.asio.service.service.phdthesis.PhDThesisService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
 
 @Service
-public class PhDThesisServiceImpl extends FusekiService<PhDThesisFilter> implements PhDThesisService {
+public class DoctoralThesisServiceImpl extends FusekiService<DoctoralThesisFilter> implements DoctoralThesisService {
 
 	/**
 	 * Logger
 	 */
-	private final Logger logger = LoggerFactory.getLogger(PhDThesisServiceImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(DoctoralThesisServiceImpl.class);
 
 	@Autowired
 	private SparqlExecQuery serviceSPARQL;
 	
 	@Override
-	public Page<FusekiResponse> findPaginated(PhDThesisFilter filter, Pageable pageable) {
+	public Page<FusekiResponse> findPaginated(DoctoralThesisFilter filter, Pageable pageable) {
 		logger.info("Searching PhD thesis with filter: {} page: {}", filter, pageable);
 
 		PageableQuery pageableQuery = new PageableQuery(this.retrieveEntity(), filtersChunk(filter), pageable);
@@ -37,13 +37,13 @@ public class PhDThesisServiceImpl extends FusekiService<PhDThesisFilter> impleme
 	}
 
 	@Override
-	public String filtersChunk(PhDThesisFilter filter) {
+	public String filtersChunk(DoctoralThesisFilter filter) {
 StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
-			if (StringUtils.isNotBlank(filter.getAwarded())) {
-				strBuilder.append("FILTER (?awarded = \"");
-				strBuilder.append(filter.getAwarded());
+			if (StringUtils.isNotBlank(filter.getAbbreviation())) {
+				strBuilder.append("FILTER (?abbreviation = \"");
+				strBuilder.append(filter.getAbbreviation());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
@@ -56,7 +56,23 @@ StringBuilder strBuilder = new StringBuilder();
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
-
+			
+			if (StringUtils.isNotBlank(filter.getDoi())) {
+				strBuilder.append("FILTER (?doi = \"");
+				strBuilder.append(filter.getDoi());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getEndPage())) {
+				strBuilder.append("FILTER (?endPage = \"");
+				strBuilder.append(filter.getEndPage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getId())) {
 				strBuilder.append("FILTER (?id = \"");
 				strBuilder.append(filter.getId());
@@ -64,13 +80,37 @@ StringBuilder strBuilder = new StringBuilder();
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
+			
+			if (StringUtils.isNotBlank(filter.getPlaceOfPublication())) {
+				strBuilder.append("FILTER (?placeOfPublication = \"");
+				strBuilder.append(filter.getPlaceOfPublication());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getPublishedIn())) {
+				strBuilder.append("FILTER (?publishedIn = \"");
+				strBuilder.append(filter.getPublishedIn());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getStartPage())) {
+				strBuilder.append("FILTER (?startPage = \"");
+				strBuilder.append(filter.getStartPage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
 
-			if (StringUtils.isNotBlank(filter.getTopic())) {
-				strBuilder.append("FILTER (LANG(?topic) = \"");
+			if (StringUtils.isNotBlank(filter.getTitle())) {
+				strBuilder.append("FILTER (LANG(?title) = \"");
 				strBuilder.append(filter.getLanguage().substring(1));
 				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?topic, \"");
-				strBuilder.append(filter.getTopic());
+				strBuilder.append("FILTER ( regex(?title, \"");
+				strBuilder.append(filter.getTitle());
 				strBuilder.append("\", \"i\")) . ");
 			}
 		}
@@ -80,7 +120,7 @@ StringBuilder strBuilder = new StringBuilder();
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Congress", "awarded", "date", "id", "topic");
+		return new Entity("DoctoralThesis", "abbreviation", "date", "doi", "endPage", "id", "placeOfPublication", "publishedIn", "startPage", "title");
 	}
 
 }

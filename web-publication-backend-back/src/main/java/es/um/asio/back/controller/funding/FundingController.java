@@ -38,7 +38,7 @@ public class FundingController {
 		/**
 		 * Controller request mapping.
 		 */
-		protected static final String BASE = "/Funding";
+		protected static final String BASE = "/funding";
 
 		/**
 		 * Mapping for search.

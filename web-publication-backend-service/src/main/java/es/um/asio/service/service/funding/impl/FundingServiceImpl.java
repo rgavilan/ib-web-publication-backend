@@ -41,6 +41,14 @@ public class FundingServiceImpl extends FusekiService<FundingFilter> implements 
 		StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
+			if (StringUtils.isNotBlank(filter.getDate())) {
+				strBuilder.append("FILTER (?date = \"");
+				strBuilder.append(filter.getDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getId())) {
 				strBuilder.append("FILTER (?id = \"");
 				strBuilder.append(filter.getId());
@@ -49,12 +57,20 @@ public class FundingServiceImpl extends FusekiService<FundingFilter> implements 
 				strBuilder.append(") . ");
 			}
 			
-			if (StringUtils.isNotBlank(filter.getName())) {
-				strBuilder.append("FILTER (LANG(?name) = \"");
+			if (StringUtils.isNotBlank(filter.getPublicFunding())) {
+				strBuilder.append("FILTER (?publicFunding = \"");
+				strBuilder.append(filter.getPublicFunding());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getTitle())) {
+				strBuilder.append("FILTER (LANG(?title) = \"");
 				strBuilder.append(filter.getLanguage().substring(1));
 				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?name, \"");
-				strBuilder.append(filter.getName());
+				strBuilder.append("FILTER ( regex(?title, \"");
+				strBuilder.append(filter.getTitle());
 				strBuilder.append("\", \"i\")) . ");
 			}
 		}
@@ -64,7 +80,7 @@ public class FundingServiceImpl extends FusekiService<FundingFilter> implements 
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Funding", "id", "name");
+		return new Entity("Funding", "date", "id", "publicFunding", "title");
 	}
 
 }

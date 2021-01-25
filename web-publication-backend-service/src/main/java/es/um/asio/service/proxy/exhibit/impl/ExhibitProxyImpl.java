@@ -1,31 +1,31 @@
-package es.um.asio.service.proxy.expo.impl;
+package es.um.asio.service.proxy.exhibit.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.um.asio.service.dto.ExpoDto;
-import es.um.asio.service.filter.expo.ExpoFilter;
-import es.um.asio.service.mapper.ExpoMapper;
-import es.um.asio.service.proxy.expo.ExpoProxy;
-import es.um.asio.service.service.expo.ExpoService;
+import es.um.asio.service.dto.ExhibitDto;
+import es.um.asio.service.filter.exhibit.ExhibitFilter;
+import es.um.asio.service.mapper.ExhibitMapper;
+import es.um.asio.service.proxy.exhibit.ExhibitProxy;
+import es.um.asio.service.service.exhibit.ExhibitService;
 
 /**
  * Implementación del Proxy para Expo
  *
  */
 @Service
-public class ExproProxyImpl implements ExpoProxy {
+public class ExhibitProxyImpl implements ExhibitProxy {
 
 	@Autowired
-	private ExpoService service;
+	private ExhibitService service;
 	
 	@Autowired
-	private ExpoMapper mapper;
+	private ExhibitMapper mapper;
 	
 	@Override
-	public Page<ExpoDto> findPaginated(ExpoFilter filter, Pageable pageable) {
+	public Page<ExhibitDto> findPaginated(ExhibitFilter filter, Pageable pageable) {
 		return this.mapper.convertPageFusekiResponseToDto(this.service.findPaginated(filter, pageable));
 	}
 }

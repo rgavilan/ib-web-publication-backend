@@ -6,33 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 
-import es.um.asio.service.dto.PhDThesisDto;
-import es.um.asio.service.mapper.PhDThesisMapper;
+import es.um.asio.service.dto.DoctoralThesisDto;
+import es.um.asio.service.mapper.DoctoralThesisMapper;
 import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.util.PageImplHelper;
 
-public class PhDThesisMapperDecorator extends BaseMapperDecorator<PhDThesisDto> implements PhDThesisMapper {
+public class DoctoralThesisMapperDecorator extends BaseMapperDecorator<DoctoralThesisDto> implements DoctoralThesisMapper {
 
 	@Autowired
     @Qualifier("delegate")
-	private PhDThesisMapper mapper;
+	private DoctoralThesisMapper mapper;
 	
-	public PhDThesisMapperDecorator() {
-		this.type = PhDThesisDto.class;
+	public DoctoralThesisMapperDecorator() {
+		this.type = DoctoralThesisDto.class;
 	}
 	
 	@Override
-	public PhDThesisDto convertFusekiObjectToDto(Object response) {
+	public DoctoralThesisDto convertFusekiObjectToDto(Object response) {
 		return super.convertFusekiObjectToDto(response);
 	}
 
 	@Override
-	public List<PhDThesisDto> convertFusekiResponseToDto(List<Object> response) {
+	public List<DoctoralThesisDto> convertFusekiResponseToDto(List<Object> response) {
 		return super.convertFusekiResponseToDto(response);
 	}
 
 	@Override
-	public PageImplHelper<PhDThesisDto> convertPageFusekiResponseToDto(Page<FusekiResponse> page) {
+	public PageImplHelper<DoctoralThesisDto> convertPageFusekiResponseToDto(Page<FusekiResponse> page) {
 		return super.convertPageFusekiResponseToDto(page);
 	}
 }

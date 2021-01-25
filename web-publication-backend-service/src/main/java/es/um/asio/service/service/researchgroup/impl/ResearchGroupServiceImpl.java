@@ -41,6 +41,46 @@ public class ResearchGroupServiceImpl extends FusekiService<ResearchGroupFilter>
 		StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
+			if (StringUtils.isNotBlank(filter.getAbbreviation())) {
+				strBuilder.append("FILTER (?abbreviation = \"");
+				strBuilder.append(filter.getAbbreviation());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getDescription())) {
+				strBuilder.append("FILTER (?description = \"");
+				strBuilder.append(filter.getDescription());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getEndDate())) {
+				strBuilder.append("FILTER (?endDate = \"");
+				strBuilder.append(filter.getEndDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getExcellenceLabel())) {
+				strBuilder.append("FILTER (?excellenceLabel = \"");
+				strBuilder.append(filter.getExcellenceLabel());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getHomepage())) {
+				strBuilder.append("FILTER (?homepage = \"");
+				strBuilder.append(filter.getHomepage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getId())) {
 				strBuilder.append("FILTER (?id = \"");
 				strBuilder.append(filter.getId());
@@ -49,12 +89,20 @@ public class ResearchGroupServiceImpl extends FusekiService<ResearchGroupFilter>
 				strBuilder.append(") . ");
 			}
 			
-			if (StringUtils.isNotBlank(filter.getTopic())) {
-				strBuilder.append("FILTER (LANG(?topic) = \"");
+			if (StringUtils.isNotBlank(filter.getStartDate())) {
+				strBuilder.append("FILTER (?startDate = \"");
+				strBuilder.append(filter.getStartDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getTitle())) {
+				strBuilder.append("FILTER (LANG(?title) = \"");
 				strBuilder.append(filter.getLanguage().substring(1));
 				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?topic, \"");
-				strBuilder.append(filter.getTopic());
+				strBuilder.append("FILTER ( regex(?title, \"");
+				strBuilder.append(filter.getTitle());
 				strBuilder.append("\", \"i\")) . ");
 			}
 		}
@@ -64,7 +112,7 @@ public class ResearchGroupServiceImpl extends FusekiService<ResearchGroupFilter>
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("GrupoInvestigacion", "id", "topic");
+		return new Entity("GrupoInvestigacion", "abbreviation", "description", "endDate", "excellenceLabel", "homepage", "id", "startDate", "topic");
 	}
 
 }

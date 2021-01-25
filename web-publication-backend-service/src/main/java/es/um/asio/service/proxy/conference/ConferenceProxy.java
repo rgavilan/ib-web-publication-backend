@@ -1,25 +1,25 @@
-package es.um.asio.service.proxy.congress;
+package es.um.asio.service.proxy.conference;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.um.asio.service.dto.CongressDto;
-import es.um.asio.service.filter.congress.CongressFilter;
+import es.um.asio.service.dto.ConferenceDto;
+import es.um.asio.service.filter.conference.ConferenceFilter;
 
 /**
  * Implementación del Proxy para Articulos
  *
  */
 @Service
-public interface CongressProxy {
+public interface ConferenceProxy {
 
 	/**
 	 * Método de búsqueda
 	 * 
 	 * @param filter
 	 * @param pageable
-	 * @return Page<CongressDto>
+	 * @return Page<ConferenceDto>
 	 */
-	Page<CongressDto> findPaginated(CongressFilter filter, Pageable pageable);
+	Page<ConferenceDto> findPaginated(ConferenceFilter filter, Pageable pageable);
 }

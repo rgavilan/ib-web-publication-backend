@@ -11,12 +11,42 @@ import lombok.Setter;
 public class ResearchGroupDto {
 
 	/**
+	 * The abbreviation
+	 */
+	private String abbreviation;
+	
+	/**
+	 * The description
+	 */
+	private String description;
+	
+	/**
+	 * The endDate
+	 */
+	private String endDate;
+	
+	/**
+	 * The excellenceLabel
+	 */
+	private String excellenceLabel;
+	
+	/**
+	 * The homepage
+	 */
+	private String homepage;
+	
+	/**
 	 * The id
 	 */
 	private String id;
 	
 	/**
-	 * The topic
+	 * The startDate
 	 */
-	private String topic;
+	private String startDate;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 }

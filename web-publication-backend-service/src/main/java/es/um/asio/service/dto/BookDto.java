@@ -11,22 +11,52 @@ import lombok.Setter;
 public class BookDto {
 
 	/**
+	 * The date
+	 */
+	private String date;
+	
+	/**
+	 * The doi
+	 */
+	private String doi;
+	
+	/**
+	 * The edition
+	 */
+	private String edition;
+	
+	/**
+	 * The endPage
+	 */
+	private String endPage;
+	
+	/**
+	 * The iccn
+	 */
+	private String iccn;
+	
+	/**
 	 * The id
 	 */
 	private String id;
 	
 	/**
-	 * The isCoauthored
+	 * The placeOfPublication
 	 */
-	private String isCoauthored;
+	private String placeOfPublication;
 	
 	/**
-	 * The topic
+	 * The publishedIn
 	 */
-	private String topic;
-
+	private String publishedIn;
+	
 	/**
-	 * The year
+	 * The startPage
 	 */
-	private String year;
+	private String startPage;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 }

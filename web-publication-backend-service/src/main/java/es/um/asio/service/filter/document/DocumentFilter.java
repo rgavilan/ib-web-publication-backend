@@ -19,37 +19,54 @@ public class DocumentFilter extends Filter {
 	private static final long serialVersionUID = 9066425157947222584L;
 
 	/**
+	 * The date
+	 */
+	private String date;
+	
+	/**
+	 * The doi
+	 */
+	private String doi;
+	
+	/**
+	 * The endPage
+	 */
+	private String endPage;
+	
+	/**
 	 * The id
 	 */
 	private String id;
 	
 	/**
-	 * The isCoauthored
+	 * The publishedIn
 	 */
-	private String isCoauthored;
+	private String publishedIn;
 	
 	/**
-	 * The topic
+	 * The startPage
 	 */
-	private String topic;
-
+	private String startPage;
+	
 	/**
-	 * The year
+	 * The title
 	 */
-	private String year;
+	private String title;
 	
 	/**
 	 * The types
 	 */
 	private String types;
 	
+	/* Fields not included in model */
+	
 	/**
 	 * The year from
 	 */
-	private String yearFrom;
+	private String dateFrom;
 	
 	/**
 	 * The year to
 	 */
-	private String yearTo;
+	private String dateTo;
 }

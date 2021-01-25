@@ -11,22 +11,37 @@ import lombok.Setter;
 public class ArticleDto {
 
 	/**
+	 * The date
+	 */
+	private String date;
+	
+	/**
+	 * The doi
+	 */
+	private String doi;
+	
+	/**
+	 * The endPage
+	 */
+	private String endPage;
+	
+	/**
 	 * The id
 	 */
 	private String id;
 	
 	/**
-	 * The isCoauthored
+	 * The publishedIn
 	 */
-	private String isCoauthored;
+	private String publishedIn;
 	
 	/**
-	 * The topic
+	 * The startPage
 	 */
-	private String topic;
+	private String startPage;
 	
 	/**
-	 * The year
+	 * The title
 	 */
-	private String year;
+	private String title;
 }

@@ -11,12 +11,22 @@ import lombok.Setter;
 public class FundingDto {
 
 	/**
+	 * The date
+	 */
+	private String date;
+	
+	/**
 	 * The id
 	 */
 	private String id;
+	
+	/**
+	 * The publicFunding
+	 */
+	private String publicFunding;
 
 	/**
-	 * The name
+	 * The title
 	 */
-	private String name;
+	private String title;
 }
