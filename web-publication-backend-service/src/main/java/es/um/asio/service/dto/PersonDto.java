@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PersonDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 
 	/**
 	 * The birthDate
@@ -39,11 +49,6 @@ public class PersonDto {
 	 * The homepage
 	 */
 	private String homepage;
-	
-	/**
-	 * The id
-	 */
-	private String id;
 	
 	/**
 	 * The image
@@ -79,9 +84,4 @@ public class PersonDto {
 	 * The taxId
 	 */
 	private String taxId;
-	
-	/**
-	 * The title
-	 */
-	private String title;
 }

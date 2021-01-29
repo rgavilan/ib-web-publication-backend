@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class InvoiceDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 
 	/**
 	 * The date
@@ -26,11 +36,6 @@ public class InvoiceDto {
 	private String endPage;
 	
 	/**
-	 * The id
-	 */
-	private String id;
-	
-	/**
 	 * The keyword
 	 */
 	private String keyword;
@@ -44,9 +49,4 @@ public class InvoiceDto {
 	 * The startPage
 	 */
 	private String startPage;
-	
-	/**
-	 * The title
-	 */
-	private String title;
 }

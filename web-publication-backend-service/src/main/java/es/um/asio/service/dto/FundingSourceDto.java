@@ -9,14 +9,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FundingSourceDto {
-
-	/**
-	 * The funds
-	 */
-	private String funds;
 	
 	/**
 	 * The id
 	 */
 	private String id;
+
+	/**
+	 * The funds
+	 */
+	private String funds;
 }

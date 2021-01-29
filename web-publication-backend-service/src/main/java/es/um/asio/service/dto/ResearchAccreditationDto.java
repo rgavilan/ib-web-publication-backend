@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResearchAccreditationDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 
 	/**
 	 * The dateIssued
@@ -29,14 +39,4 @@ public class ResearchAccreditationDto {
 	 * The hasSubjectArea
 	 */
 	private String hasSubjectArea;
-	
-	/**
-	 * The id
-	 */
-	private String id;
-	
-	/**
-	 * The title
-	 */
-	private String title;
 }

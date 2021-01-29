@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PatentDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 
 	/**
 	 * The dateIssued
@@ -31,11 +41,6 @@ public class PatentDto {
 	private String endPage;
 	
 	/**
-	 * The id
-	 */
-	private String id;
-	
-	/**
 	 * The keyword
 	 */
 	private String keyword;
@@ -54,9 +59,4 @@ public class PatentDto {
 	 * The startPage
 	 */
 	private String startPage;
-	
-	/**
-	 * The title
-	 */
-	private String title;
 }

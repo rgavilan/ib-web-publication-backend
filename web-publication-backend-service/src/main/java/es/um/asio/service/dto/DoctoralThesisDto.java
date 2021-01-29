@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DoctoralThesisDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 
 	/**
 	 * The abbreviation
@@ -31,11 +41,6 @@ public class DoctoralThesisDto {
 	private String endPage;
 	
 	/**
-	 * The id
-	 */
-	private String id;
-	
-	/**
 	 * The placeOfPublication
 	 */
 	private String placeOfPublication;
@@ -49,9 +54,4 @@ public class DoctoralThesisDto {
 	 * The startPage
 	 */
 	private String startPage;
-	
-	/**
-	 * The title
-	 */
-	private String title;
 }

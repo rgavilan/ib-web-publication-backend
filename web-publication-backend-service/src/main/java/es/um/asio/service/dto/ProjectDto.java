@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProjectDto {
+	
+	/** 
+	 * The id
+	 */
+	private String id;
+	
+	/** 
+	 * The title 
+	 */
+	private String title;
 
 	/**
 	 * The abbreviation
@@ -29,11 +39,6 @@ public class ProjectDto {
 	 * The foreseenJustificationDate
 	 */
 	private String foreseenJustificationDate;
-	
-	/** 
-	 * The id
-	 */
-	private String id;
 	
 	/**
 	 * The keyword
@@ -59,9 +64,4 @@ public class ProjectDto {
 	 * The status 
 	 */
 	private String status;
-	
-	/** 
-	 * The title 
-	 */
-	private String title;
 }

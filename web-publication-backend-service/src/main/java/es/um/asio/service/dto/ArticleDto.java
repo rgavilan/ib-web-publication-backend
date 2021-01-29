@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ArticleDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 
 	/**
 	 * The date
@@ -26,11 +36,6 @@ public class ArticleDto {
 	private String endPage;
 	
 	/**
-	 * The id
-	 */
-	private String id;
-	
-	/**
 	 * The publishedIn
 	 */
 	private String publishedIn;
@@ -39,9 +44,4 @@ public class ArticleDto {
 	 * The startPage
 	 */
 	private String startPage;
-	
-	/**
-	 * The title
-	 */
-	private String title;
 }

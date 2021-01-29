@@ -9,11 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class InternationalProjectDto {
-
-	/**
-	 * The endDate
-	 */
-	private String endDate;
 	
 	/**
 	 * The id
@@ -24,6 +19,11 @@ public class InternationalProjectDto {
 	 * The name
 	 */
 	private String name;
+
+	/**
+	 * The endDate
+	 */
+	private String endDate;
 	
 	/**
 	 * The objective

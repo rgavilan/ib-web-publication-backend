@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MasterThesisDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The name
+	 */
+	private String name;
 
 	/**
 	 * The abbreviation
@@ -29,16 +39,6 @@ public class MasterThesisDto {
 	 * The endPage
 	 */
 	private String endPage;
-	
-	/**
-	 * The id
-	 */
-	private String id;
-	
-	/**
-	 * The name
-	 */
-	private String name;
 	
 	/**
 	 * The placeOfPublication

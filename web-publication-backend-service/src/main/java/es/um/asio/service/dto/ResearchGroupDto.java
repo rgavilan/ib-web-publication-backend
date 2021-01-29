@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ResearchGroupDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 
 	/**
 	 * The abbreviation
@@ -36,17 +46,7 @@ public class ResearchGroupDto {
 	private String homepage;
 	
 	/**
-	 * The id
-	 */
-	private String id;
-	
-	/**
 	 * The startDate
 	 */
 	private String startDate;
-	
-	/**
-	 * The title
-	 */
-	private String title;
 }

@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DocumentDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 
 	/**
 	 * The date
@@ -26,11 +36,6 @@ public class DocumentDto {
 	private String endPage;
 	
 	/**
-	 * The id
-	 */
-	private String id;
-	
-	/**
 	 * The publishedIn
 	 */
 	private String publishedIn;
@@ -39,11 +44,6 @@ public class DocumentDto {
 	 * The startPage
 	 */
 	private String startPage;
-	
-	/**
-	 * The title
-	 */
-	private String title;
 	
 	/**
 	 * The types

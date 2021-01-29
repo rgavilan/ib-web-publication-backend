@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FundingDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+
+	/**
+	 * The title
+	 */
+	private String title;
 
 	/**
 	 * The date
@@ -16,17 +26,7 @@ public class FundingDto {
 	private String date;
 	
 	/**
-	 * The id
-	 */
-	private String id;
-	
-	/**
 	 * The publicFunding
 	 */
 	private String publicFunding;
-
-	/**
-	 * The title
-	 */
-	private String title;
 }

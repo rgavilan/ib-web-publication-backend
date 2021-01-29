@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DossierDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The date
+	 */
+	private String title;
 
 	/**
 	 * The date
@@ -21,17 +31,7 @@ public class DossierDto {
 	private String description;
 	
 	/**
-	 * The id
-	 */
-	private String id;
-	
-	/**
 	 * The ocicnum
 	 */
 	private String ocicnum;
-	
-	/**
-	 * The date
-	 */
-	private String title;
 }

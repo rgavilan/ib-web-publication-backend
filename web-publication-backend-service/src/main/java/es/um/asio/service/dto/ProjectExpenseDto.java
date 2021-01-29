@@ -11,6 +11,16 @@ import lombok.Setter;
 public class ProjectExpenseDto {
 
 	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The title
+	 */
+	private String title;
+
+	/**
 	 * The currency
 	 */
 	private String currency;
@@ -34,19 +44,9 @@ public class ProjectExpenseDto {
 	 * The hasExpenseClassification
 	 */
 	private String hasExpenseClassification;
-
-	/**
-	 * The id
-	 */
-	private String id;
 	
 	/**
 	 * The monetaryAmount
 	 */
 	private String monetaryAmount;
-	
-	/**
-	 * The title
-	 */
-	private String title;
 }

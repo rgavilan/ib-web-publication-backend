@@ -9,6 +9,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ExhibitDto {
+	
+	/**
+	 * The id
+	 */
+	private String id;
+	
+	/**
+	 * The title
+	 */
+	private String title;
 
 	/**
 	 * The abbreviation
@@ -31,11 +41,6 @@ public class ExhibitDto {
 	private String description;
 	
 	/**
-	 * The id
-	 */
-	private String id;
-	
-	/**
 	 * The locality
 	 */
 	private String locality;
@@ -44,9 +49,4 @@ public class ExhibitDto {
 	 * The locatedIn
 	 */
 	private String locatedIn;
-	
-	/**
-	 * The title
-	 */
-	private String title;
 }
