@@ -37,7 +37,6 @@ public class UniversityFilterTest {
 
 		filter.setId("1");
 		filter.setLanguage("es");
-		filter.setName("University Test");
 
 		pageable = PageRequest.of(1, 5, Sort.by("ASC"));
 		FusekiResponse fuseki = new FusekiResponse();
@@ -50,11 +49,8 @@ public class UniversityFilterTest {
 
 			String result = "\"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
 					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/University/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
-					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
 					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"D\" }\r\n"
+					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
 					+ "      }";
 
 			fuseki.setHead(head);

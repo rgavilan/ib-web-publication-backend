@@ -26,6 +26,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import es.um.asio.back.controller.project.ProjectController;
+import es.um.asio.service.dto.ProjectDto;
 import es.um.asio.service.filter.project.ProjectFilter;
 import es.um.asio.service.proxy.project.ProjectProxy;
 
@@ -44,28 +45,30 @@ public class ProjectControllerTest {
 	public void beforeTest() {
 
 		ProjectFilter filter = new ProjectFilter();
-		filter.setName("NAME");
+		filter.setTitle("TITLE");
 		filter.setLanguage("es");
 
 		Pageable pageable = PageRequest.of(1, 5, Sort.by("ASC"));
+		
+		List<ProjectDto> contentResult = new ArrayList<>();
 		// Mock StorageType proxy
 		Mockito.when(this.projectProxy.findPaginated(filter, pageable)).thenAnswer(invocation -> {
 
-			String json = "{\r\n" + "  \"head\": {\r\n"
-					+ "    \"vars\": [ \"x\" , \"name\" , \"description\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n"
-					+ "  } ,\r\n" + "  \"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Proyecto/c1cca9b3-6762-3e09-8aa3-ea860644ecd4\" } ,\r\n"
-					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"description\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"FP00-359\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"2012-01-27\" } ,\r\n"
-					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"15076\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"FP00\" }\r\n"
-					+ "      }\r\n" + "    ]\r\n" + "  }\r\n" + "}";
+			ProjectDto project = new ProjectDto();
+			project.setAbbreviation("projectAbbreviation");
+			project.setDescription("projectDescription");
+			project.setEndDate("projectEndDate");
+			project.setForeseenJustificationDate("projectForeseenJustificationDate");
+			project.setId("projectId");
+			project.setKeyword("projectKeyword");
+			project.setModality("projectModality");
+			project.setNeedsEthicalValidation("projectNeedsEthicalValidation");
+			project.setStartDate("projectStartDate");
+			project.setStatus("projectStatus");
+			project.setTitle("projectTitle");
 
-			List<String> list = new ArrayList<>();
-			list.add(json);
-			Page<String> page = new PageImpl<>(list, pageable, list.size());
+			contentResult.add(project);
+			Page<ProjectDto> page = new PageImpl<>(contentResult, pageable, contentResult.size());
 			return page;
 		});
 	}

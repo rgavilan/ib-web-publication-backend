@@ -19,9 +19,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import es.um.asio.service.dto.ProjectDto;
 import es.um.asio.service.filter.project.ProjectFilter;
+import es.um.asio.service.mapper.ProjectMapper;
+import es.um.asio.service.mapper.decorator.ProjectMapperDecorator;
 import es.um.asio.service.model.FusekiResponse;
-import es.um.asio.service.model.PageableQuery;
 import es.um.asio.service.proxy.project.ProjectProxy;
 import es.um.asio.service.proxy.project.impl.ProjectProxyImpl;
 import es.um.asio.service.service.project.ProjectService;
@@ -35,6 +37,9 @@ public class ProjectProxyTest {
 	 */
 	@Autowired
 	private ProjectProxy proxy;
+	
+	@Autowired
+	private ProjectMapper mapper;
 
 	@Autowired
 	private ProjectService service;
@@ -52,6 +57,11 @@ public class ProjectProxyTest {
 		public ProjectProxy projectProxy() {
 			return new ProjectProxyImpl();
 		}
+		
+		@Bean
+		public ProjectMapper projectMapper() {
+			return new ProjectMapperDecorator();
+		}
 
 		@Bean
 		@Primary
@@ -66,44 +76,43 @@ public class ProjectProxyTest {
 
 		filter.setId("1");
 		filter.setLanguage("es");
-		filter.setName("Project Test");
-		filter.setEnd("22/10/2020");
-		filter.setFund("");
-		filter.setStart("10/10/2020");
-		filter.setTipo("C");
 
 		pageable = PageRequest.of(1, 5, Sort.by("ASC"));
 		FusekiResponse fuseki = new FusekiResponse();
 		List<FusekiResponse> contentResult = new ArrayList<>();
-
-		PageableQuery pageableQuery = new PageableQuery(service.retrieveEntity(), service.filtersChunk(filter),
-				pageable);
 		// Mock
-		Mockito.when(this.serviceSPARQL.run(pageableQuery)).thenAnswer(invocation -> {
+		Mockito.when(this.service.findPaginated(filter, pageable)).thenAnswer(invocation -> {
 
 			String head = "\"head\": {\r\n"
 					+ "    \"vars\": [ \"x\" , \"name\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n" + "  }";
 
 			String result = "\"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Article/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
-					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
+					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Person/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
 					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"D\" }\r\n"
+					+ "        \"title\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
+					+ "        \"abbreviation\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
+					+ "        \"description\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
+					+ "        \"endDate\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" }\r\n"
+					+ "        \"foreseenJustificationDate\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"keyword\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"modality\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"needsEthicalValidation\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"startDate\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"status\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
 					+ "      }";
 
 			fuseki.setHead(head);
 			fuseki.setResults(result);
 			contentResult.add(fuseki);
 			Page<FusekiResponse> page = new PageImpl<>(contentResult, pageable, contentResult.size());
-			return page;
+			
+			return this.mapper.convertPageFusekiResponseToDto(page);
 		});
 	}
 
 	@Test
 	public void proxyTest() {
-		proxy.findPaginated(filter, pageable);
+		Page<ProjectDto> page = proxy.findPaginated(filter, pageable);
 
 		// assertNotNull(page);
 	}
