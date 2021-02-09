@@ -59,4 +59,9 @@ public class PatentDto {
 	 * The startPage
 	 */
 	private String startPage;
+	
+	/**
+	 * The summary
+	 */
+	private String summary;
 }

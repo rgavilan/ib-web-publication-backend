@@ -54,4 +54,9 @@ public class DoctoralThesisDto {
 	 * The startPage
 	 */
 	private String startPage;
+	
+	/**
+	 * The summary
+	 */
+	private String summary;
 }

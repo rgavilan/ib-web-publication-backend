@@ -279,7 +279,7 @@ public class WebApplicationStepDefinitionsTest {
 			person.setImage("personImage");
 			person.setName("personName");
 			person.setNickname("personNickname");
-			person.setPersonalMailBox("personPersonalMailBox");
+			person.setPersonalMaibox("personPersonalMaibox");
 			person.setResearchLine("personResearchLine");
 			person.setSurname("personSurname");
 			person.setTaxId("personTaxId");

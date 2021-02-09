@@ -12,7 +12,6 @@ import es.um.asio.service.filter.book.BookFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.model.PageableQuery;
-import es.um.asio.service.service.article.impl.ArticleServiceImpl;
 import es.um.asio.service.service.book.BookService;
 import es.um.asio.service.service.impl.FusekiService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
@@ -23,7 +22,7 @@ public class BookServiceImpl extends FusekiService<BookFilter> implements BookSe
 	/**
 	 * Logger
 	 */
-	private final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
+	private final Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
 
 	@Autowired
 	private SparqlExecQuery serviceSPARQL;
@@ -123,6 +122,15 @@ public class BookServiceImpl extends FusekiService<BookFilter> implements BookSe
 				strBuilder.append("\", \"i\")) . ");
 			}
 			
+			if (StringUtils.isNotBlank(filter.getSummary())) {
+				strBuilder.append("FILTER (LANG(?summary) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?summary, \"");
+				strBuilder.append(filter.getSummary());
+				strBuilder.append("\", \"i\")) . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getDateFrom())) {
 				strBuilder.append("FILTER (?date >= \"");
 				strBuilder.append(filter.getDateFrom());
@@ -145,7 +153,7 @@ public class BookServiceImpl extends FusekiService<BookFilter> implements BookSe
 
 	@Override
 	public Entity retrieveEntity() {
-		return new Entity("Book", "date", "doi", "edition", "endPage", "iccn", "id", "placeOfPublication", "publishedIn", "startPage", "title");
+		return new Entity("Book", "date", "doi", "edition", "endPage", "iccn", "id", "placeOfPublication", "publishedIn", "startPage", "summary", "title");
 	}
 
 }

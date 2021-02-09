@@ -68,6 +68,11 @@ public class BookFilter extends Filter {
 	 */
 	private String title;
 	
+	/**
+	 * The summary
+	 */
+	private String summary;
+	
 	/* Fields not included in model */
 	
 	/**

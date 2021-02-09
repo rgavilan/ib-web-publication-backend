@@ -62,4 +62,9 @@ public class DoctoralThesisFilter extends Filter {
 	 * The title
 	 */
 	private String title;
+	
+	/**
+	 * The summary
+	 */
+	private String summary;
 }

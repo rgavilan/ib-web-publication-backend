@@ -114,6 +114,15 @@ public class MasterThesisServiceImpl extends FusekiService<MasterThesisFilter> i
 				strBuilder.append(") . ");
 			}
 			
+			if (StringUtils.isNotBlank(filter.getSummary())) {
+				strBuilder.append("FILTER (LANG(?summary) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?summary, \"");
+				strBuilder.append(filter.getSummary());
+				strBuilder.append("\", \"i\")) . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getUniversity())) {
 				strBuilder.append("FILTER (?university = \"");
 				strBuilder.append(filter.getUniversity());

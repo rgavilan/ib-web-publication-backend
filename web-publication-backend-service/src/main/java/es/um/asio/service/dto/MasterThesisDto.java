@@ -56,6 +56,11 @@ public class MasterThesisDto {
 	private String startPage;
 	
 	/**
+	 * The summary
+	 */
+	private String summary;
+	
+	/**
 	 * The university
 	 */
 	private String university;

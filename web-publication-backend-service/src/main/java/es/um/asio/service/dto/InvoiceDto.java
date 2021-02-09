@@ -49,4 +49,9 @@ public class InvoiceDto {
 	 * The startPage
 	 */
 	private String startPage;
+	
+	/**
+	 * The summary
+	 */
+	private String summary;
 }

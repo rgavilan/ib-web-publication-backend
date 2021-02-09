@@ -98,6 +98,15 @@ public class InvoiceServiceImpl extends FusekiService<InvoiceFilter> implements 
 				strBuilder.append(") . ");
 			}
 
+			if (StringUtils.isNotBlank(filter.getSummary())) {
+				strBuilder.append("FILTER (LANG(?summary) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?summary, \"");
+				strBuilder.append(filter.getSummary());
+				strBuilder.append("\", \"i\")) . ");
+			}
+			
 			if (StringUtils.isNotBlank(filter.getTitle())) {
 				strBuilder.append("FILTER (LANG(?title) = \"");
 				strBuilder.append(filter.getLanguage().substring(1));

@@ -71,7 +71,7 @@ public class PersonFilter extends Filter {
 	/**
 	 * The personalMailBox
 	 */
-	private String personalMailBox;
+	private String personalMaibox;
 	
 	/**
 	 * The researchLine

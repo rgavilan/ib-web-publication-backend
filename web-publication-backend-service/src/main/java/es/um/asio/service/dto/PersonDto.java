@@ -68,7 +68,7 @@ public class PersonDto {
 	/**
 	 * The personalMailBox
 	 */
-	private String personalMailBox;
+	private String personalMaibox;
 	
 	/**
 	 * The researchLine

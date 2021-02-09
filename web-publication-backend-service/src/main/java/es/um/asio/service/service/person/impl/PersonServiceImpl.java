@@ -121,9 +121,9 @@ public class PersonServiceImpl extends FusekiService<PersonFilter> implements Pe
 				strBuilder.append(") . ");
 			}
 			
-			if (StringUtils.isNotBlank(filter.getPersonalMailBox())) {
-				strBuilder.append("FILTER (?personalMailBox = \"");
-				strBuilder.append(filter.getPersonalMailBox());
+			if (StringUtils.isNotBlank(filter.getPersonalMaibox())) {
+				strBuilder.append("FILTER (?personalMaibox = \"");
+				strBuilder.append(filter.getPersonalMaibox());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
