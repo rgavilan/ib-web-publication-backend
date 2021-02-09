@@ -1,4 +1,4 @@
-package es.um.asio.service.filter.document;
+package es.um.asio.service.filter.academicpublication;
 
 import es.um.asio.service.filter.Filter;
 import lombok.Getter;
@@ -6,23 +6,18 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The Class DocumentFilter.
+ * The Class AcademicPublicationFilter.
  */
 @Getter
 @Setter
 @ToString(includeFieldNames = true)
-public class DocumentFilter extends Filter {
+public class AcademicPublicationFilter extends Filter {
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 9066425157947222584L;
+	private static final long serialVersionUID = 1338237707383498312L;
 	
-	/**
-	 * The date
-	 */
-	private String id;
-
 	/**
 	 * The date
 	 */
@@ -37,7 +32,7 @@ public class DocumentFilter extends Filter {
 	 * The types
 	 */
 	private String types;
-	
+
 	/* Fields not included in model */
 	
 	/**

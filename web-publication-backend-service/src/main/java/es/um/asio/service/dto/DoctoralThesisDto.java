@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * The Class PhDThesisDto.
+ * The Class DoctoralThesisDto.
  */
 @Getter
 @Setter

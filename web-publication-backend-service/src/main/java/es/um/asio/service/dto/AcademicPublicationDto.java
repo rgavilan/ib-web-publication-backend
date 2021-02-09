@@ -4,12 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * The Class DocumentDto.
+ * The Class AcademicPublicationDto.
  */
 @Getter
 @Setter
-public class DocumentDto {
-	
+public class AcademicPublicationDto {
+
 	/**
 	 * The id
 	 */
@@ -19,7 +19,12 @@ public class DocumentDto {
 	 * The title
 	 */
 	private String title;
-
+	
+	/**
+	 * The abbreviation
+	 */
+	private String abbreviation;
+	
 	/**
 	 * The date
 	 */
@@ -36,6 +41,11 @@ public class DocumentDto {
 	private String endPage;
 	
 	/**
+	 * The placeOfPublication
+	 */
+	private String placeOfPublication;
+	
+	/**
 	 * The publishedIn
 	 */
 	private String publishedIn;
@@ -44,6 +54,11 @@ public class DocumentDto {
 	 * The startPage
 	 */
 	private String startPage;
+	
+	/**
+	 * The summary
+	 */
+	private String summary;
 	
 	/**
 	 * The type

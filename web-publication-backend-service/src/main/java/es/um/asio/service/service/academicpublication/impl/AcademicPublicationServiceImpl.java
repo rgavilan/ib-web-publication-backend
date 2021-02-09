@@ -1,4 +1,4 @@
-package es.um.asio.service.service.document.impl;
+package es.um.asio.service.service.academicpublication.impl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,17 +12,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.um.asio.service.filter.document.DocumentFilter;
+import es.um.asio.service.filter.academicpublication.AcademicPublicationFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.model.PageableQuery;
+import es.um.asio.service.service.academicpublication.AcademicPublicationService;
 import es.um.asio.service.service.article.impl.ArticleServiceImpl;
-import es.um.asio.service.service.document.DocumentService;
 import es.um.asio.service.service.impl.FusekiService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
 
 @Service
-public class DocumentServiceImpl extends FusekiService<DocumentFilter> implements DocumentService {
+public class AcademicPublicationServiceImpl extends FusekiService<AcademicPublicationFilter> implements AcademicPublicationService {
 
 	/**
 	 * Logger
@@ -33,8 +33,8 @@ public class DocumentServiceImpl extends FusekiService<DocumentFilter> implement
 	private SparqlExecQuery serviceSPARQL;
 	
 	@Override
-	public Page<FusekiResponse> findPaginated(DocumentFilter filter, Pageable pageable) {
-		logger.info("Searching documents with filter: {} page: {}", filter, pageable);
+	public Page<FusekiResponse> findPaginated(AcademicPublicationFilter filter, Pageable pageable) {
+		logger.info("Searching AcademicPublications with filter: {} page: {}", filter, pageable);
 
 		PageableQuery pageableQuery = new PageableQuery(this.retrieveEntity(filter), filtersChunk(filter), pageable);
 
@@ -42,7 +42,7 @@ public class DocumentServiceImpl extends FusekiService<DocumentFilter> implement
 	}
 
 	@Override
-	public String filtersChunk(DocumentFilter filter) {
+	public String filtersChunk(AcademicPublicationFilter filter) {
 		StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
@@ -57,10 +57,13 @@ public class DocumentServiceImpl extends FusekiService<DocumentFilter> implement
 			if (StringUtils.isNotBlank(filter.getTitle())) {
 				strBuilder.append("FILTER (LANG(?title) = \"");
 				strBuilder.append(filter.getLanguage().substring(1));
-				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?title, \"");
+				strBuilder.append("\" && LANG(?name) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\" && (regex(?title, \"");
 				strBuilder.append(filter.getTitle());
-				strBuilder.append("\", \"i\")) . ");
+				strBuilder.append("\", \"i\") || regex(?name, \"");
+				strBuilder.append(filter.getTitle());
+				strBuilder.append("\", \"i\"))) . ");
 			}
 			
 			if (StringUtils.isNotBlank(filter.getDateFrom())) {
@@ -84,12 +87,13 @@ public class DocumentServiceImpl extends FusekiService<DocumentFilter> implement
 	}
 
 	@Override
-	public Entity retrieveEntity(DocumentFilter filter) {
+	public Entity retrieveEntity(AcademicPublicationFilter filter) {
 		List<String> types = StringUtils.isNotBlank(filter.getTypes()) ? 
 				Arrays.asList(filter.getTypes().split(",")) : 
-				Arrays.asList("Article", "Book");
+				Arrays.asList("Doctoral-Thesis", "Master-Thesis");
 		
-		return new Entity("Documento", types, "date", "doi", "endPage", "id", "publishedIn", "startPage", "title", "nowhere:type");
+		return new Entity("AcademicPublication", types, "abbreviation", "date", "doi", "endPage", "id", "placeOfPublication", "publishedIn", "startPage", "summary", 
+				"title,name", "nowhere:type");
 	}
 
 	@Override

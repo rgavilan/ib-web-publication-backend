@@ -1,4 +1,4 @@
-package es.um.asio.back.controller.document;
+package es.um.asio.back.controller.academicpublication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,28 +8,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.um.asio.service.dto.DocumentDto;
-import es.um.asio.service.filter.document.DocumentFilter;
-import es.um.asio.service.proxy.document.DocumentProxy;
+import es.um.asio.service.dto.AcademicPublicationDto;
+import es.um.asio.service.filter.academicpublication.AcademicPublicationFilter;
+import es.um.asio.service.proxy.academicpublication.AcademicPublicationProxy;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * Document controller.
+ * AcademicPublication controller.
  */
 @RestController
-@RequestMapping(DocumentController.Mappings.BASE)
-public class DocumentController {
+@RequestMapping(AcademicPublicationController.Mappings.BASE)
+public class AcademicPublicationController {
 
 	@Autowired
-	private DocumentProxy proxy;
+	private AcademicPublicationProxy proxy;
 	
 	@Value("${app.fusekitrellis.url}")
 	private String fusekiTrellisUrl;
 
 
-	@GetMapping(DocumentController.Mappings.SEARCH)
-	public Page<DocumentDto> searchProyects(final DocumentFilter filter, final Pageable pageable) {
+	@GetMapping(AcademicPublicationController.Mappings.SEARCH)
+	public Page<AcademicPublicationDto> searchProyects(final AcademicPublicationFilter filter, final Pageable pageable) {
 		return this.proxy.findPaginated(filter, pageable);
 	}
 	
@@ -38,7 +38,7 @@ public class DocumentController {
 		/**
 		 * Controller request mapping.
 		 */
-		protected static final String BASE = "/document";
+		protected static final String BASE = "/academicpublication";
 
 		/**
 		 * Mapping for search.

@@ -45,7 +45,13 @@ public class QueryBuilderImpl implements QueryBuilder {
 		StringBuilder strBuilder = new StringBuilder();
 		
 		for (String field: fields) {
-			String fieldFinal = field.contains(":") ? field.split(":")[field.split(":").length - 1] : field;
+			String fieldFinal = field;
+			
+			if (field.contains(":")) {
+				fieldFinal = field.split(":")[field.split(":").length - 1];
+			} else if (field.contains(",")) {
+				fieldFinal = field.split(",")[0];
+			}
 			
 			strBuilder.append("?");
 			strBuilder.append(fieldFinal);
@@ -86,18 +92,41 @@ public class QueryBuilderImpl implements QueryBuilder {
 		StringBuilder strBuilder = new StringBuilder();
 		
 		for (String field: fields) {
-			if (field.contains("nowhere:")) {
+			if (field.startsWith("nowhere:")) {
 				continue;
+			} else if (field.contains(","))  {
+				String[] split = field.split(",");
+				
+				strBuilder.append("?x ");
+				
+				for (int i = 0; i < split.length; i++) {
+					strBuilder.append(i > 0 ? "|" : "");
+					strBuilder.append("<http://hercules.org/um/es-ES/rec/");
+					strBuilder.append(split[i]);
+					strBuilder.append(">");
+				}
+				
+				strBuilder.append(" ?");
+				strBuilder.append(split[0]);
+				strBuilder.append(" . ");
+			} else {
+				strBuilder.append(this.buildField(field));
 			}
-			
-			strBuilder.append("?x ");
-			strBuilder.append("<http://hercules.org/um/es-ES/rec/");
-			strBuilder.append(field);
-			strBuilder.append("> ");
-			strBuilder.append("?");
-			strBuilder.append(field);
-			strBuilder.append(" . ");
 		}
+		
+		return strBuilder.toString();
+	}
+	
+	private String buildField(String field) {
+		StringBuilder strBuilder = new StringBuilder();
+		
+		strBuilder.append("?x ");
+		strBuilder.append("<http://hercules.org/um/es-ES/rec/");
+		strBuilder.append(field);
+		strBuilder.append("> ");
+		strBuilder.append("?");
+		strBuilder.append(field);
+		strBuilder.append(" . ");
 		
 		return strBuilder.toString();
 	}
