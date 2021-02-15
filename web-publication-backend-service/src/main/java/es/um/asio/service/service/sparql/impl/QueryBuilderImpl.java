@@ -3,6 +3,7 @@ package es.um.asio.service.service.sparql.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,6 +27,7 @@ public class QueryBuilderImpl implements QueryBuilder {
 		String offset = String.valueOf(pageable.getOffset());
 		String order = this.orderChunk(pageable.getSort());
 		String group = this.groupChunk(entity.getGroup());
+		String join = this.joinChunk(entity.getJoin());
 		
 		Map<String, String> map = new HashMap<>();
 		map.put(FusekiConstants.SELECT_CHUNK, selectChunk);
@@ -36,6 +38,7 @@ public class QueryBuilderImpl implements QueryBuilder {
 		map.put(FusekiConstants.ORDER, order);
 		map.put(FusekiConstants.LIMIT, limit);
 		map.put(FusekiConstants.OFFSET, offset);
+		map.put(FusekiConstants.JOIN_CHUNK, join);
 				
 		return map;
 	}
@@ -165,6 +168,51 @@ public class QueryBuilderImpl implements QueryBuilder {
 				strBuilder.append(" ");
 			}
 		}
+		
+		return strBuilder.toString();
+	}
+	
+	private String joinChunk(Map<String, Map<String, String>> join) {
+		StringBuilder strBuilder = new StringBuilder();
+		StringBuilder filters = new StringBuilder();
+		
+		for (Entry<String, Map<String, String>> e : join.entrySet()) {
+			String model = "?" + e.getKey().replace("-", "").toLowerCase();
+			
+			StringBuilder fields = new StringBuilder();
+			StringBuilder where = new StringBuilder();
+			
+			for (Entry<String, String> s : e.getValue().entrySet()) {
+				fields.append("?");
+				fields.append(s.getValue());
+				fields.append(" ");
+				
+				where.append(model);
+				where.append(" <http://hercules.org/um/es-ES/rec/");
+				where.append(s.getValue());
+				where.append("> ?");
+				where.append(s.getValue());
+				where.append(" . ");
+				
+				filters.append(" FILTER (?");
+				filters.append(s.getKey());
+				filters.append(" IN (?");
+				filters.append(s.getValue());
+				filters.append(")) . ");
+			}
+			
+			strBuilder.append("{ SELECT DISTINCT ");
+			strBuilder.append(fields.toString());
+			strBuilder.append(" WHERE { ");
+			strBuilder.append(model);
+			strBuilder.append(" <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://hercules.org/um/es-ES/rec/");
+			strBuilder.append(e.getKey());
+			strBuilder.append("> . ");
+			strBuilder.append(where.toString());
+			strBuilder.append(" }} ");
+		}
+		
+		strBuilder.append(filters.toString());
 		
 		return strBuilder.toString();
 	}

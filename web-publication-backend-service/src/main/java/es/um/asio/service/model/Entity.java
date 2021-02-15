@@ -3,6 +3,7 @@ package es.um.asio.service.model;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -29,6 +30,9 @@ public class Entity implements Serializable {
 	
 	/** The group */
 	private List<String> group;
+	
+	/** The join map */
+	private Map<String, Map<String, String>> join;
 	
 	/** The entity. */
 	private String entity;
