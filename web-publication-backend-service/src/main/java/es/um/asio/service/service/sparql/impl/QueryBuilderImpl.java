@@ -176,43 +176,45 @@ public class QueryBuilderImpl implements QueryBuilder {
 		StringBuilder strBuilder = new StringBuilder();
 		StringBuilder filters = new StringBuilder();
 		
-		for (Entry<String, Map<String, String>> e : join.entrySet()) {
-			String model = "?" + e.getKey().replace("-", "").toLowerCase();
-			
-			StringBuilder fields = new StringBuilder();
-			StringBuilder where = new StringBuilder();
-			
-			for (Entry<String, String> s : e.getValue().entrySet()) {
-				fields.append("?");
-				fields.append(s.getValue());
-				fields.append(" ");
+		if (join != null) {
+			for (Entry<String, Map<String, String>> e : join.entrySet()) {
+				String model = "?" + e.getKey().replace("-", "").toLowerCase();
 				
-				where.append(model);
-				where.append(" <http://hercules.org/um/es-ES/rec/");
-				where.append(s.getValue());
-				where.append("> ?");
-				where.append(s.getValue());
-				where.append(" . ");
+				StringBuilder fields = new StringBuilder();
+				StringBuilder where = new StringBuilder();
 				
-				filters.append(" FILTER (?");
-				filters.append(s.getKey());
-				filters.append(" IN (?");
-				filters.append(s.getValue());
-				filters.append(")) . ");
+				for (Entry<String, String> s : e.getValue().entrySet()) {
+					fields.append("?");
+					fields.append(s.getValue());
+					fields.append(" ");
+					
+					where.append(model);
+					where.append(" <http://hercules.org/um/es-ES/rec/");
+					where.append(s.getValue());
+					where.append("> ?");
+					where.append(s.getValue());
+					where.append(" . ");
+					
+					filters.append(" FILTER (?");
+					filters.append(s.getKey());
+					filters.append(" IN (?");
+					filters.append(s.getValue());
+					filters.append(")) . ");
+				}
+				
+				strBuilder.append("{ SELECT DISTINCT ");
+				strBuilder.append(fields.toString());
+				strBuilder.append(" WHERE { ");
+				strBuilder.append(model);
+				strBuilder.append(" <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://hercules.org/um/es-ES/rec/");
+				strBuilder.append(e.getKey());
+				strBuilder.append("> . ");
+				strBuilder.append(where.toString());
+				strBuilder.append(" }} ");
 			}
 			
-			strBuilder.append("{ SELECT DISTINCT ");
-			strBuilder.append(fields.toString());
-			strBuilder.append(" WHERE { ");
-			strBuilder.append(model);
-			strBuilder.append(" <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://hercules.org/um/es-ES/rec/");
-			strBuilder.append(e.getKey());
-			strBuilder.append("> . ");
-			strBuilder.append(where.toString());
-			strBuilder.append(" }} ");
+			strBuilder.append(filters.toString());
 		}
-		
-		strBuilder.append(filters.toString());
 		
 		return strBuilder.toString();
 	}
