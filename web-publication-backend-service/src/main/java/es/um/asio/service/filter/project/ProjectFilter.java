@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
 /**
  * The Class ProjectFilter.
  */
@@ -17,33 +16,57 @@ public class ProjectFilter extends Filter {
 	private static final long serialVersionUID = -1586947094505235656L;
 
 	/**
-	 * The end
+	 * The abbreviation
 	 */
-	private String end;
-	
-	/** 
-	 * The fund. 
-	 */
-	private String fund;
+	private String abbreviation;
 	
 	/**
+	 * The description
+	 */
+	private String description;
+	
+	/**
+	 * The endDate
+	 */
+	private String endDate;
+	
+	/**
+	 * The foreseenJustificationDate
+	 */
+	private String foreseenJustificationDate;
+	
+	/** 
 	 * The id
 	 */
 	private String id;
+	
+	/**
+	 * The keyword
+	 */
+	private String keyword;
 
 	/**
-	 * The name
+	 * The modality
 	 */
-	private String name;
+	private String modality;
 	
 	/**
-	 * The start
+	 * The needsEthicalValidation
 	 */
-	private String start;
+	private String needsEthicalValidation;
 	
-	/**
-	 * The tipo
+	/** 
+	 * The startDate 
 	 */
-	private String tipo;
+	private String startDate;
 	
+	/** 
+	 * The status 
+	 */
+	private String status;
+	
+	/** 
+	 * The title 
+	 */
+	private String title;
 }

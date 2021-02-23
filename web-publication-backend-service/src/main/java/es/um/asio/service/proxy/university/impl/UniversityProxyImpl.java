@@ -5,8 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import es.um.asio.service.dto.UniversityDto;
 import es.um.asio.service.filter.university.UniversityFilter;
-import es.um.asio.service.model.FusekiResponse;
+import es.um.asio.service.mapper.UniversityMapper;
 import es.um.asio.service.proxy.university.UniversityProxy;
 import es.um.asio.service.service.university.UniversityService;
 
@@ -20,9 +21,12 @@ public class UniversityProxyImpl implements UniversityProxy {
 	@Autowired
 	private UniversityService service;
 	
+	@Autowired
+	private UniversityMapper mapper;
+	
 	@Override
-	public Page<FusekiResponse> findPaginated(UniversityFilter filter, Pageable pageable) {
-		return this.service.findPaginated(filter, pageable);
+	public Page<UniversityDto> findPaginated(UniversityFilter filter, Pageable pageable) {
+		return this.mapper.convertPageFusekiResponseToDto(this.service.findPaginated(filter, pageable));
 	}
 
 }

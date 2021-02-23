@@ -22,13 +22,18 @@ import org.springframework.data.domain.Sort;
 import es.um.asio.back.controller.book.BookController;
 import es.um.asio.back.controller.patent.PatentController;
 import es.um.asio.back.controller.project.ProjectController;
+import es.um.asio.service.dto.BookDto;
+import es.um.asio.service.dto.InvoiceDto;
+import es.um.asio.service.dto.PatentDto;
+import es.um.asio.service.dto.PersonDto;
+import es.um.asio.service.dto.ProjectDto;
+import es.um.asio.service.dto.UniversityDto;
 import es.um.asio.service.filter.book.BookFilter;
 import es.um.asio.service.filter.invoice.InvoiceFilter;
 import es.um.asio.service.filter.patent.PatentFilter;
 import es.um.asio.service.filter.person.PersonFilter;
 import es.um.asio.service.filter.project.ProjectFilter;
 import es.um.asio.service.filter.university.UniversityFilter;
-import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.proxy.book.BookProxy;
 import es.um.asio.service.proxy.book.impl.BookProxyImpl;
 import es.um.asio.service.proxy.invoice.InvoiceProxy;
@@ -158,92 +163,81 @@ public class WebApplicationStepDefinitionsTest {
 
 		// PROJECT
 		filterProject = new ProjectFilter();
-		filterProject.setName("NAME");
+		filterProject.setTitle("TITLE");
 		filterProject.setLanguage("es");
 
 		// Mock StorageType proxy
 		Mockito.when(this.proxyProject.findPaginated(filterProject, pageable)).thenAnswer(invocation -> {
+			
+			List<ProjectDto> contentResult = new ArrayList<>();
 
-			FusekiResponse fuseki = new FusekiResponse();
-			List<FusekiResponse> contentResult = new ArrayList<>();
-			String head = "{\r\n" + "  \"head\": {\r\n"
-					+ "    \"vars\": [ \"x\" , \"name\" , \"description\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n"
-					+ "  } ,\r\n";
-			String result = "  \"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Proyecto/c1cca9b3-6762-3e09-8aa3-ea860644ecd4\" } ,\r\n"
-					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"description\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"FP00-359\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"2012-01-27\" } ,\r\n"
-					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"15076\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"FP00\" }\r\n"
-					+ "      }\r\n" + "    ]\r\n" + "  }\r\n" + "}";
-			;
-			fuseki.setHead(head);
-			fuseki.setResults(result);
-			contentResult.add(fuseki);
-			Page<FusekiResponse> page = new PageImpl<>(contentResult, pageable, contentResult.size());
+			ProjectDto project = new ProjectDto();
+			project.setAbbreviation("projectAbbreviation");
+			project.setDescription("projectDescription");
+			project.setEndDate("projectEndDate");
+			project.setForeseenJustificationDate("projectForeseenJustificationDate");
+			project.setId("projectId");
+			project.setKeyword("projectKeyword");
+			project.setModality("projectModality");
+			project.setNeedsEthicalValidation("projectNeedsEthicalValidation");
+			project.setStartDate("projectStartDate");
+			project.setStatus("projectStatus");
+			project.setTitle("projectTitle");
+			
+			contentResult.add(project);
+			Page<ProjectDto> page = new PageImpl<>(contentResult, pageable, contentResult.size());
 			return page;
 		});
 
 		// PATENT
 		filterPatent = new PatentFilter();
-		filterPatent.setName("NAME");
+		filterPatent.setTitle("TITLE");
 		filterPatent.setLanguage("es");
-
 		// Mock StorageType proxy
 		Mockito.when(this.proxyPatent.findPaginated(filterPatent, pageable)).thenAnswer(invocation -> {
+			
+			List<PatentDto> contentResult = new ArrayList<>();
 
-			FusekiResponse fuseki = new FusekiResponse();
-
-			List<FusekiResponse> contentResult = new ArrayList<>();
-
-			String head = "\"head\": {\r\n"
-					+ "    \"vars\": [ \"x\" , \"name\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n" + "  }";
-
-			String result = "\"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Patente/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
-					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"D\" }\r\n"
-					+ "      }";
-
-			fuseki.setHead(head);
-			fuseki.setResults(result);
-			contentResult.add(fuseki);
-			Page<FusekiResponse> page = new PageImpl<>(contentResult, pageable, contentResult.size());
+			PatentDto patent = new PatentDto();
+			patent.setId("patentId");
+			patent.setDateIssued("patentDateIssued");
+			patent.setDoi("patentDoi");
+			patent.setEndDate("patentEndDate");
+			patent.setEndPage("patentEndPage");
+			patent.setKeyword("patentKeyword");
+			patent.setMode("patentMode");
+			patent.setStartDate("patentStartDate");
+			patent.setStartPage("patentStartPage");
+			patent.setTitle("patentTitle");
+			
+			contentResult.add(patent);
+			Page<PatentDto> page = new PageImpl<>(contentResult, pageable, contentResult.size());
 			return page;
 		});
 
 		// BOOK
 		filterBook = new BookFilter();
-		filterBook.setName("NAME");
+		filterBook.setTitle("Title");
 		filterBook.setLanguage("es");
 		// Mock StorageType proxy
 		Mockito.when(this.proxyBook.findPaginated(filterBook, pageable)).thenAnswer(invocation -> {
 
-			FusekiResponse fuseki = new FusekiResponse();
+			List<BookDto> contentResult = new ArrayList<>();
 
-			List<FusekiResponse> contentResult = new ArrayList<>();
-
-			String head = "\"head\": {\r\n"
-					+ "    \"vars\": [ \"x\" , \"name\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n" + "  }";
-
-			String result = "\"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Book/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
-					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"D\" }\r\n"
-					+ "      }";
-
-			fuseki.setHead(head);
-			fuseki.setResults(result);
-			contentResult.add(fuseki);
-			Page<FusekiResponse> page = new PageImpl<>(contentResult, pageable, contentResult.size());
+			BookDto book = new BookDto();
+			book.setDate("bookDate");
+			book.setDoi("bookDoi");
+			book.setEdition("bookEdition");
+			book.setEndPage("bookEndPage");
+			book.setIccn("bookIccn");
+			book.setId("bookId");
+			book.setPlaceOfPublication("bookPlaceOfPublication");
+			book.setPublishedIn("bookPublishedIn");
+			book.setStartPage("bookStartPage");
+			book.setTitle("bookTitle");
+			
+			contentResult.add(book);
+			Page<BookDto> page = new PageImpl<>(contentResult, pageable, contentResult.size());
 			return page;
 		});
 
@@ -254,56 +248,45 @@ public class WebApplicationStepDefinitionsTest {
 		// Mock proxy
 		Mockito.when(this.proxyUniversity.findPaginated(filterUniversity, pageable)).thenAnswer(invocation -> {
 
-			FusekiResponse fuseki = new FusekiResponse();
+			List<UniversityDto> contentResult = new ArrayList<>();
 
-			List<FusekiResponse> contentResult = new ArrayList<>();
-
-			String head = "\"head\": {\r\n"
-					+ "    \"vars\": [ \"x\" , \"name\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n" + "  }";
-
-			String result = "\"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/University/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
-					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"D\" }\r\n"
-					+ "      }";
-
-			fuseki.setHead(head);
-			fuseki.setResults(result);
-			contentResult.add(fuseki);
-			Page<FusekiResponse> page = new PageImpl<>(contentResult, pageable, contentResult.size());
+			UniversityDto university = new UniversityDto();
+			university.setId("universityId");
+			university.setName("universityName");
+			
+			contentResult.add(university);
+			Page<UniversityDto> page = new PageImpl<>(contentResult, pageable, contentResult.size());
 			return page;
 		});
 
 		// PERSON
 		filterPerson = new PersonFilter();
-		filterPerson.setCentro("NAME");
+		filterPerson.setName("NAME");
 		filterPerson.setLanguage("es");
 		// Mock proxy
 		Mockito.when(this.proxyPerson.findPaginated(filterPerson, pageable)).thenAnswer(invocation -> {
 
-			FusekiResponse fuseki = new FusekiResponse();
+			List<PersonDto> contentResult = new ArrayList<>();
 
-			List<FusekiResponse> contentResult = new ArrayList<>();
-
-			String head = "\"head\": {\r\n"
-					+ "    \"vars\": [ \"x\" , \"name\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n" + "  }";
-
-			String result = "\"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Person/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
-					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"D\" }\r\n"
-					+ "      }";
-
-			fuseki.setHead(head);
-			fuseki.setResults(result);
-			contentResult.add(fuseki);
-			Page<FusekiResponse> page = new PageImpl<>(contentResult, pageable, contentResult.size());
+			PersonDto person = new PersonDto();
+			person.setBirthDate("personBirthDate");
+			person.setDescription("personDescription");
+			person.setFirstName("personFirstName");
+			person.setGender("personGender");
+			person.setHasContactInfo("personHasContactInfo");
+			person.setHomepage("personHomePage");
+			person.setId("personId");
+			person.setImage("personImage");
+			person.setName("personName");
+			person.setNickname("personNickname");
+			person.setPersonalMaibox("personPersonalMaibox");
+			person.setResearchLine("personResearchLine");
+			person.setSurname("personSurname");
+			person.setTaxId("personTaxId");
+			person.setTitle("personTitle");
+			
+			contentResult.add(person);
+			Page<PersonDto> page = new PageImpl<>(contentResult, pageable, contentResult.size());
 			return page;
 		});
 
@@ -314,26 +297,20 @@ public class WebApplicationStepDefinitionsTest {
 		// Mock proxy
 		Mockito.when(this.proxyInvoice.findPaginated(filterInvoice, pageable)).thenAnswer(invocation -> {
 
-			FusekiResponse fuseki = new FusekiResponse();
+			List<InvoiceDto> contentResult = new ArrayList<>();
 
-			List<FusekiResponse> contentResult = new ArrayList<>();
-
-			String head = "\"head\": {\r\n"
-					+ "    \"vars\": [ \"x\" , \"name\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n" + "  }";
-
-			String result = "\"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Invoice/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
-					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"D\" }\r\n"
-					+ "      }";
-
-			fuseki.setHead(head);
-			fuseki.setResults(result);
-			contentResult.add(fuseki);
-			Page<FusekiResponse> page = new PageImpl<>(contentResult, pageable, contentResult.size());
+			InvoiceDto invoice = new InvoiceDto();
+			invoice.setDateTime("invoiceDateTime");
+			invoice.setDoi("invoiceDoi");
+			invoice.setEndPage("invoiceEndPage");
+			invoice.setId("invoiceId");
+			invoice.setKeyword("invoiceKeyword");
+			invoice.setPublishedIn("invoicePublishedIn");
+			invoice.setStartPage("invoiceStartPage");
+			invoice.setTitle("invoiceTitle");
+			
+			contentResult.add(invoice);
+			Page<InvoiceDto> page = new PageImpl<>(contentResult, pageable, contentResult.size());
 			return page;
 		});
 
@@ -347,10 +324,10 @@ public class WebApplicationStepDefinitionsTest {
 	@Then("^the controller call to servie and find project result to send front$")
 	public void the_controller_call_to_servie_and_find_project_result_to_send_front() {
 
-		Page<FusekiResponse> page = this.proxyProject.findPaginated(filterProject, pageable);
+		Page<ProjectDto> page = this.proxyProject.findPaginated(filterProject, pageable);
 		assertNotNull(page);
 
-		assertEquals(true, page.getContent().get(0).getResults().toString().contains("NAME"));
+		assertEquals(true, page.getContent().get(0).getTitle().equals("TITLE"));
 	}
 
 	@Given("^call to backend patent controller$")
@@ -361,10 +338,10 @@ public class WebApplicationStepDefinitionsTest {
 	@Then("^the controller call to servie and find patent result to send front$")
 	public void the_controller_call_to_servie_and_find_patent_result_to_send_front() {
 
-		Page<FusekiResponse> page = this.proxyPatent.findPaginated(filterPatent, pageable);
+		Page<PatentDto> page = this.proxyPatent.findPaginated(filterPatent, pageable);
 		assertNotNull(page);
 
-		assertEquals(true, page.getContent().get(0).getResults().toString().contains("NAME"));
+		assertEquals(true, page.getContent().get(0).getTitle().equals("TITLE"));
 	}
 
 	@Given("^call to backend book controller$")
@@ -375,10 +352,10 @@ public class WebApplicationStepDefinitionsTest {
 	@Then("^the controller call to servie and find book result to send front$")
 	public void the_controller_call_to_servie_and_find_book_result_to_send_front() {
 
-		Page<FusekiResponse> page = this.proxyBook.findPaginated(filterBook, pageable);
+		Page<BookDto> page = this.proxyBook.findPaginated(filterBook, pageable);
 		assertNotNull(page);
 
-		assertEquals(true, page.getContent().get(0).getResults().toString().contains("NAME"));
+		assertEquals(true, page.getContent().get(0).getTitle().equals("TITLE"));
 	}
 
 	@Given("^call to backend university controller$")
@@ -389,10 +366,10 @@ public class WebApplicationStepDefinitionsTest {
 	@Then("^the controller call to servie and find university result to send front$")
 	public void the_controller_call_to_servie_and_find_university_result_to_send_front() {
 
-		Page<FusekiResponse> page = this.proxyUniversity.findPaginated(filterUniversity, pageable);
+		Page<UniversityDto> page = this.proxyUniversity.findPaginated(filterUniversity, pageable);
 		assertNotNull(page);
 
-		assertEquals(true, page.getContent().get(0).getResults().toString().contains("NAME"));
+		assertEquals(true, page.getContent().get(0).getName().equals("NAME"));
 	}
 
 	@Then("^the controller call to servie to find and group universities by quality seal to send front$")
@@ -413,10 +390,10 @@ public class WebApplicationStepDefinitionsTest {
 	@Then("^the controller call to servie and find person result to send front$")
 	public void the_controller_call_to_servie_and_find_person_result_to_send_front() {
 
-		Page<FusekiResponse> page = this.proxyPerson.findPaginated(filterPerson, pageable);
+		Page<PersonDto> page = this.proxyPerson.findPaginated(filterPerson, pageable);
 		assertNotNull(page);
 
-		assertEquals(true, page.getContent().get(0).getResults().toString().contains("NAME"));
+		assertEquals(true, page.getContent().get(0).getTitle().equals("TITLE"));
 	}
 
 	@Then("^the controller call to servie to find and group persons by type of area to send front$")
@@ -432,9 +409,9 @@ public class WebApplicationStepDefinitionsTest {
 	@Then("^the controller call to servie and find invoice result to send front$")
 	public void the_controller_call_to_servie_and_find_invoice_result_to_send_front() {
 
-		Page<FusekiResponse> page = this.proxyInvoice.findPaginated(filterInvoice, pageable);
+		Page<InvoiceDto> page = this.proxyInvoice.findPaginated(filterInvoice, pageable);
 		assertNotNull(page);
 
-		assertEquals(true, page.getContent().get(0).getResults().toString().contains("NAME"));
+		assertEquals(true, page.getContent().get(0).getTitle().equals("TITLE"));
 	}
 }

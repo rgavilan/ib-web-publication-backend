@@ -1,6 +1,7 @@
 package es.um.asio.service.service.document.impl;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
@@ -45,26 +46,34 @@ public class DocumentServiceImpl extends FusekiService<DocumentFilter> implement
 		StringBuilder strBuilder = new StringBuilder();
 		
 		if (filter != null) {
-			if (StringUtils.isNotBlank(filter.getId())) {
-				strBuilder.append("FILTER (?id = \"");
-				strBuilder.append(filter.getId());
+			if (StringUtils.isNotBlank(filter.getDate())) {
+				strBuilder.append("FILTER (?date = \"");
+				strBuilder.append(filter.getDate());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
 
-			if (StringUtils.isNotBlank(filter.getName())) {
-				strBuilder.append("FILTER (LANG(?name) = \"");
+			if (StringUtils.isNotBlank(filter.getTitle())) {
+				strBuilder.append("FILTER (LANG(?title) = \"");
 				strBuilder.append(filter.getLanguage().substring(1));
 				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?name, \"");
-				strBuilder.append(filter.getName());
+				strBuilder.append("FILTER ( regex(?title, \"");
+				strBuilder.append(filter.getTitle());
 				strBuilder.append("\", \"i\")) . ");
 			}
 			
-			if (StringUtils.isNotBlank(filter.getAnyo())) {
-				strBuilder.append("FILTER (?anyo = \"");
-				strBuilder.append(filter.getAnyo());
+			if (StringUtils.isNotBlank(filter.getDateFrom())) {
+				strBuilder.append("FILTER (?date >= \"");
+				strBuilder.append(filter.getDateFrom());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getDateTo())) {
+				strBuilder.append("FILTER (?date <= \"");
+				strBuilder.append(filter.getDateTo());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
@@ -76,7 +85,11 @@ public class DocumentServiceImpl extends FusekiService<DocumentFilter> implement
 
 	@Override
 	public Entity retrieveEntity(DocumentFilter filter) {
-		return new Entity("Documento", Arrays.asList(filter.getTypes().split(",")), "anyo", "id", "name");
+		List<String> types = StringUtils.isNotBlank(filter.getTypes()) ? 
+				Arrays.asList(filter.getTypes().split(",")) : 
+				Arrays.asList("Article", "Book");
+		
+		return new Entity("Documento", types, "date", "doi", "endPage", "id", "publishedIn", "startPage", "title", "nowhere:type");
 	}
 
 	@Override

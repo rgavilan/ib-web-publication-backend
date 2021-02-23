@@ -6,34 +6,47 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The Class ArticleFilter.
+ * The Class DocumentFilter.
  */
 @Getter
 @Setter
 @ToString(includeFieldNames = true)
 public class DocumentFilter extends Filter {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 9066425157947222584L;
-
-	/**
-	 * The anyo
-	 */
-	private String anyo;
 	
 	/**
-	 * The id
+	 * The date
 	 */
 	private String id;
+
+	/**
+	 * The date
+	 */
+	private String date;
 	
 	/**
-	 * The name
+	 * The title
 	 */
-	private String name;
+	private String title;
 	
 	/**
 	 * The types
 	 */
 	private String types;
+	
+	/* Fields not included in model */
+	
+	/**
+	 * The year from
+	 */
+	private String dateFrom;
+	
+	/**
+	 * The year to
+	 */
+	private String dateTo;
 }

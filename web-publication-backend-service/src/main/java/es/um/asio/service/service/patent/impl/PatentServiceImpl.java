@@ -8,14 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.um.asio.abstractions.constants.Constants;
 import es.um.asio.service.filter.patent.PatentFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.model.PageableQuery;
 import es.um.asio.service.service.patent.PatentService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
-import es.um.asio.service.util.SparqlUtils;
 
 @Service
 public class PatentServiceImpl implements PatentService {
@@ -37,17 +35,40 @@ public class PatentServiceImpl implements PatentService {
 		return serviceSPARQL.run(pageableQuery);
 	}
 
-	@Override
-	public Entity retrieveEntity() {
-		return new Entity("Patente", "fin", "id", "ini", "name", "tipo");
-	}
-
 	public String filtersChunk(PatentFilter filter) {
 		StringBuilder strBuilder = new StringBuilder();
+		
 		if (filter != null) {
-
-			if (StringUtils.isNotBlank(filter.getFin())) {
-				strBuilder.append(SparqlUtils.dateLE("fin", filter.getFin(), Constants.DATE_FORMAT_DD_MM_YYYY));
+			if (StringUtils.isNotBlank(filter.getDateIssued())) {
+				strBuilder.append("FILTER (?dateIssued = \"");
+				strBuilder.append(filter.getDateIssued());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getDoi())) {
+				strBuilder.append("FILTER (?doi = \"");
+				strBuilder.append(filter.getDoi());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getEndDate())) {
+				strBuilder.append("FILTER (?endDate = \"");
+				strBuilder.append(filter.getEndDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getEndPage())) {
+				strBuilder.append("FILTER (?endPage = \"");
+				strBuilder.append(filter.getEndPage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
 			}
 
 			if (StringUtils.isNotBlank(filter.getId())) {
@@ -57,33 +78,63 @@ public class PatentServiceImpl implements PatentService {
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
-
-			if (StringUtils.isNotBlank(filter.getIni())) {
-				strBuilder.append(SparqlUtils.dateGE("ini", filter.getIni(), Constants.DATE_FORMAT_DD_MM_YYYY));
-			}
-
-			if (StringUtils.isNotBlank(filter.getName())) {
-				// En SPARQL, la función regex no admite el idioma.
-				// Es necesario hacer un filtro previo que compruebe el idioma.
-				// Importante eliminar el @ del idioma.
-				strBuilder.append("FILTER (LANG(?name) = \"");
-				strBuilder.append(filter.getLanguage().substring(1));
-				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?name, \"");
-				strBuilder.append(filter.getName());
-				strBuilder.append("\", \"i\")) . ");
-			}
-
-			if (StringUtils.isNotBlank(filter.getTipo())) {
-				strBuilder.append("FILTER (?tipo = \"");
-				strBuilder.append(filter.getTipo());
+			
+			if (StringUtils.isNotBlank(filter.getKeyword())) {
+				strBuilder.append("FILTER (?keyword = \"");
+				strBuilder.append(filter.getKeyword());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
+			
+			if (StringUtils.isNotBlank(filter.getMode())) {
+				strBuilder.append("FILTER (?mode = \"");
+				strBuilder.append(filter.getMode());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getStartDate())) {
+				strBuilder.append("FILTER (?StartDate = \"");
+				strBuilder.append(filter.getStartDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getStartPage())) {
+				strBuilder.append("FILTER (?startPage = \"");
+				strBuilder.append(filter.getStartPage());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getSummary())) {
+				strBuilder.append("FILTER (LANG(?summary) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?summary, \"");
+				strBuilder.append(filter.getSummary());
+				strBuilder.append("\", \"i\")) . ");
+			}
 
+			if (StringUtils.isNotBlank(filter.getTitle())) {
+				strBuilder.append("FILTER (LANG(?title) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?title, \"");
+				strBuilder.append(filter.getTitle());
+				strBuilder.append("\", \"i\")) . ");
+			}
 		}
 		return strBuilder.toString();
+	}
+
+	@Override
+	public Entity retrieveEntity() {
+		return new Entity("Patent", "dateIssued", "doi", "endDate", "endPage", "id", "keyword", "mode", "startDate", "startPage", "title");
 	}
 
 }

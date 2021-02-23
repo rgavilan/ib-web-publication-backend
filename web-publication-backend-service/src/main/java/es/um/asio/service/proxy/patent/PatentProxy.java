@@ -3,8 +3,8 @@ package es.um.asio.service.proxy.patent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import es.um.asio.service.dto.PatentDto;
 import es.um.asio.service.filter.patent.PatentFilter;
-import es.um.asio.service.model.FusekiResponse;
 
 /**
  * Interfaz Proxy Patente
@@ -17,8 +17,8 @@ public interface PatentProxy {
 	 * 
 	 * @param filter
 	 * @param pageable
-	 * @return Page<FusekiResponse>
+	 * @return Page<PatentDto>
 	 */
-	Page<FusekiResponse> findPaginated(PatentFilter filter, Pageable pageable);
+	Page<PatentDto> findPaginated(PatentFilter filter, Pageable pageable);
 
 }

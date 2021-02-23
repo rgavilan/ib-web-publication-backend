@@ -33,7 +33,7 @@ public class ProjectServiceTest {
 
 	@Autowired
 	@MockBean
-	private ProjectService projectService;
+	private ProjectService service;
 
 	ProjectFilter filter;
 
@@ -43,7 +43,7 @@ public class ProjectServiceTest {
 	public void beforeTest() {
 
 		filter = new ProjectFilter();
-		filter.setName("NAME");
+		filter.setId("52");
 		filter.setLanguage("es");
 
 		pageable = PageRequest.of(1, 5, Sort.by("ASC"));
@@ -51,21 +51,25 @@ public class ProjectServiceTest {
 		FusekiResponse fuseki = new FusekiResponse();
 		List<FusekiResponse> contentResult = new ArrayList<>();
 		// Mock
-		Mockito.when(this.projectService.findPaginated(filter, pageable)).thenAnswer(invocation -> {
+		Mockito.when(this.service.findPaginated(filter, pageable)).thenAnswer(invocation -> {
 
-			String head = "{\r\n" + "  \"head\": {\r\n"
-					+ "    \"vars\": [ \"x\" , \"name\" , \"description\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n"
-					+ "  } ,\r\n";
-			String result = "  \"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Proyecto/c1cca9b3-6762-3e09-8aa3-ea860644ecd4\" } ,\r\n"
-					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"description\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"FP00-359\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"2012-01-27\" } ,\r\n"
-					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"15076\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"FP00\" }\r\n"
-					+ "      }\r\n" + "    ]\r\n" + "  }\r\n" + "}";
-			;
+			String head = "\"head\": {\r\n"
+					+ "    \"vars\": [ \"x\" , \"name\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n" + "  }";
+
+			String result = "\"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
+					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Person/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
+					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"title\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
+					+ "        \"abbreviation\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
+					+ "        \"description\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
+					+ "        \"endDate\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" }\r\n"
+					+ "        \"foreseenJustificationDate\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"keyword\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"modality\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"needsEthicalValidation\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"startDate\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "        \"status\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
+					+ "      }";
 
 			fuseki.setHead(head);
 			fuseki.setResults(result);
@@ -74,8 +78,9 @@ public class ProjectServiceTest {
 			return page;
 		});
 
-		Mockito.when(projectService.retrieveEntity()).thenAnswer(invocation -> {
-			Entity entity = new Entity("Proyecto", "description", "fin", "id", "ini", "name", "tipo");
+		Mockito.when(this.service.retrieveEntity()).thenAnswer(invocation -> {
+			Entity entity = new Entity("Project", "abbreviation", "description", "endDate", "foreseenJustificationDate", "id", "keyword", "modality", 
+					"needsEthicalValidation", "startDate", "status", "title");
 			return entity;
 		});
 	}
@@ -83,16 +88,17 @@ public class ProjectServiceTest {
 	@Test
 	public void testEntity() {
 
-		Entity entity = new Entity("Proyecto", "description", "fin", "id", "ini", "name", "tipo");
-		Entity entityFromService = projectService.retrieveEntity();
+		Entity entity = new Entity("Project", "abbreviation", "description", "endDate", "foreseenJustificationDate", "id", "keyword", "modality", 
+				"needsEthicalValidation", "startDate", "status", "title");
+		Entity entityFromService = this.service.retrieveEntity();
 		assertThat(entityFromService).isEqualTo(entity);
 	}
 
 	@Test
 	public void testfindPatent() {
-		Page<FusekiResponse> page = this.projectService.findPaginated(filter, pageable);
+		Page<FusekiResponse> page = this.service.findPaginated(filter, pageable);
 		assertNotNull(page);
 
-		assertEquals(true, page.getContent().get(0).getResults().toString().contains("NAME"));
+		assertEquals(true, page.getContent().get(0).getResults().toString().contains("52"));
 	}
 }

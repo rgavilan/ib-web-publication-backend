@@ -3,8 +3,8 @@ package es.um.asio.service.proxy.book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import es.um.asio.service.dto.BookDto;
 import es.um.asio.service.filter.book.BookFilter;
-import es.um.asio.service.model.FusekiResponse;
 
 public interface BookProxy {
 	
@@ -13,7 +13,7 @@ public interface BookProxy {
 	 * 
 	 * @param filter
 	 * @param pageable
-	 * @return ProjectDto
+	 * @return Page<BookDto>
 	 */
-	Page<FusekiResponse> findPaginated(BookFilter filter, Pageable pageable);
+	Page<BookDto> findPaginated(BookFilter filter, Pageable pageable);
 }

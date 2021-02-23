@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import es.um.asio.abstractions.constants.Constants;
 import es.um.asio.service.filter.project.ProjectFilter;
 import es.um.asio.service.model.Entity;
 import es.um.asio.service.model.FusekiResponse;
@@ -16,7 +15,6 @@ import es.um.asio.service.model.PageableQuery;
 import es.um.asio.service.service.impl.FusekiService;
 import es.um.asio.service.service.project.ProjectService;
 import es.um.asio.service.service.sparql.SparqlExecQuery;
-import es.um.asio.service.util.SparqlUtils;
 
 @Service
 public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements ProjectService {
@@ -42,17 +40,36 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 	public String filtersChunk(ProjectFilter filter) {
 		StringBuilder strBuilder = new StringBuilder();
 		if (filter != null) {
-			if (StringUtils.isNotBlank(filter.getFund())) {
-				strBuilder.append("FILTER (LANG(?fund) = \"");
-				strBuilder.append(filter.getFund().substring(1));
-				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?fund, \"");
-				strBuilder.append(filter.getFund());
-				strBuilder.append("\", \"i\")) . ");
+			if (StringUtils.isNotBlank(filter.getAbbreviation())) {
+				strBuilder.append("FILTER (?abbreviation = \"");
+				strBuilder.append(filter.getAbbreviation());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
 			}
-
-			if (StringUtils.isNotBlank(filter.getEnd())) {
-				strBuilder.append(SparqlUtils.dateLE("end", filter.getEnd(), Constants.DATE_FORMAT_YYYY_MM_DD));
+			
+			if (StringUtils.isNotBlank(filter.getDescription())) {
+				strBuilder.append("FILTER (?description = \"");
+				strBuilder.append(filter.getDescription());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getEndDate())) {
+				strBuilder.append("FILTER (?endDate = \"");
+				strBuilder.append(filter.getStartDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getForeseenJustificationDate())) {
+				strBuilder.append("FILTER (?foreseenJustificationDate = \"");
+				strBuilder.append(filter.getForeseenJustificationDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
 			}
 
 			if (StringUtils.isNotBlank(filter.getId())) {
@@ -62,26 +79,54 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
 			}
-
-			if (StringUtils.isNotBlank(filter.getStart())) {
-				strBuilder.append(SparqlUtils.dateGE("start", filter.getStart(), Constants.DATE_FORMAT_YYYY_MM_DD));
-			}
-
-			if (StringUtils.isNotBlank(filter.getName())) {
-				strBuilder.append("FILTER (LANG(?name) = \"");
-				strBuilder.append(filter.getLanguage().substring(1));
-				strBuilder.append("\") . ");
-				strBuilder.append("FILTER ( regex(?name, \"");
-				strBuilder.append(filter.getName());
-				strBuilder.append("\", \"i\")) . ");
-			}
-
-			if (StringUtils.isNotBlank(filter.getTipo())) {
-				strBuilder.append("FILTER (?tipo = \"");
-				strBuilder.append(filter.getTipo());
+			
+			if (StringUtils.isNotBlank(filter.getKeyword())) {
+				strBuilder.append("FILTER (?keyword = \"");
+				strBuilder.append(filter.getKeyword());
 				strBuilder.append("\"");
 				strBuilder.append(filter.getLanguage());
 				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getModality())) {
+				strBuilder.append("FILTER (?modality = \"");
+				strBuilder.append(filter.getModality());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getNeedsEthicalValidation())) {
+				strBuilder.append("FILTER (?needsEthicalValidation = \"");
+				strBuilder.append(filter.getNeedsEthicalValidation());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getStartDate())) {
+				strBuilder.append("FILTER (?startDate = \"");
+				strBuilder.append(filter.getStartDate());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+			
+			if (StringUtils.isNotBlank(filter.getStatus())) {
+				strBuilder.append("FILTER (?status = \"");
+				strBuilder.append(filter.getStatus());
+				strBuilder.append("\"");
+				strBuilder.append(filter.getLanguage());
+				strBuilder.append(") . ");
+			}
+
+			if (StringUtils.isNotBlank(filter.getTitle())) {
+				strBuilder.append("FILTER (LANG(?title) = \"");
+				strBuilder.append(filter.getLanguage().substring(1));
+				strBuilder.append("\") . ");
+				strBuilder.append("FILTER ( regex(?title, \"");
+				strBuilder.append(filter.getTitle());
+				strBuilder.append("\", \"i\")) . ");
 			}
 
 		}
@@ -89,7 +134,8 @@ public class ProjectServiceImpl extends FusekiService<ProjectFilter> implements 
 	}
 
 	public Entity retrieveEntity() {
-		return new Entity("Proyecto", "end", "fund", "id", "name", "start", "tipo");
+		return new Entity("Project", "abbreviation", "description", "endDate", "foreseenJustificationDate", "id", "keyword", "modality", 
+				"needsEthicalValidation", "startDate", "status", "title");
 	}
 
 }

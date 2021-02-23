@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.um.asio.service.dto.BookDto;
 import es.um.asio.service.filter.book.BookFilter;
-import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.proxy.book.BookProxy;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -29,7 +29,7 @@ public class BookController {
 
 
 	@GetMapping(BookController.Mappings.SEARCH)
-	public Page<FusekiResponse> searchProyects(final BookFilter filter, final Pageable pageable) {
+	public Page<BookDto> searchProyects(final BookFilter filter, final Pageable pageable) {
 		return this.proxy.findPaginated(filter, pageable);
 	}
 	

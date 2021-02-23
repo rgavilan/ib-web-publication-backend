@@ -26,8 +26,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import es.um.asio.back.controller.patent.PatentController;
+import es.um.asio.service.dto.PatentDto;
 import es.um.asio.service.filter.patent.PatentFilter;
-import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.proxy.patent.PatentProxy;
 
 @RunWith(SpringRunner.class)
@@ -45,32 +45,29 @@ public class PatentControllerTest {
 	public void beforeTest() {
 
 		PatentFilter filter = new PatentFilter();
-		filter.setName("NAME");
+		filter.setTitle("TITLE");
 		filter.setLanguage("es");
 
 		Pageable pageable = PageRequest.of(1, 5, Sort.by("ASC"));
 
-		FusekiResponse fuseki = new FusekiResponse();
-		List<FusekiResponse> contentResult = new ArrayList<>();
+		List<PatentDto> contentResult = new ArrayList<>();
 		// Mock StorageType proxy
 		Mockito.when(this.patentProxy.findPaginated(filter, pageable)).thenAnswer(invocation -> {
 
-			String head = "\"head\": {\r\n"
-					+ "    \"vars\": [ \"x\" , \"name\" , \"ini\" , \"fin\" , \"id\" , \"tipo\" ]\r\n" + "  }";
-
-			String result = "\"results\": {\r\n" + "    \"bindings\": [\r\n" + "      {\r\n"
-					+ "        \"x\": { \"type\": \"uri\" , \"value\": \"http://hercules.org/um/es-ES/rec/Patente/9a115815-4dfa-32ca-9dbd-0694a4e9bdc8\" } ,\r\n"
-					+ "        \"name\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"NAME\" } ,\r\n"
-					+ "        \"ini\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"fin\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"\" } ,\r\n"
-					+ "        \"id\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"52\" } ,\r\n"
-					+ "        \"tipo\": { \"type\": \"literal\" , \"xml:lang\": \"es\" , \"value\": \"D\" }\r\n"
-					+ "      }";
-
-			fuseki.setHead(head);
-			fuseki.setResults(result);
-			contentResult.add(fuseki);
-			Page<FusekiResponse> page = new PageImpl<>(contentResult, pageable, contentResult.size());
+			PatentDto patent = new PatentDto();
+			patent.setId("patentId");
+			patent.setDateIssued("patentDateIssued");
+			patent.setDoi("patentDoi");
+			patent.setEndDate("patentEndDate");
+			patent.setEndPage("patentEndPage");
+			patent.setKeyword("patentKeyword");
+			patent.setMode("patentMode");
+			patent.setStartDate("patentStartDate");
+			patent.setStartPage("patentStartPage");
+			patent.setTitle("patentTitle");
+			
+			contentResult.add(patent);
+			Page<PatentDto> page = new PageImpl<>(contentResult, pageable, contentResult.size());
 			return page;
 		});
 	}

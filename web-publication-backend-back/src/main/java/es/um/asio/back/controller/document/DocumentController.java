@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.um.asio.service.dto.DocumentDto;
 import es.um.asio.service.filter.document.DocumentFilter;
-import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.proxy.document.DocumentProxy;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * Article controller.
+ * Document controller.
  */
 @RestController
 @RequestMapping(DocumentController.Mappings.BASE)
@@ -29,7 +29,7 @@ public class DocumentController {
 
 
 	@GetMapping(DocumentController.Mappings.SEARCH)
-	public Page<FusekiResponse> searchProyects(final DocumentFilter filter, final Pageable pageable) {
+	public Page<DocumentDto> searchProyects(final DocumentFilter filter, final Pageable pageable) {
 		return this.proxy.findPaginated(filter, pageable);
 	}
 	

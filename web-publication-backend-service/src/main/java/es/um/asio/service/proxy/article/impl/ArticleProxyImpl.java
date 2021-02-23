@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import es.um.asio.service.dto.ArticleDto;
 import es.um.asio.service.filter.article.ArticleFilter;
+import es.um.asio.service.mapper.ArticleMapper;
 import es.um.asio.service.model.FusekiResponse;
 import es.um.asio.service.proxy.article.ArticleProxy;
 import es.um.asio.service.service.article.ArticleService;
@@ -20,9 +22,13 @@ public class ArticleProxyImpl implements ArticleProxy {
 	@Autowired
 	private ArticleService service;
 	
+	@Autowired
+	private ArticleMapper mapper;
+	
 	@Override
-	public Page<FusekiResponse> findPaginated(ArticleFilter filter, Pageable pageable) {
-		return this.service.findPaginated(filter, pageable);
+	public Page<ArticleDto> findPaginated(ArticleFilter filter, Pageable pageable) {
+		Page<FusekiResponse> result = this.service.findPaginated(filter, pageable);
+		
+		return this.mapper.convertPageFusekiResponseToDto(result);
 	}
-
 }

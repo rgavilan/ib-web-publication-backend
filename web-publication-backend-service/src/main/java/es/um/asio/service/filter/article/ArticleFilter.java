@@ -12,20 +12,26 @@ import lombok.ToString;
 @Setter
 @ToString(includeFieldNames = true)
 public class ArticleFilter extends Filter {
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7608048444987210263L;
 	
 	/**
-	 * The anyo
+	 * The date
 	 */
-	private String anyo;
+	private String date;
 	
 	/**
-	 * The coautoria
+	 * The doi
 	 */
-	private String coautoria;
+	private String doi;
+	
+	/**
+	 * The endPage
+	 */
+	private String endPage;
 	
 	/**
 	 * The id
@@ -33,7 +39,29 @@ public class ArticleFilter extends Filter {
 	private String id;
 	
 	/**
-	 * The name
+	 * The publishedIn
 	 */
-	private String name;
+	private String publishedIn;
+	
+	/**
+	 * The startPage
+	 */
+	private String startPage;
+	
+	/**
+	 * The title
+	 */
+	private String title;
+	
+	/* Fields not included in model */
+	
+	/**
+	 * The year from
+	 */
+	private String dateFrom;
+	
+	/**
+	 * The year to
+	 */
+	private String dateTo;
 }
